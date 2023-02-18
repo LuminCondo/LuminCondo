@@ -1,0 +1,123 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        @Html.ActionLink("LuminCondo", "Index", "Home", null, new { @class = "navbar-brand" })
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                @*Enlace a Administrar Usuarios*@
+                <li>
+                    @Html.ActionLink("Usuarios", "Index", "Home",
+                null, new { @class = "nav-link" })
+                </li>
+                @*Enlace a Noticias*@
+                <li>
+                    @Html.ActionLink("Noticias", "Index", "Home",
+               null, new { @class = "nav-link" })
+                </li>
+                @*Enlace a Reporte de Incidencias*@
+                <li>
+                    @Html.ActionLink("Incidencias", "Index", "Home",
+               null, new { @class = "nav-link" })
+                </li>
+                @*Enlace a Reservas*@
+                <li>
+                    @Html.ActionLink("Reservas", "Index", "Home",
+               null, new { @class = "nav-link" })
+                </li>
+                @*Enlace a Gestion de Residencias*@
+                <li>
+                    @Html.ActionLink("Residencias", "Index", "Home",
+                                   null, new { @class = "nav-link" })
+                </li>
+                @*Enlace a Gestion Financiera*@
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion Financiera</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item"
+                           @*Accion, Controlador*@
+                           href="@Url.Action("Rubros","Financiero")">
+                            <i class="fa-solid fa-user-plus"></i>
+                            Gestion de Rubros de Cobro
+                        </a>
+                        <a class="dropdown-item"
+                           @*Accion, Controlador*@
+                           href="@Url.Action("Planes","Financiero")">
+                            <i class="fa-solid fa-user-plus"></i>
+                            Gestion de Planes de Cobro
+                        </a>
+                        <a class="dropdown-item"
+                           @*Accion, Controlador*@
+                           href="@Url.Action("Asiganciones","Financiero")">
+                            <i class="fa-solid fa-user-plus"></i>
+                            Gestion de Aiganacion de planes de Cobro
+                        </a>
+                        <a class="dropdown-item"
+                           href="@Url.Action("Estado","Financiero")">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Estado de Cuenta
+                        </a>
+                        <a class="dropdown-item"
+                           href="@Url.Action("Deudas","Financiero")">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Gestion de Deudas
+                        </a>
+                        <a class="dropdown-item"
+                           href="@Url.Action("Historial","Financiero")">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Gestion de Deudas
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reportes</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item"
+                           href="@Url.Action("Ingresos","Reportes")">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Reporte de Ingresos
+                        </a>
+                        <a class="dropdown-item"
+                           href="@Url.Action("Deudas","Reportes")">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Reporte de Deudas
+                        </a>
+                    </div>
+                </li>
+                @* Texto Usuario, Accion, Controlador*@
+                <li>
+                    @Html.ActionLink("Acerca de", "About", "Home",
+               null, new { @class = "nav-link" })
+                </li>
+                <li>@Html.ActionLink("Contacto", "Contact", "Home", null, new { @class = "nav-link" })</li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                       href="#" role="button" aria-haspopup="true"
+                       aria-expanded="false"><i class="fa-solid fa-user"></i> Perfil</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item"
+                           @*Accion, Controlador*@
+                           href="@Url.Action("Index","Login")">
+                            <i class="fa-solid fa-user-plus"></i>
+                            Login
+                        </a>
+                        <a class="dropdown-item"
+                           href="@Url.Action("Logout","Login")">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
