@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Lumincondo_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Carros">
+    <Key>
+      <PropertyRef Name="IDPlaca" />
+    </Key>
+    <Property Name="IDPlaca" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="IDResidencia" Type="int" Nullable="false" />
+    <Property Name="modelo" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Espacios">
+    <Key>
+      <PropertyRef Name="IDEspacio" />
+    </Key>
+    <Property Name="IDEspacio" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EstadoIncidencia">
+    <Key>
+      <PropertyRef Name="IDEstado" />
+    </Key>
+    <Property Name="IDEstado" Type="int" Nullable="false" />
+    <Property Name="TipoEstado" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EstadoResidencia">
+    <Key>
+      <PropertyRef Name="IDEstadoResidencia" />
+    </Key>
+    <Property Name="IDEstadoResidencia" Type="int" Nullable="false" />
+    <Property Name="estado" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GestionAsignacionPlanes">
+    <Key>
+      <PropertyRef Name="IDAsignacion" />
+    </Key>
+    <Property Name="IDAsignacion" Type="int" Nullable="false" />
+    <Property Name="IDResidencia" Type="int" Nullable="false" />
+    <Property Name="IDPlan" Type="int" Nullable="false" />
+    <Property Name="fechaAsignacion" Type="date" Nullable="false" />
+    <Property Name="estadoPago" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GestionPlanCobros">
+    <Key>
+      <PropertyRef Name="IDPlan" />
+    </Key>
+    <Property Name="IDPlan" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GestionReservas">
+    <Key>
+      <PropertyRef Name="IDReserva" />
+    </Key>
+    <Property Name="IDReserva" Type="int" Nullable="false" />
+    <Property Name="IDUsuario" Type="int" Nullable="false" />
+    <Property Name="IDEspacio" Type="int" Nullable="false" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GestionResidencias">
+    <Key>
+      <PropertyRef Name="IDResidencia" />
+    </Key>
+    <Property Name="IDResidencia" Type="int" Nullable="false" />
+    <Property Name="IDUsuario" Type="int" Nullable="false" />
+    <Property Name="cantPersonas" Type="int" Nullable="false" />
+    <Property Name="IDEstadoResidencia" Type="int" Nullable="false" />
+    <Property Name="annoInicio" Type="int" Nullable="false" />
+    <Property Name="cantCarros" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GestionRubrosCobros">
+    <Key>
+      <PropertyRef Name="IDRubro" />
+    </Key>
+    <Property Name="IDRubro" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="monto" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Informacion">
+    <Key>
+      <PropertyRef Name="IDInformacion" />
+    </Key>
+    <Property Name="IDInformacion" Type="int" Nullable="false" />
+    <Property Name="IDTipoInfo" Type="int" Nullable="false" />
+    <Property Name="fechaPublicacion" Type="date" Nullable="false" />
+    <Property Name="titulo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="descripcion" Type="varchar(max)" Nullable="false" />
+    <Property Name="foto" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="PersonasResidentes">
+    <Key>
+      <PropertyRef Name="IDCedula" />
+    </Key>
+    <Property Name="IDCedula" Type="int" Nullable="false" />
+    <Property Name="IDResidencia" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReporteIncidencias">
+    <Key>
+      <PropertyRef Name="IDIncidencia" />
+    </Key>
+    <Property Name="IDIncidencia" Type="int" Nullable="false" />
+    <Property Name="IDEstado" Type="int" Nullable="false" />
+    <Property Name="IDUsuario" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Rubros_Planes">
+    <Key>
+      <PropertyRef Name="IDPlan" />
+      <PropertyRef Name="IDRubro" />
+    </Key>
+    <Property Name="IDPlan" Type="int" Nullable="false" />
+    <Property Name="IDRubro" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoInformacion">
+    <Key>
+      <PropertyRef Name="IDTipoInfo" />
+    </Key>
+    <Property Name="IDTipoInfo" Type="int" Nullable="false" />
+    <Property Name="tipoInfo" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TiposUsuarios">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="tipoUsuario" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="contrasenna" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="IDTipoUsuario" Type="int" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="estado" Type="bit" Nullable="false" />
+    <Property Name="telefono" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Carros_IDResidencia">
+    <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="1" />
+    <End Role="Carros" Type="Self.Carros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GestionResidencias">
+        <PropertyRef Name="IDResidencia" />
+      </Principal>
+      <Dependent Role="Carros">
+        <PropertyRef Name="IDResidencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionAsignacionPlanes_IDPlan">
+    <End Role="GestionPlanCobros" Type="Self.GestionPlanCobros" Multiplicity="1" />
+    <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GestionPlanCobros">
+        <PropertyRef Name="IDPlan" />
+      </Principal>
+      <Dependent Role="GestionAsignacionPlanes">
+        <PropertyRef Name="IDPlan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionAsignacionPlanes_IDResidencia">
+    <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="1" />
+    <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GestionResidencias">
+        <PropertyRef Name="IDResidencia" />
+      </Principal>
+      <Dependent Role="GestionAsignacionPlanes">
+        <PropertyRef Name="IDResidencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionReservas_IDEspacio">
+    <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
+    <End Role="GestionReservas" Type="Self.GestionReservas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Espacios">
+        <PropertyRef Name="IDEspacio" />
+      </Principal>
+      <Dependent Role="GestionReservas">
+        <PropertyRef Name="IDEspacio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionReservas_IDUsuario">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="GestionReservas" Type="Self.GestionReservas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GestionReservas">
+        <PropertyRef Name="IDUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionResidencias_IDEstadoResidencia">
+    <End Role="EstadoResidencia" Type="Self.EstadoResidencia" Multiplicity="1" />
+    <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoResidencia">
+        <PropertyRef Name="IDEstadoResidencia" />
+      </Principal>
+      <Dependent Role="GestionResidencias">
+        <PropertyRef Name="IDEstadoResidencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GestionResidencias_IDUsuario">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GestionResidencias">
+        <PropertyRef Name="IDUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Informacion_IDTipoInfo">
+    <End Role="TipoInformacion" Type="Self.TipoInformacion" Multiplicity="1" />
+    <End Role="Informacion" Type="Self.Informacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoInformacion">
+        <PropertyRef Name="IDTipoInfo" />
+      </Principal>
+      <Dependent Role="Informacion">
+        <PropertyRef Name="IDTipoInfo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonasResidentes_IDResidencia">
+    <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="1" />
+    <End Role="PersonasResidentes" Type="Self.PersonasResidentes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GestionResidencias">
+        <PropertyRef Name="IDResidencia" />
+      </Principal>
+      <Dependent Role="PersonasResidentes">
+        <PropertyRef Name="IDResidencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReporteIncidencias_IDEstado">
+    <End Role="EstadoIncidencia" Type="Self.EstadoIncidencia" Multiplicity="1" />
+    <End Role="ReporteIncidencias" Type="Self.ReporteIncidencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoIncidencia">
+        <PropertyRef Name="IDEstado" />
+      </Principal>
+      <Dependent Role="ReporteIncidencias">
+        <PropertyRef Name="IDEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReporteIncidencias_IDUsuario">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="ReporteIncidencias" Type="Self.ReporteIncidencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReporteIncidencias">
+        <PropertyRef Name="IDUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rubros_Planes_IDPlan">
+    <End Role="GestionPlanCobros" Type="Self.GestionPlanCobros" Multiplicity="1" />
+    <End Role="Rubros_Planes" Type="Self.Rubros_Planes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GestionPlanCobros">
+        <PropertyRef Name="IDPlan" />
+      </Principal>
+      <Dependent Role="Rubros_Planes">
+        <PropertyRef Name="IDPlan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rubros_Planes_IDRubro">
+    <End Role="GestionRubrosCobros" Type="Self.GestionRubrosCobros" Multiplicity="1" />
+    <End Role="Rubros_Planes" Type="Self.Rubros_Planes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GestionRubrosCobros">
+        <PropertyRef Name="IDRubro" />
+      </Principal>
+      <Dependent Role="Rubros_Planes">
+        <PropertyRef Name="IDRubro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_IDTipoUsuario">
+    <End Role="TiposUsuarios" Type="Self.TiposUsuarios" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposUsuarios">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IDTipoUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Lumincondo_DBModelStoreContainer">
+    <EntitySet Name="Carros" EntityType="Self.Carros" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Espacios" EntityType="Self.Espacios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstadoIncidencia" EntityType="Self.EstadoIncidencia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstadoResidencia" EntityType="Self.EstadoResidencia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GestionAsignacionPlanes" EntityType="Self.GestionAsignacionPlanes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GestionPlanCobros" EntityType="Self.GestionPlanCobros" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GestionReservas" EntityType="Self.GestionReservas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GestionResidencias" EntityType="Self.GestionResidencias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GestionRubrosCobros" EntityType="Self.GestionRubrosCobros" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Informacion" EntityType="Self.Informacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonasResidentes" EntityType="Self.PersonasResidentes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rubros_Planes" EntityType="Self.Rubros_Planes" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Rubros_Planes].[IDPlan] AS [IDPlan], 
+    [Rubros_Planes].[IDRubro] AS [IDRubro]
+    FROM [dbo].[Rubros_Planes] AS [Rubros_Planes]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Carros_IDResidencia" Association="Self.FK_Carros_IDResidencia">
+      <End Role="GestionResidencias" EntitySet="GestionResidencias" />
+      <End Role="Carros" EntitySet="Carros" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionAsignacionPlanes_IDPlan" Association="Self.FK_GestionAsignacionPlanes_IDPlan">
+      <End Role="GestionPlanCobros" EntitySet="GestionPlanCobros" />
+      <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionAsignacionPlanes_IDResidencia" Association="Self.FK_GestionAsignacionPlanes_IDResidencia">
+      <End Role="GestionResidencias" EntitySet="GestionResidencias" />
+      <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionReservas_IDEspacio" Association="Self.FK_GestionReservas_IDEspacio">
+      <End Role="Espacios" EntitySet="Espacios" />
+      <End Role="GestionReservas" EntitySet="GestionReservas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionReservas_IDUsuario" Association="Self.FK_GestionReservas_IDUsuario">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="GestionReservas" EntitySet="GestionReservas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionResidencias_IDEstadoResidencia" Association="Self.FK_GestionResidencias_IDEstadoResidencia">
+      <End Role="EstadoResidencia" EntitySet="EstadoResidencia" />
+      <End Role="GestionResidencias" EntitySet="GestionResidencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GestionResidencias_IDUsuario" Association="Self.FK_GestionResidencias_IDUsuario">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="GestionResidencias" EntitySet="GestionResidencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Informacion_IDTipoInfo" Association="Self.FK_Informacion_IDTipoInfo">
+      <End Role="TipoInformacion" EntitySet="TipoInformacion" />
+      <End Role="Informacion" EntitySet="Informacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonasResidentes_IDResidencia" Association="Self.FK_PersonasResidentes_IDResidencia">
+      <End Role="GestionResidencias" EntitySet="GestionResidencias" />
+      <End Role="PersonasResidentes" EntitySet="PersonasResidentes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReporteIncidencias_IDEstado" Association="Self.FK_ReporteIncidencias_IDEstado">
+      <End Role="EstadoIncidencia" EntitySet="EstadoIncidencia" />
+      <End Role="ReporteIncidencias" EntitySet="ReporteIncidencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReporteIncidencias_IDUsuario" Association="Self.FK_ReporteIncidencias_IDUsuario">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="ReporteIncidencias" EntitySet="ReporteIncidencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rubros_Planes_IDPlan" Association="Self.FK_Rubros_Planes_IDPlan">
+      <End Role="GestionPlanCobros" EntitySet="GestionPlanCobros" />
+      <End Role="Rubros_Planes" EntitySet="Rubros_Planes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rubros_Planes_IDRubro" Association="Self.FK_Rubros_Planes_IDRubro">
+      <End Role="GestionRubrosCobros" EntitySet="GestionRubrosCobros" />
+      <End Role="Rubros_Planes" EntitySet="Rubros_Planes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_IDTipoUsuario" Association="Self.FK_Usuarios_IDTipoUsuario">
+      <End Role="TiposUsuarios" EntitySet="TiposUsuarios" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

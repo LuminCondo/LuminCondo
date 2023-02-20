@@ -1,0 +1,184 @@
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Infraestructure.dll.config
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Infraestructure.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Infraestructure.pdb
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\EntityFramework.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\log4net.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Data.SqlClient.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Logging.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Options.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Primitives.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Identity.Client.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Buffers.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Collections.Immutable.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Memory.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\EntityFramework.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\log4net.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Data.SqlClient.pdb
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Data.SqlClient.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.SqlServer.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.DependencyInjection.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Logging.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Options.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Identity.Client.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Protocols.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Buffers.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Collections.Immutable.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Memory.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\de\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\es\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\fr\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\it\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\ja\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\ko\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\pt-BR\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.csproj.AssemblyReference.cache
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.csproj.CoreCompileInputs.cache
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.csproj.CopyComplete
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.dll
+C:\Users\Luis Solera\Documents\U\I-C 2023\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.pdb
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Infraestructure.dll.config
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Infraestructure.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Infraestructure.pdb
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\EntityFramework.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\log4net.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Data.SqlClient.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Logging.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Options.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Primitives.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Identity.Client.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Buffers.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Collections.Immutable.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Memory.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\EntityFramework.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\log4net.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Data.SqlClient.pdb
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Data.SqlClient.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.EntityFrameworkCore.SqlServer.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Caching.Memory.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.DependencyInjection.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Logging.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Options.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.Identity.Client.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Protocols.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Buffers.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Collections.Immutable.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Memory.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\de\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\es\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\fr\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\it\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\ja\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\ko\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\pt-BR\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.csproj.AssemblyReference.cache
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.csproj.CoreCompileInputs.cache
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.csproj.CopyComplete
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.dll
+C:\Users\Isra1\Downloads\LuminCondo-master\LuminCondo-master\Infraestructure\obj\Debug\Infraestructure.pdb

@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Lumincondo_DBModelStoreContainer" CdmEntityContainer="Lumincondo_DBEntities">
+    <EntitySetMapping Name="Carros">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.Carros">
+        <MappingFragment StoreEntitySet="Carros">
+          <ScalarProperty Name="IDPlaca" ColumnName="IDPlaca" />
+          <ScalarProperty Name="IDResidencia" ColumnName="IDResidencia" />
+          <ScalarProperty Name="modelo" ColumnName="modelo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Espacios">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.Espacios">
+        <MappingFragment StoreEntitySet="Espacios">
+          <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstadoIncidencia">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.EstadoIncidencia">
+        <MappingFragment StoreEntitySet="EstadoIncidencia">
+          <ScalarProperty Name="IDEstado" ColumnName="IDEstado" />
+          <ScalarProperty Name="TipoEstado" ColumnName="TipoEstado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstadoResidencia">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.EstadoResidencia">
+        <MappingFragment StoreEntitySet="EstadoResidencia">
+          <ScalarProperty Name="IDEstadoResidencia" ColumnName="IDEstadoResidencia" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GestionAsignacionPlanes">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.GestionAsignacionPlanes">
+        <MappingFragment StoreEntitySet="GestionAsignacionPlanes">
+          <ScalarProperty Name="IDAsignacion" ColumnName="IDAsignacion" />
+          <ScalarProperty Name="IDResidencia" ColumnName="IDResidencia" />
+          <ScalarProperty Name="IDPlan" ColumnName="IDPlan" />
+          <ScalarProperty Name="fechaAsignacion" ColumnName="fechaAsignacion" />
+          <ScalarProperty Name="estadoPago" ColumnName="estadoPago" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GestionPlanCobros">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.GestionPlanCobros">
+        <MappingFragment StoreEntitySet="GestionPlanCobros">
+          <ScalarProperty Name="IDPlan" ColumnName="IDPlan" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GestionReservas">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.GestionReservas">
+        <MappingFragment StoreEntitySet="GestionReservas">
+          <ScalarProperty Name="IDReserva" ColumnName="IDReserva" />
+          <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+          <ScalarProperty Name="IDEspacio" ColumnName="IDEspacio" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GestionResidencias">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.GestionResidencias">
+        <MappingFragment StoreEntitySet="GestionResidencias">
+          <ScalarProperty Name="IDResidencia" ColumnName="IDResidencia" />
+          <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+          <ScalarProperty Name="cantPersonas" ColumnName="cantPersonas" />
+          <ScalarProperty Name="IDEstadoResidencia" ColumnName="IDEstadoResidencia" />
+          <ScalarProperty Name="annoInicio" ColumnName="annoInicio" />
+          <ScalarProperty Name="cantCarros" ColumnName="cantCarros" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GestionRubrosCobros">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.GestionRubrosCobros">
+        <MappingFragment StoreEntitySet="GestionRubrosCobros">
+          <ScalarProperty Name="IDRubro" ColumnName="IDRubro" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="monto" ColumnName="monto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Informacion">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.Informacion">
+        <MappingFragment StoreEntitySet="Informacion">
+          <ScalarProperty Name="IDInformacion" ColumnName="IDInformacion" />
+          <ScalarProperty Name="IDTipoInfo" ColumnName="IDTipoInfo" />
+          <ScalarProperty Name="fechaPublicacion" ColumnName="fechaPublicacion" />
+          <ScalarProperty Name="titulo" ColumnName="titulo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="foto" ColumnName="foto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonasResidentes">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.PersonasResidentes">
+        <MappingFragment StoreEntitySet="PersonasResidentes">
+          <ScalarProperty Name="IDCedula" ColumnName="IDCedula" />
+          <ScalarProperty Name="IDResidencia" ColumnName="IDResidencia" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReporteIncidencias">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.ReporteIncidencias">
+        <MappingFragment StoreEntitySet="ReporteIncidencias">
+          <ScalarProperty Name="IDIncidencia" ColumnName="IDIncidencia" />
+          <ScalarProperty Name="IDEstado" ColumnName="IDEstado" />
+          <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoInformacion">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.TipoInformacion">
+        <MappingFragment StoreEntitySet="TipoInformacion">
+          <ScalarProperty Name="IDTipoInfo" ColumnName="IDTipoInfo" />
+          <ScalarProperty Name="tipoInfo" ColumnName="tipoInfo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TiposUsuarios">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.TiposUsuarios">
+        <MappingFragment StoreEntitySet="TiposUsuarios">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="tipoUsuario" ColumnName="tipoUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="Lumincondo_DBModel.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="contrasenna" ColumnName="contrasenna" />
+          <ScalarProperty Name="IDTipoUsuario" ColumnName="IDTipoUsuario" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Rubros_Planes" TypeName="Lumincondo_DBModel.Rubros_Planes" StoreEntitySet="Rubros_Planes">
+      <EndProperty Name="GestionPlanCobros">
+        <ScalarProperty Name="IDPlan" ColumnName="IDPlan" />
+      </EndProperty>
+      <EndProperty Name="GestionRubrosCobros">
+        <ScalarProperty Name="IDRubro" ColumnName="IDRubro" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
