@@ -13,11 +13,6 @@
                         <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
-                @*Enlace a Administrar Usuarios*@
-                <li>
-                    @Html.ActionLink("Usuarios", "Index", "Home",
-                null, new { @class = "nav-link" })
-                </li>
                 @*Enlace a Noticias*@
                 <li>
                     @Html.ActionLink("Noticias", "Index", "Home",
@@ -58,7 +53,7 @@
                            @*Accion, Controlador*@
                            href="@Url.Action("Asiganciones","Financiero")">
                             <i class="fa-solid fa-user-plus"></i>
-                            Gestion de Aiganacion de planes de Cobro
+                            Gestion de Asiganacion de planes de Cobro
                         </a>
                         <a class="dropdown-item"
                            href="@Url.Action("Estado","Financiero")">
