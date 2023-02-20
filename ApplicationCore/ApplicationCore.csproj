@@ -41,8 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IServiceGestionAsignacionPlanes.cs" />
+    <Compile Include="Services\IServiceGestionPlanCobros.cs" />
+    <Compile Include="Services\IServiceGestionResidencias.cs" />
+    <Compile Include="Services\IServiceGestionRubrosCobros.cs" />
+    <Compile Include="Services\IServiceUsuario.cs" />
+    <Compile Include="Services\ServiceGestionAsignacionPlanes.cs" />
+    <Compile Include="Services\ServiceGestionPlanCobros.cs" />
+    <Compile Include="Services\ServiceGestionResidencias.cs" />
+    <Compile Include="Services\ServiceGestionRubrosCobros.cs" />
+    <Compile Include="Services\ServiceUsuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj">
@@ -52,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOS\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
