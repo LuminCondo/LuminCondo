@@ -1,8 +1,4 @@
-﻿<head>
-    <link rel="stylesheet" type="text/css" href="/Content/StylesLuminCondo.css" />
-</head>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid ">
         @Html.ActionLink("LuminCondo", "Index", "Home", null, new { @class = "navbar-brand" })
 
@@ -11,92 +7,86 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        Home
-                        <span class="visually-hidden">(current)</span>
-                    </a>
-                </li>
                 @*Enlace a Noticias*@
                 <li class="test">
+                    <i class="fa-solid fa-newspaper"></i>
                     @Html.ActionLink("Noticias", "Index", "Home",
                null, new { @class = "nav-link" })
                 </li>
-                @*Enlace a Reporte de Incidencias*@
-                <li>
-                    @Html.ActionLink("Incidencias", "Index", "Home",
-               null, new { @class = "nav-link" })
-                </li>
-                @*Enlace a Reservas*@
-                <li>
-                    @Html.ActionLink("Reservas", "Index", "Home",
-               null, new { @class = "nav-link" })
-                </li>
-                @*Enlace a Gestion de Residencias*@
-                <li>
-                    @Html.ActionLink("Residencias", "Index", "Home",
-                                   null, new { @class = "nav-link" })
-                </li>
-                @*Enlace a Gestion Financiera*@
+                @*Dropdown de Gestiones*@
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion Financiera</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-briefcase-blank"></i>Gestion Financiera</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
                            @*Accion, Controlador*@
-                           href="@Url.Action("Index","GestionRubrosCobro")">
-                            <i class="fa-solid fa-user-plus"></i>
-                            Gestion de Rubros de Cobro
+                           href="@Url.Action("Index","Home")">
+                            <i class="fa-solid fa-house-crack"></i>
+                            Incidencias
                         </a>
                         <a class="dropdown-item"
                            @*Accion, Controlador*@
-                           href="@Url.Action("Index","GestionPlanCobros")">
-                            <i class="fa-solid fa-user-plus"></i>
-                            Gestion de Planes de Cobro
+                           href="@Url.Action("Index","Home")">
+                            <i class="fa-solid fa-bench-tree"></i>
+                            Reservas
                         </a>
                         <a class="dropdown-item"
                            @*Accion, Controlador*@
-                           href="@Url.Action("Asiganciones","Financiero")">
-                            <i class="fa-solid fa-user-plus"></i>
-                            Gestion de Asiganacion de planes de Cobro
-                        </a>
-                        <a class="dropdown-item"
-                           href="@Url.Action("Estado","Financiero")">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Estado de Cuenta
+                           href="@Url.Action("Index","Home")">
+                            <i class="fa-solid fa-house"></i>
+                            Residencia
                         </a>
                         <a class="dropdown-item"
                            href="@Url.Action("Deudas","Financiero")">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Gestion de Deudas
+                            <i class="fa-solid fa-signal-bars"></i>
+                            Planes de Cobro
                         </a>
                         <a class="dropdown-item"
-                           href="@Url.Action("Historial","Financiero")">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Gestion de Deudas
+                           href="@Url.Action("Index","Home")">
+                            <i class="fa-solid fa-money-bill"></i>
+                            Estado de Cuenta
                         </a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reportes</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-gears"></i>Mantenimientos</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
-                           href="@Url.Action("Ingresos","Reportes")">
-                            <i class="fa-solid fa-right-from-bracket"></i>
+                           href="@Url.Action("Index","Home")">
+                            <i class="fa-solid fa-gears"></i>
+                            Rubros de Cobro
+                        </a>
+                        <a class="dropdown-item"
+                           href="@Url.Action("Index","Home")">
+                            <i class="fa-solid fa-gears"></i>
+                            Asignacion de Planes de Cobro
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-files"></i>Reportes</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item"
+                           href="@Url.Action("Index","Home")">
+                            <i class="fa-solid fa-file-lines"></i>
                             Reporte de Ingresos
                         </a>
                         <a class="dropdown-item"
-                           href="@Url.Action("Deudas","Reportes")">
-                            <i class="fa-solid fa-right-from-bracket"></i>
+                           href="@Url.Action("Index","Home")">
+                            <i class="fa-regular fa-file-lines"></i>
                             Reporte de Deudas
                         </a>
                     </div>
                 </li>
                 @* Texto Usuario, Accion, Controlador*@
-                <li>
-                    @Html.ActionLink("Acerca de", "About", "Home",
-               null, new { @class = "nav-link" })
-                </li>
-                <li>@Html.ActionLink("Contacto", "Contact", "Home", null, new { @class = "nav-link" })</li>
+            <li>
+                <i class="fa-solid fa-building"></i>
+                @Html.ActionLink("Acerca de", "About", "Home",
+           null, new { @class = "nav-link" })
+            </li>
+            <li>
+                <i class="fa-duotone fa-user-headset"></i>
+                @Html.ActionLink("Contactanos", "Contact", "Home", null, new { @class = "nav-link" })
+            </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
