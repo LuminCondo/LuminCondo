@@ -11,7 +11,10 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+    [MetadataType(typeof(GestionAsignacionPlanesMetadata))]
+
     public partial class GestionAsignacionPlanes
     {
         public int IDAsignacion { get; set; }

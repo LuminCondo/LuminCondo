@@ -11,7 +11,9 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+    [MetadataType(typeof(CarrosMetadata))]
     public partial class Carros
     {
         public string IDPlaca { get; set; }
