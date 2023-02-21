@@ -41,14 +41,16 @@ namespace Infraestructure.Repository
 
         public GestionPlanCobros GetGestionPlanCobrosByID(int id)
         {
+            GestionPlanCobros oGestionPlanCobros = null;
             try
             {
-                GestionPlanCobros oGestionPlanCobros = null;
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-
-                    oGestionPlanCobros = ctx.GestionPlanCobros.Find(id);
+                    oGestionPlanCobros = ctx.GestionPlanCobros.
+                        Where(l => l.IDPlan == id).
+                        Include("GestionRubrosCobros").
+                        FirstOrDefault();
                 }
                 return oGestionPlanCobros;
             }

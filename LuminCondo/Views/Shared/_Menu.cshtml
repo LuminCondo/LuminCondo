@@ -1,5 +1,9 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
+﻿<head>
+    <link rel="stylesheet" type="text/css" href="/Content/StylesLuminCondo.css" />
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid ">
         @Html.ActionLink("LuminCondo", "Index", "Home", null, new { @class = "navbar-brand" })
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +18,7 @@
                     </a>
                 </li>
                 @*Enlace a Noticias*@
-                <li>
+                <li class="test">
                     @Html.ActionLink("Noticias", "Index", "Home",
                null, new { @class = "nav-link" })
                 </li>

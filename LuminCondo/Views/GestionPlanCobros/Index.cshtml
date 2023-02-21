@@ -3,38 +3,32 @@
 @{
     ViewBag.Title = "Listado de Planes";
 }
+<div class="text-center">
+    <h2>Listado de Planes</h2>
+</div>
 
-<h2>Listado de Planes</h2>
 
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-<table class="table">
-    <tr>
-        <th>
-            @*@Html.DisplayNameFor(model => model.IDPlan)*@
-            Numero de Plan
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.descripcion)*@
-            Descripcion del plan
-        </th>
-        <th></th>
-    </tr>
+<div class="col-lg-12">
+    <div id="resultado" class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Plan @Html.DisplayFor(modelItem => item.IDPlan)</h5>
+                        <p class="card-text" style="font-size: 28px; font-weight: 500; color: #F47A00;"> @Html.DisplayFor(modelItem => item.descripcion)</p>
+                        <h6 class="card-subtitle mb-2 text-muted"> <i class="fa-solid fa-circle-user"></i> @Html.ActionLink("Detalles del Plan", "Details", new { id = item.IDPlan })</h6>
+                        <div class="card-body">
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDPlan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.descripcion)
-            </td>
-            <td>
-                @Html.ActionLink("Detalles del Plan", "Details", new { id = item.IDPlan })
-            </td>
-        </tr>
-    }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
-</table>
+
