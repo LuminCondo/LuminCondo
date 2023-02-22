@@ -1,4 +1,4 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+﻿<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0CB0BB">
     <div class="container-fluid ">
         @Html.ActionLink("LuminCondo", "Index", "Home", null, new { @class = "navbar-brand" })
 
@@ -36,7 +36,7 @@
                             Residencia
                         </a>
                         <a class="dropdown-item"
-                           href="@Url.Action("Deudas","Financiero")">
+                           href="@Url.Action("Index","GestionPlanCobros")">
                             <i class="fa-solid fa-signal-bars"></i>
                             Planes de Cobro
                         </a>
