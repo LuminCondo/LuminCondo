@@ -89,17 +89,39 @@ CREATE TABLE GestionReservas (
 								CONSTRAINT FK_GestionReservas_IDUsuario FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID),
 								CONSTRAINT FK_GestionReservas_IDEspacio FOREIGN KEY (IDEspacio) REFERENCES Espacios(IDEspacio)
 								);
+CREATE TABLE GestionPlanCobros (
+									IDPlan INT NOT NULL, /*PK*/
+									descripcion VARCHAR(100) NOT NULL,
+									PRIMARY KEY (IDPlan),
+									);
 
+CREATE TABLE GestionAsignacionPlanes (
+										IDAsignacion INT NOT NULL, /*PK*/
+										IDPlan INT NOT NULL, /*FK*/
+										fechaAsignacion DATE NOT NULL,
+										estadoPago BIT NOT NULL,
+										PRIMARY KEY (IDAsignacion),
+										CONSTRAINT FK_GestionAsignacionPlanes_IDPlan FOREIGN KEY (IDPlan) REFERENCES GestionPlanCobros(IDPlan)
+										);
+
+CREATE TABLE Rubros_Planes (
+								IDPlan INT NOT NULL,
+								IDRubro INT NOT NULL
+								CONSTRAINT FK_Rubros_Planes_IDRubro FOREIGN KEY (IDRubro) REFERENCES GestionRubrosCobros(IDRubro),
+								CONSTRAINT FK_Rubros_Planes_IDPlan FOREIGN KEY (IDPlan) REFERENCES GestionPlanCobros(IDPlan)
+								);
 CREATE TABLE GestionResidencias (
 									IDResidencia INT NOT NULL, /*PK*/
 									IDUsuario INT NOT NULL, /*FK*/
 									cantPersonas INT NOT NULL,
 									IDEstadoResidencia INT NOT NULL, /*FK*/
+									IDAsignacionPlan INT NOT NULL, /*FK*/
 									annoInicio INT NOT NULL,
 									cantCarros INT NOT NULL,
 									PRIMARY KEY (IDResidencia),
 									CONSTRAINT FK_GestionResidencias_IDUsuario FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID),
 									CONSTRAINT FK_GestionResidencias_IDEstadoResidencia FOREIGN KEY (IDEstadoResidencia) REFERENCES EstadoResidencia(IDEstadoResidencia),
+									CONSTRAINT FK_GestionResidencias_IDAsignacionPlan FOREIGN KEY (IDAsignacionPlan) REFERENCES GestionAsignacionPlanes(IDAsignacion),
 									);
 
 CREATE TABLE Carros (
@@ -118,29 +140,7 @@ CREATE TABLE PersonasResidentes (
 									CONSTRAINT FK_PersonasResidentes_IDResidencia FOREIGN KEY (IDResidencia) REFERENCES GestionResidencias(IDResidencia)
 									);
 
-CREATE TABLE GestionPlanCobros (
-									IDPlan INT NOT NULL, /*PK*/
-									descripcion VARCHAR(100) NOT NULL,
-									PRIMARY KEY (IDPlan),
-									);
 
-CREATE TABLE GestionAsignacionPlanes (
-										IDAsignacion INT NOT NULL, /*PK*/
-										IDResidencia INT NOT NULL, /*FK*/
-										IDPlan INT NOT NULL, /*FK*/
-										fechaAsignacion DATE NOT NULL,
-										estadoPago BIT NOT NULL,
-										PRIMARY KEY (IDAsignacion),
-										CONSTRAINT FK_GestionAsignacionPlanes_IDResidencia FOREIGN KEY (IDResidencia) REFERENCES GestionResidencias(IDResidencia),
-										CONSTRAINT FK_GestionAsignacionPlanes_IDPlan FOREIGN KEY (IDPlan) REFERENCES GestionPlanCobros(IDPlan)
-										);
-
-CREATE TABLE Rubros_Planes (
-								IDPlan INT NOT NULL,
-								IDRubro INT NOT NULL
-								CONSTRAINT FK_Rubros_Planes_IDRubro FOREIGN KEY (IDRubro) REFERENCES GestionRubrosCobros(IDRubro),
-								CONSTRAINT FK_Rubros_Planes_IDPlan FOREIGN KEY (IDPlan) REFERENCES GestionPlanCobros(IDPlan)
-								);
 
 /*CREATE TABLE GestionDeudas (
 								IDDeuda INT NOT NULL, /*PK*/
@@ -197,10 +197,37 @@ insert into dbo.EstadoResidencia values
 (4,'Abandonada'),
 (5,'Alquilada')
 
+insert into GestionRubrosCobros values 
+(1,'Mensuallidad Condominio', 25000),
+(2,'Mantenimiento de Areas comunes',7500),
+(3,'Renta de Sala de Eventos',30000)
+
+insert into GestionPlanCobros values 
+(1,'Solo Mensuallidad'),
+(2,'Solo Mantenimiento de Areas comunes'),
+(3,'Mantenimiento y Mensualidad, con uso de Sala de Eventos'),
+(4,'Mantenimiento y Mensualidad'),
+(5,'Uso de Sala de Eventos')
+
+insert into Rubros_Planes values
+(1,1),
+(2,2),
+(3,1),
+(3,2),
+(3,3),
+(4,1),
+(4,2),
+(5,3)
+
+insert into GestionAsignacionPlanes values
+(1,1,CONVERT(date, '18/02/2023', 103),1),
+(2,2,CONVERT(date, '18/02/2023', 103),1),
+(3,3,CONVERT(date, '18/02/2023', 103),1)
+
 insert into dbo.GestionResidencias values
-(1,1,4,2,2020,1),
-(2,2,3,2,2016,2),
-(3,3,6,2,2006,1)
+(1,1,4,2,1,2020,1),
+(2,2,3,2,2,2016,2),
+(3,3,6,2,3,2006,1)
 
 insert into dbo.Carros values
 ('LDA-249',1,'BMW Serie3 2022'),
@@ -225,32 +252,7 @@ insert into dbo.Informacion (IDInformacion,IDTipoInfo,fechaPublicacion,titulo,de
 (2,2,CONVERT(date, '18/02/2023', 103),'Calle en reparación','La Calle principal del condominio va a estar con paso regulado durante esta semana debido a resparaciones en las tuberias'),
 (3,3,CONVERT(date, '18/02/2023', 103),'Corte de agua por parte de AYA', 'El dia 24/02/2023 se tiene precisto un corte de agua por el AYA, por favor tomar las medidas necesarias.')
 
-insert into GestionRubrosCobros values 
-(1,'Mensuallidad Condominio', 25000),
-(2,'Mantenimiento de Areas comunes',7500),
-(3,'Renta de Sala de Eventos',30000)
 
-insert into GestionPlanCobros values 
-(1,'Solo Mensuallidad'),
-(2,'Solo Mantenimiento de Areas comunes'),
-(3,'Mantenimiento y Mensualidad, con uso de Sala de Eventos'),
-(4,'Mantenimiento y Mensualidad'),
-(5,'Uso de Sala de Eventos')
-
-insert into Rubros_Planes values
-(1,1),
-(2,2),
-(3,1),
-(3,2),
-(3,3),
-(4,1),
-(4,2),
-(5,3)
-
-insert into GestionAsignacionPlanes values
-(1,1,3,CONVERT(date, '18/02/2023', 103),1),
-(2,2,4,CONVERT(date, '18/02/2023', 103),1),
-(3,3,1,CONVERT(date, '18/02/2023', 103),1)
 
 
 USE Lumincondo_DB;
