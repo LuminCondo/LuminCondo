@@ -39,7 +39,6 @@
             <PropertyRef Name="IDAsignacion" />
           </Key>
           <Property Name="IDAsignacion" Type="int" Nullable="false" />
-          <Property Name="IDResidencia" Type="int" Nullable="false" />
           <Property Name="IDPlan" Type="int" Nullable="false" />
           <Property Name="fechaAsignacion" Type="date" Nullable="false" />
           <Property Name="estadoPago" Type="bit" Nullable="false" />
@@ -69,6 +68,7 @@
           <Property Name="IDUsuario" Type="int" Nullable="false" />
           <Property Name="cantPersonas" Type="int" Nullable="false" />
           <Property Name="IDEstadoResidencia" Type="int" Nullable="false" />
+          <Property Name="IDAsignacionPlan" Type="int" Nullable="false" />
           <Property Name="annoInicio" Type="int" Nullable="false" />
           <Property Name="cantCarros" Type="int" Nullable="false" />
         </EntityType>
@@ -117,6 +117,16 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
           </Key>
           <Property Name="IDPlan" Type="int" Nullable="false" />
           <Property Name="IDRubro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TipoInformacion">
           <Key>
@@ -168,18 +178,6 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GestionAsignacionPlanes_IDResidencia">
-          <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="1" />
-          <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GestionResidencias">
-              <PropertyRef Name="IDResidencia" />
-            </Principal>
-            <Dependent Role="GestionAsignacionPlanes">
-              <PropertyRef Name="IDResidencia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_GestionReservas_IDEspacio">
           <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
           <End Role="GestionReservas" Type="Self.GestionReservas" Multiplicity="*" />
@@ -201,6 +199,18 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
             </Principal>
             <Dependent Role="GestionReservas">
               <PropertyRef Name="IDUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionResidencias_IDAsignacionPlan">
+          <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="1" />
+          <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GestionAsignacionPlanes">
+              <PropertyRef Name="IDAsignacion" />
+            </Principal>
+            <Dependent Role="GestionResidencias">
+              <PropertyRef Name="IDAsignacionPlan" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -325,6 +335,7 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
           <EntitySet Name="Informacion" EntityType="Self.Informacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonasResidentes" EntityType="Self.PersonasResidentes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
@@ -342,10 +353,6 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
             <End Role="GestionPlanCobros" EntitySet="GestionPlanCobros" />
             <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
           </AssociationSet>
-          <AssociationSet Name="FK_GestionAsignacionPlanes_IDResidencia" Association="Self.FK_GestionAsignacionPlanes_IDResidencia">
-            <End Role="GestionResidencias" EntitySet="GestionResidencias" />
-            <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
-          </AssociationSet>
           <AssociationSet Name="FK_GestionReservas_IDEspacio" Association="Self.FK_GestionReservas_IDEspacio">
             <End Role="Espacios" EntitySet="Espacios" />
             <End Role="GestionReservas" EntitySet="GestionReservas" />
@@ -353,6 +360,10 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
           <AssociationSet Name="FK_GestionReservas_IDUsuario" Association="Self.FK_GestionReservas_IDUsuario">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="GestionReservas" EntitySet="GestionReservas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionResidencias_IDAsignacionPlan" Association="Self.FK_GestionResidencias_IDAsignacionPlan">
+            <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
+            <End Role="GestionResidencias" EntitySet="GestionResidencias" />
           </AssociationSet>
           <AssociationSet Name="FK_GestionResidencias_IDEstadoResidencia" Association="Self.FK_GestionResidencias_IDEstadoResidencia">
             <End Role="EstadoResidencia" EntitySet="EstadoResidencia" />
@@ -434,12 +445,11 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
             <PropertyRef Name="IDAsignacion" />
           </Key>
           <Property Name="IDAsignacion" Type="Int32" Nullable="false" />
-          <Property Name="IDResidencia" Type="Int32" Nullable="false" />
           <Property Name="IDPlan" Type="Int32" Nullable="false" />
           <Property Name="fechaAsignacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="estadoPago" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="GestionPlanCobros" Relationship="Self.FK_GestionAsignacionPlanes_IDPlan" FromRole="GestionAsignacionPlanes" ToRole="GestionPlanCobros" />
-          <NavigationProperty Name="GestionResidencias" Relationship="Self.FK_GestionAsignacionPlanes_IDResidencia" FromRole="GestionAsignacionPlanes" ToRole="GestionResidencias" />
+          <NavigationProperty Name="GestionResidencias" Relationship="Self.FK_GestionResidencias_IDAsignacionPlan" FromRole="GestionAsignacionPlanes" ToRole="GestionResidencias" />
         </EntityType>
         <EntityType Name="GestionPlanCobros">
           <Key>
@@ -470,11 +480,12 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
           <Property Name="IDUsuario" Type="Int32" Nullable="false" />
           <Property Name="cantPersonas" Type="Int32" Nullable="false" />
           <Property Name="IDEstadoResidencia" Type="Int32" Nullable="false" />
+          <Property Name="IDAsignacionPlan" Type="Int32" Nullable="false" />
           <Property Name="annoInicio" Type="Int32" Nullable="false" />
           <Property Name="cantCarros" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Carros" Relationship="Self.FK_Carros_IDResidencia" FromRole="GestionResidencias" ToRole="Carros" />
           <NavigationProperty Name="EstadoResidencia" Relationship="Self.FK_GestionResidencias_IDEstadoResidencia" FromRole="GestionResidencias" ToRole="EstadoResidencia" />
-          <NavigationProperty Name="GestionAsignacionPlanes" Relationship="Self.FK_GestionAsignacionPlanes_IDResidencia" FromRole="GestionResidencias" ToRole="GestionAsignacionPlanes" />
+          <NavigationProperty Name="GestionAsignacionPlanes" Relationship="Self.FK_GestionResidencias_IDAsignacionPlan" FromRole="GestionResidencias" ToRole="GestionAsignacionPlanes" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_GestionResidencias_IDUsuario" FromRole="GestionResidencias" ToRole="Usuarios" />
           <NavigationProperty Name="PersonasResidentes" Relationship="Self.FK_PersonasResidentes_IDResidencia" FromRole="GestionResidencias" ToRole="PersonasResidentes" />
         </EntityType>
@@ -518,6 +529,16 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
           <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="EstadoIncidencia" Relationship="Self.FK_ReporteIncidencias_IDEstado" FromRole="ReporteIncidencias" ToRole="EstadoIncidencia" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_ReporteIncidencias_IDUsuario" FromRole="ReporteIncidencias" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="TipoInformacion">
           <Key>
@@ -611,15 +632,15 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GestionAsignacionPlanes_IDResidencia">
-          <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="1" />
-          <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="*" />
+        <Association Name="FK_GestionResidencias_IDAsignacionPlan">
+          <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="1" />
+          <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GestionResidencias">
-              <PropertyRef Name="IDResidencia" />
+            <Principal Role="GestionAsignacionPlanes">
+              <PropertyRef Name="IDAsignacion" />
             </Principal>
-            <Dependent Role="GestionAsignacionPlanes">
-              <PropertyRef Name="IDResidencia" />
+            <Dependent Role="GestionResidencias">
+              <PropertyRef Name="IDAsignacionPlan" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -712,6 +733,7 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
           <EntitySet Name="Informacion" EntityType="Self.Informacion" />
           <EntitySet Name="PersonasResidentes" EntityType="Self.PersonasResidentes" />
           <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" />
           <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
@@ -735,9 +757,9 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
             <End Role="GestionPlanCobros" EntitySet="GestionPlanCobros" />
             <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
           </AssociationSet>
-          <AssociationSet Name="FK_GestionAsignacionPlanes_IDResidencia" Association="Self.FK_GestionAsignacionPlanes_IDResidencia">
-            <End Role="GestionResidencias" EntitySet="GestionResidencias" />
+          <AssociationSet Name="FK_GestionResidencias_IDAsignacionPlan" Association="Self.FK_GestionResidencias_IDAsignacionPlan">
             <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
+            <End Role="GestionResidencias" EntitySet="GestionResidencias" />
           </AssociationSet>
           <AssociationSet Name="FK_GestionReservas_IDUsuario" Association="Self.FK_GestionReservas_IDUsuario">
             <End Role="Usuarios" EntitySet="Usuarios" />
@@ -811,7 +833,6 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
             <EntityTypeMapping TypeName="Lumincondo_DBModel.GestionAsignacionPlanes">
               <MappingFragment StoreEntitySet="GestionAsignacionPlanes">
                 <ScalarProperty Name="IDAsignacion" ColumnName="IDAsignacion" />
-                <ScalarProperty Name="IDResidencia" ColumnName="IDResidencia" />
                 <ScalarProperty Name="IDPlan" ColumnName="IDPlan" />
                 <ScalarProperty Name="fechaAsignacion" ColumnName="fechaAsignacion" />
                 <ScalarProperty Name="estadoPago" ColumnName="estadoPago" />
@@ -844,6 +865,7 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
                 <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
                 <ScalarProperty Name="cantPersonas" ColumnName="cantPersonas" />
                 <ScalarProperty Name="IDEstadoResidencia" ColumnName="IDEstadoResidencia" />
+                <ScalarProperty Name="IDAsignacionPlan" ColumnName="IDAsignacionPlan" />
                 <ScalarProperty Name="annoInicio" ColumnName="annoInicio" />
                 <ScalarProperty Name="cantCarros" ColumnName="cantCarros" />
               </MappingFragment>
@@ -886,6 +908,17 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
                 <ScalarProperty Name="IDEstado" ColumnName="IDEstado" />
                 <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Lumincondo_DBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

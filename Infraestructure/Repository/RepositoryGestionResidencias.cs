@@ -2,6 +2,7 @@
 using Infraestructure.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,10 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
 
-                    lista = ctx.GestionResidencias.ToList<GestionResidencias>();
+                    lista = ctx.GestionResidencias.
+                                                    Include("Usuarios").
+                                                    Include("EstadoResidencia").
+                                                    ToList();
                 }
                 return lista;
             }
@@ -47,7 +51,13 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
 
-                    oGestionResidencia = ctx.GestionResidencias.Find(id);
+                    oGestionResidencia = ctx.GestionResidencias.
+                                                            Where(l => l.IDUsuario == id).
+                                                            Where(p => p.IDAsignacionPlan == id).
+                                                            Include("Usuarios").
+                                                            Include("EstadoResidencia").
+                                                            Include("GestionAsignacionPlanes").
+                                                            FirstOrDefault();
                 }
                 return oGestionResidencia;
             }

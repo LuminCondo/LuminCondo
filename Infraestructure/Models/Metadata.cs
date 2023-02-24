@@ -132,7 +132,7 @@ namespace Infraestructure.Models
     {
         [Display(Name = "Numero de Estado de la Residencia")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
-        public int IdEstadoResidencia { get; set; }
+        public int IDEstadoResidencia { get; set; }
 
         [Display(Name = "Estado de la Residencia")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
@@ -147,7 +147,7 @@ namespace Infraestructure.Models
         [Display(Name = "Idetificacion del Usuario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDUsuario { get; set; }
-        [Display(Name = "Cantidad de Personas")]
+        [Display(Name = "Cantidad de Residentes")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int cantPersonas { get; set; }
         [Display(Name = "ID del Estado de la Residencia")]
@@ -187,7 +187,7 @@ namespace Infraestructure.Models
         public string nombre { get; set;}
     }
 
-    internal partial class PlanesMetadata
+    internal partial class GestionPlanCobrosMetadata
     {
         [Display(Name = "Numero de Plan")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
@@ -212,7 +212,7 @@ namespace Infraestructure.Models
         public decimal monto { get; set;}
     }
 
-    internal partial class GestionAsignacionPlanesMetadata
+    /*internal partial class GestionAsignacionPlanesMetadata
     {
         [Display(Name = "Numero de Asignacion")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
@@ -231,8 +231,24 @@ namespace Infraestructure.Models
         [Display(Name = "Estado de Pago")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public bool estadoPago { get; set; }
+    }*/
+    internal partial class GestionAsignacionPlanesMetadata
+    {
+        [Display(Name = "Numero de Asignacion")]
+        [Required(ErrorMessage = "{0} es un dato requerido")]
+        public int IDAsignacion { get; set; }
+        [Display(Name = "Numero de Plan")]
+        [Required(ErrorMessage = "{0} es un dato requerido")]
+        public int IDPlan { get; set; }
+        [Display(Name = "Fecha de asignacion")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [Required(ErrorMessage = "{0} es un dato requerido")]
+        public System.DateTime fechaAsignacion { get; set; }
+        [Display(Name = "Estado de Pago")]
+        [Required(ErrorMessage = "{0} es un dato requerido")]
+        public bool estadoPago { get; set; }
     }
-
 
 
 

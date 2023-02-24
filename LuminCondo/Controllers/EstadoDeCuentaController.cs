@@ -16,11 +16,11 @@ namespace LuminCondo.Controllers
         // GET: EstadoDeCuenta
         public ActionResult Index()
         {
-            IEnumerable<Usuarios> lista = null;
+            IEnumerable<GestionResidencias> lista = null;
             try
             {
-                IServiceUsuario _ServiceUsuario = new ServiceUsuario();
-                lista = _ServiceUsuario.GetUsuarios();
+                IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
+                lista = _ServiceGestionResidencias.GetGestionResidencias();
                 ViewBag.title = "Usuarios";
 
                 return View(lista);
