@@ -1,7 +1,11 @@
-﻿using Infraestructure.Models;
+﻿using ApplicationCore.Services;
+using Infraestructure.Models;
+using Infraestructure.Repository;
+using Infraestructure.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,9 +16,24 @@ namespace LuminCondo.Controllers
         // GET: EstadoDeCuenta
         public ActionResult Index()
         {
-            
+            IEnumerable<Usuarios> lista = null;
+            try
+            {
+                IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+                lista = _ServiceUsuario.GetUsuarios();
+                ViewBag.title = "Usuarios";
 
-            return View();
+                return View(lista);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+
         }
 
         // GET: EstadoDeCuenta/Details/5
