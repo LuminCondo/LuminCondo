@@ -1,29 +1,110 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Pagina de Inicio";
 }
 
-<div class="jumbotron">
-    <h1>LuminCondo</h1>
-    <p class="lead">Aplicacion del condominio La Luminaria, para el manejo y comodidad del condimonio</p>
-    @*<p><a href="ab" class="btn btn-primary btn-lg">Más información... &raquo;</a></p>*@
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Reserva tus Areas Comunes</h2>
-        <p>
-            Dentro del condominio contamos con diferentes espacios recreativos, los cuales deben ser reservados para uso de eventos privados
-        </p>
-        <p><a class="btn btn-default" href="">Más información... &raquo;</a></p>
+    <div class="jumbotron col-lg-6 col-sm-12">
+        <h1>Bienvenidos a LuminCondo</h1>
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Assets/condominio1.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Diseños Modernos</h5>
+                        <p>Todas nuestras residencias presentan xonstrucciones de tipo modernas que te van a maravillar</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Assets/condominio2.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Hermosas Piscinas</h5>
+                        <p>Para tus ratos de espacimiento</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Assets/condominio3.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Ranchos</h5>
+                        <p>Lugares perfectosa para compartir con tu familia y/o amigos.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <p class="lead">La Página oficial del Condominio las Luciérnagas</p>
+
     </div>
-    <div class="col-md-4">
-        <h2>Gestion de Deudas</h2>
-        <p>Como dueño, en esta seccion podra ver sus deudas pendientes con el condominio</p>
-        <p><a class="btn btn-default" href="">Más información...&raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Noticias</h2>
-        <p>En esta seccion lo mantendremos informado con la gran variedad de información de relevancia en el condominio</p>
-        <p><a class="btn btn-default" href="">Más información... &raquo;</a></p>
+    <div class="col-lg-6 col-sm-12">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Reserva tus Areas Comunes</h2>
+                <p>
+                    Dentro del condominio contamos con diferentes espacios recreativos, los cuales deben ser reservados para uso de eventos privados
+                </p>
+                <p><a class="btn btn-default" href="">Más información... &raquo;</a></p>
+            </div>
+            <div class="col-md-6">
+                <h2>Gestion de Deudas</h2>
+                <p>Como dueño, en esta seccion podra ver sus deudas pendientes con el condominio</p>
+                <p><a class="btn btn-default" href="">Más información...&raquo;</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Noticias</h2>
+                <p>En esta seccion lo mantendremos informado con la gran variedad de información de relevancia en el condominio</p>
+                <p><a class="btn btn-default" href="">Más información... &raquo;</a></p>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Noticias</h2>
+                <p>En esta seccion lo mantendremos informado con la gran variedad de información de relevancia en el condominio</p>
+                <p><a class="btn btn-default" href="">Más información... &raquo;</a></p>
+            </div>
+        </div>
     </div>
 </div>
+<div>
+    <div class="text-center">
+        <h1>Acerca del Condominio Las Luciérnagas</h1>
+    </div>
+        <p>Un moderno y elegante condominio ubicado en la hermosa ciudad de Coyol de Alajuela.</p>
+        <p>En nuestro condominio encontrarás un ambiente seguro y acogedor para ti y tu familia. Nuestras instalaciones están diseñadas con los más altos estándares de calidad, brindando espacios amplios y cómodos para que disfrutes de tu hogar al máximo.</p>
+        <p>En Condominio Las Luciérnagas, nos preocupamos por tu tranquilidad y comodidad, por lo que contamos con una variedad de amenidades que harán tu vida más fácil y placentera. Podrás disfrutar de una amplia piscina, un moderno gimnasio, áreas verdes y de recreación, y mucho más.</p>
+        <p>Nuestra ubicación privilegiada en Coyol de Alajuela te permitirá disfrutar de un entorno tranquilo y seguro, con fácil acceso a importantes vías de comunicación y a las mejores áreas comerciales y de entretenimiento de la ciudad.</p>
+        <p>En Condominio Las Luciérnagas, queremos que disfrutes de la mejor calidad de vida en un entorno moderno y seguro. Contáctanos y conoce más sobre nuestro condominio, ¡te esperamos!</p>
+    </div>
+    <div class="jumbotron testStyle col-sm-12">
+        <div class="text-center">
+            <h1>Areas Comunes</h1>
+        </div>
+        <h3>Ranchos</h3>
+        <div class="col-lg-4 col-sm-12">
+            <p class="lead">Aplicacion del condominio La Luminaria, para el manejo y comodidad del condimonio</p>
+        </div>
+        <div class="col-lg-8 col-sm-12">
+            <p class="lead">Aplicacion del condominio La Luminaria, para el manejo y comodidad del condimonio</p>
+        </div>
+        <h3>Piscina</h3>
+        <div class="col-lg-4 col-sm-12">
+            <p class="lead">Aplicacion del condominio La Luminaria, para el manejo y comodidad del condimonio</p>
+        </div>
+        <div class="col-lg-8 col-sm-12">
+            <p class="lead">Aplicacion del condominio La Luminaria, para el manejo y comodidad del condimonio</p>
+        </div>
+
+    </div>
+
+

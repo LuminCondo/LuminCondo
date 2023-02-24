@@ -1,13 +1,19 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - LuminCondo</title>
+    <link rel="shortcut icon" href="~/Assets/favicon.ico">
     @Styles.Render("~/Content/Mybootstrap.min.css")
     @Styles.Render("~/Content/StylesLuminCondo.css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @RenderSection("styles", required: false)
+
+
 </head>
 <body>
     @Html.Partial("_Menu")
@@ -16,7 +22,13 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - LuminCondo</p>
+            <div class="container-fluid bg-4 text-center">
+                <credit>&copy;Derechos Reservados</credit>
+                <credit id="date"></credit>
+                <script>document.getElementById("date").innerHTML = new Date().getFullYear()</script>
+                <br>
+                <credit>LuminCondo</credit>
+            </div>
         </footer>
     </div>
 

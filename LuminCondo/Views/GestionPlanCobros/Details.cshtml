@@ -10,21 +10,27 @@
         <div class="col">
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
-                        <div class="card-body">
-                            <span class="card-title" style="font-size: 25px; font-weight: 500; line-height: 1.2">@Html.DisplayFor(model => model.descripcion)</span>
-                            <p class="card-text" style="color: #0CB0BB; font-weight: 500;">
-                                @Html.DisplayFor(model => model.IDPlan)
-                            </p>
-                            <p class="card-text">
-                                <i class="fa-solid fa-bookmark"></i> <b>Rubros a cobrar dentro del plan:</b>
-                                <ul>
-                                    @foreach (var c in Model.GestionRubrosCobros)
-                                    {
-                                        <li><i class="fa-solid fa-circle"></i>@c.descripcion: <i class="fa-solid fa-colon-sign"></i>@c.monto</li>
-                                    }
-                                </ul>
-                            </p>
-                        </div>
+                    <div class="card-body">
+                        <span class="card-title" style="font-size: 25px; font-weight: 500; line-height: 1.2">@Html.DisplayFor(model => model.descripcion)</span>
+                        <p class="card-text" style="color: #0CB0BB; font-weight: 500;">
+                            @Html.DisplayFor(model => model.IDPlan)
+                        </p>
+                        <p class="card-text">
+                            <i class="fa-solid fa-bookmark"></i> <b>Rubros a cobrar dentro del plan:</b>
+                            <ul>
+                                @{
+                                    decimal total = 0;
+                                }
+                                @foreach (var c in Model.GestionRubrosCobros)
+                                {
+                                    <li><i class="fa-solid fa-circle"></i>@c.descripcion: <i class="fa-solid fa-colon-sign"></i>@c.monto</li>
+                                    total += c.monto;
+                                }
+                                <li><i class="fa-solid fa-circle"></i>Total: <i class="fa-solid fa-colon-sign"></i>@total</li>
+
+                            </ul>
+                        </p>
+                    </div>
 
                 </div>
             </div>

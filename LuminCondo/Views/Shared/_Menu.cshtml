@@ -1,6 +1,10 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0CB0BB">
+﻿<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0CB0BB; font-size:20px">
     <div class="container-fluid ">
-        @Html.ActionLink("LuminCondo", "Index", "Home", null, new { @class = "navbar-brand" })
+        <a class="navbar-brand"
+           @*Accion, Controlador*@
+           href="@Url.Action("Index","Home")">
+            <img src="~/Assets/Logo LuminCondo.jpg" width="50" height="50" class="d-inline-block align-top mr-2" style="border-radius:10px"alt="LuminCondo">
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -8,14 +12,17 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
                 @*Enlace a Noticias*@
-                <li class="test">
-                    <i class="fa-solid fa-newspaper"></i>
-                    @Html.ActionLink("Noticias", "Index", "Home",
-               null, new { @class = "nav-link" })
+                <li class="nav-item">
+                    <a class="nav-link"
+                       @*Accion, Controlador*@
+                       href="@Url.Action("Index","Home")">
+                        <i class="fa-solid fa-newspaper"></i>
+                        Noticias
+                    </a>
                 </li>
                 @*Dropdown de Gestiones*@
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-briefcase-blank"></i>Gestiones</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-business-time"></i>Gestiones</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
                            @*Accion, Controlador*@
@@ -26,7 +33,7 @@
                         <a class="dropdown-item"
                            @*Accion, Controlador*@
                            href="@Url.Action("Index","Home")">
-                            <i class="fa-solid fa-bench-tree"></i>
+                            <i class="fa-solid fa-fire"></i>
                             Reservas
                         </a>
                         <a class="dropdown-item"
@@ -37,7 +44,7 @@
                         </a>
                         <a class="dropdown-item"
                            href="@Url.Action("Index","GestionPlanCobros")">
-                            <i class="fa-solid fa-signal-bars"></i>
+                            <i class="fa-solid fa-file-invoice"></i>
                             Planes de Cobro
                         </a>
                         <a class="dropdown-item"
@@ -63,7 +70,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-files"></i>Reportes</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-regular fa-file-lines"></i> Reportes</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
                            href="@Url.Action("Index","Home")">
@@ -77,18 +84,23 @@
                         </a>
                     </div>
                 </li>
-                @* Texto Usuario, Accion, Controlador*@
-            <li>
-                <i class="fa-solid fa-building"></i>
-                @Html.ActionLink("Acerca de", "About", "Home",
-           null, new { @class = "nav-link" })
-            </li>
-            <li>
-                <i class="fa-duotone fa-user-headset"></i>
-                @Html.ActionLink("Contactanos", "Contact", "Home", null, new { @class = "nav-link" })
-            </li>
-
-                <li class="nav-item dropdown">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       @*Accion, Controlador*@
+                       href="@Url.Action("About", "Home")">
+                        <i class="fa-solid fa-building"></i>
+                        Acerca de
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       @*Accion, Controlador*@
+                       href="@Url.Action("Contact", "Home")">
+                        <i class="fa-solid fa-headset"></i>
+                        Contactanos
+                    </a>
+                </li>
+                <li class="nav-item dropdown ml-auto">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                        href="#" role="button" aria-haspopup="true"
                        aria-expanded="false"><i class="fa-solid fa-user"></i> Perfil</a>
