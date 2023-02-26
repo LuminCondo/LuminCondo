@@ -13,6 +13,7 @@ namespace Infraestructure.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    [MetadataType(typeof(EstadoIncidenciaMetadata))]
     public partial class EstadoIncidencia
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

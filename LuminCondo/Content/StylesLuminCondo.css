@@ -13,50 +13,55 @@ imgSetting {
     color: red;
 }
 
-.arreglomargen{
-    margin-top:3%;
-}
-.tiles {
-    border-radius: 20px;
-    margin: 1vh;
-    height:300px;
-    width:300px;
-}
-.blueback {
-    background-color: #0CB0BB;
-    border-radius: 20px;
-}
-    .blueback h2, .blueback h1 {
-        color: #000000;
-        text-align: center;
-    }
-.blackback h2 {
+footer {
+    height: auto;
+    width: 100%;
     text-align: center;
+    margin-top: auto;
+    position: fixed;
+    left: 0px;
 }
 
-.blackback {
-    background-color: #000000;
-    border-radius: 20px;
+/* Estilos para el carrusel */
+#carrusel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
-.parent{
-    display:grid;
-    place-items:center;
+    #carrusel .slides {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        transition: left 0.5s ease;
+    }
+
+    #carrusel .slide {
+        flex: 1;
+        height: 100%;
+    }
+
+.slide img {
+    object-fit: cover;
 }
 
-.contentImg {
-    height: 300px;
-    width: 300px;
-    margin: 1vh;
-    border-radius: 20px;
+/* Estilos para los controles del carrusel */
+.control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    cursor: pointer;
 }
 
-.contentImg1 {
-    height: 100px;
-    width: 100px;
-    border-radius: 5px;
+.control-prev {
+    left: 20px;
 }
 
-
-
+.control-next {
+    right: 20px;
+}
 
