@@ -4,6 +4,7 @@ using Infraestructure.Repository;
 using Infraestructure.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -36,7 +37,7 @@ namespace Web.Controllers
         }
 
         // GET: Informacion/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             return View();
         }
@@ -44,10 +45,18 @@ namespace Web.Controllers
         // GET: Informacion/Create
         public ActionResult Create()
         {
+            ViewBag.IDInformacion = listaInformacion();
             return View();
         }
 
-        // POST: Informacion/Create
+        private SelectList listaInformacion(int idInfo = 0)
+        {
+            IServiceInformacion _ServiceInformacion = new ServiceInformacion();
+            IEnumerable<Informacion> lista = _ServiceInformacion.GetInformacion();
+            return new SelectList(lista);
+        }
+
+        /* POST: Informacion/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -61,12 +70,80 @@ namespace Web.Controllers
             {
                 return View();
             }
+        }*/
+
+        /*****************************************************************************************************************************************/
+
+        public ActionResult Guardar(Informacion informacion)
+        {
+            IServiceInformacion _ServiceInformacion = new ServiceInformacion();
+            MemoryStream stream = new MemoryStream();
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Informacion oInformacion = _ServiceInformacion.Guardar(informacion);
+                }
+                else
+                {
+                    ViewBag.IdInformacion = listaInformacion(informacion.IDInformacion);
+
+                    return View("Create",informacion);
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
+        /*****************************************************************************************************************************************/
+        
         // GET: Informacion/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            ServiceInformacion _ServiceInformacion = new ServiceInformacion();
+            Informacion informacion = null;
+
+            try
+            {
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                informacion = _ServiceInformacion.GetInformacionByID(Convert.ToInt32(id));
+                if (informacion == null)
+                {
+                    TempData["Message"] = "No existe el libro solicitado";
+                    TempData["Redirect"] = "Libro";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+
+                ViewBag.IdInformacion = listaInformacion(informacion.IDInformacion);
+                return View(informacion);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // POST: Informacion/Edit/5
@@ -84,6 +161,8 @@ namespace Web.Controllers
                 return View();
             }
         }
+
+        /*****************************************************************************************************************************************/
 
         // GET: Informacion/Delete/5
         public ActionResult Delete(int id)

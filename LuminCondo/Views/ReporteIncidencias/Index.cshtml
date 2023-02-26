@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Infraestructure.Models.ReporteIncidencias>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDIncidencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuarios.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDIncidencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuarios.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDIncidencia }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IDIncidencia })
+        </td>
+    </tr>
+}
+
+</table>
