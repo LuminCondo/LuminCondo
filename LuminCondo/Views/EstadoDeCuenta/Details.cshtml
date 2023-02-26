@@ -1,0 +1,82 @@
+﻿@model Infraestructure.Models.GestionResidencias
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Estado de cuenta</h2>
+<hr />
+
+<div>
+    
+    <h4>Usuario</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDUsuario)
+        </dd>
+    </dl>
+
+    <hr />
+
+    <h4>Residencia</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDResidencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDResidencia)
+        </dd>
+    </dl>
+
+    <hr />
+
+    <h4>Deudas Vigentes</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cantPersonas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantPersonas)
+        </dd>
+    </dl>
+
+    <hr />
+
+    <h4>Historial de Pagos</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDEstadoResidencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDEstadoResidencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.annoInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.annoInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantCarros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantCarros)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
