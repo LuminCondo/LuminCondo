@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<Infraestructure.Models.GestionResidencias>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Residencias";
 }
 
-<h2>Residencias</h2>
+<h2 class="text-center">Lista de Residencias</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
+<table class="table table-hover">
+    <tr class="text-center">
         <th>
             @Html.DisplayNameFor(model => model.IDResidencia)
         </th>
@@ -23,23 +20,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IDResidencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuarios.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoResidencia.estado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.IDUsuario }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IDUsuario }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IDUsuario })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model){
+        <tr class="text-center">
+            <td>
+                @Html.DisplayFor(modelItem => item.IDResidencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuarios.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoResidencia.estado)
+            </td>
+            <td>
+                <div class="text-center">
+                    <a href="@Url.Action("Details","ListaResidencias", new { id = item.IDUsuario })" class="btn btn-primary">Detalles de la residencia</a>
+                </div>
+            </td>
+        </tr>
+    }
 
-</table>
+
+
+    </table>

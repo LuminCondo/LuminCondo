@@ -38,6 +38,7 @@
       <EntityTypeMapping TypeName="Lumincondo_DBModel.GestionAsignacionPlanes">
         <MappingFragment StoreEntitySet="GestionAsignacionPlanes">
           <ScalarProperty Name="IDAsignacion" ColumnName="IDAsignacion" />
+          <ScalarProperty Name="IDResidencia" ColumnName="IDResidencia" />
           <ScalarProperty Name="IDPlan" ColumnName="IDPlan" />
           <ScalarProperty Name="fechaAsignacion" ColumnName="fechaAsignacion" />
           <ScalarProperty Name="estadoPago" ColumnName="estadoPago" />
@@ -70,7 +71,6 @@
           <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
           <ScalarProperty Name="cantPersonas" ColumnName="cantPersonas" />
           <ScalarProperty Name="IDEstadoResidencia" ColumnName="IDEstadoResidencia" />
-          <ScalarProperty Name="IDAsignacionPlan" ColumnName="IDAsignacionPlan" />
           <ScalarProperty Name="annoInicio" ColumnName="annoInicio" />
           <ScalarProperty Name="cantCarros" ColumnName="cantCarros" />
         </MappingFragment>

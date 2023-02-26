@@ -4,62 +4,32 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalles de la Residencia</h2>
+<h2 class="text-center">Detalles de la Residencia de @Html.DisplayFor(model => model.Usuarios.nombre)</h2>
 
-<div>
+<div class="text-center">
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.IDResidencia)
+            @Html.DisplayNameFor(model => model.IDResidencia): @Html.DisplayFor(model => model.IDResidencia)
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IDResidencia)
-        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Usuarios.nombre)
+            @Html.DisplayNameFor(model => model.cantPersonas): @Html.DisplayFor(model => model.cantPersonas)
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Usuarios.nombre)
-        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoResidencia.estado): @Html.DisplayFor(model => model.EstadoResidencia.estado)
+        </dt>
 
         <dt>
-            @Html.DisplayNameFor(model => model.cantPersonas)
+            @Html.DisplayNameFor(model => model.annoInicio): @Html.DisplayFor(model => model.annoInicio)
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cantPersonas)
-        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EstadoResidencia.estado)
+            @Html.DisplayNameFor(model => model.cantCarros): @Html.DisplayFor(model => model.cantCarros)
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EstadoResidencia.estado)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.annoInicio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.annoInicio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cantCarros)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cantCarros)
-        </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    <div class="text-center">
+        <a href="@Url.Action("Index","ListaResidencias")" class="btn btn-primary">Volver a lista de Residencias</a>
+    </div>

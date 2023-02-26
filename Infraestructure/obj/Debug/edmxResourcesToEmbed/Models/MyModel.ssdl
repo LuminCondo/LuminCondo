@@ -34,6 +34,7 @@
       <PropertyRef Name="IDAsignacion" />
     </Key>
     <Property Name="IDAsignacion" Type="int" Nullable="false" />
+    <Property Name="IDResidencia" Type="int" Nullable="false" />
     <Property Name="IDPlan" Type="int" Nullable="false" />
     <Property Name="fechaAsignacion" Type="date" Nullable="false" />
     <Property Name="estadoPago" Type="bit" Nullable="false" />
@@ -63,7 +64,6 @@
     <Property Name="IDUsuario" Type="int" Nullable="false" />
     <Property Name="cantPersonas" Type="int" Nullable="false" />
     <Property Name="IDEstadoResidencia" Type="int" Nullable="false" />
-    <Property Name="IDAsignacionPlan" Type="int" Nullable="false" />
     <Property Name="annoInicio" Type="int" Nullable="false" />
     <Property Name="cantCarros" Type="int" Nullable="false" />
   </EntityType>
@@ -103,8 +103,8 @@
     <Property Name="IDUsuario" Type="int" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="Rubros_Planes">
     <Key>
       <PropertyRef Name="IDPlan" />
@@ -173,6 +173,18 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_GestionAsignacionPlanes_IDResidencia">
+    <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="1" />
+    <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GestionResidencias">
+        <PropertyRef Name="IDResidencia" />
+      </Principal>
+      <Dependent Role="GestionAsignacionPlanes">
+        <PropertyRef Name="IDResidencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_GestionReservas_IDEspacio">
     <End Role="Espacios" Type="Self.Espacios" Multiplicity="1" />
     <End Role="GestionReservas" Type="Self.GestionReservas" Multiplicity="*" />
@@ -194,18 +206,6 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
       </Principal>
       <Dependent Role="GestionReservas">
         <PropertyRef Name="IDUsuario" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_GestionResidencias_IDAsignacionPlan">
-    <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="1" />
-    <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="GestionAsignacionPlanes">
-        <PropertyRef Name="IDAsignacion" />
-      </Principal>
-      <Dependent Role="GestionResidencias">
-        <PropertyRef Name="IDAsignacionPlan" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -348,6 +348,10 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
       <End Role="GestionPlanCobros" EntitySet="GestionPlanCobros" />
       <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
     </AssociationSet>
+    <AssociationSet Name="FK_GestionAsignacionPlanes_IDResidencia" Association="Self.FK_GestionAsignacionPlanes_IDResidencia">
+      <End Role="GestionResidencias" EntitySet="GestionResidencias" />
+      <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
+    </AssociationSet>
     <AssociationSet Name="FK_GestionReservas_IDEspacio" Association="Self.FK_GestionReservas_IDEspacio">
       <End Role="Espacios" EntitySet="Espacios" />
       <End Role="GestionReservas" EntitySet="GestionReservas" />
@@ -355,10 +359,6 @@ warning 6002: The table/view 'Lumincondo_DB.dbo.Rubros_Planes' does not have a p
     <AssociationSet Name="FK_GestionReservas_IDUsuario" Association="Self.FK_GestionReservas_IDUsuario">
       <End Role="Usuarios" EntitySet="Usuarios" />
       <End Role="GestionReservas" EntitySet="GestionReservas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_GestionResidencias_IDAsignacionPlan" Association="Self.FK_GestionResidencias_IDAsignacionPlan">
-      <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
-      <End Role="GestionResidencias" EntitySet="GestionResidencias" />
     </AssociationSet>
     <AssociationSet Name="FK_GestionResidencias_IDEstadoResidencia" Association="Self.FK_GestionResidencias_IDEstadoResidencia">
       <End Role="EstadoResidencia" EntitySet="EstadoResidencia" />

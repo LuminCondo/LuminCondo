@@ -53,7 +53,6 @@ namespace Infraestructure.Repository
 
                     oGestionResidencia = ctx.GestionResidencias.
                                                             Where(l => l.IDUsuario == id).
-                                                            Where(p => p.IDAsignacionPlan == id).
                                                             Include("Usuarios").
                                                             Include("EstadoResidencia").
                                                             Include("GestionAsignacionPlanes").

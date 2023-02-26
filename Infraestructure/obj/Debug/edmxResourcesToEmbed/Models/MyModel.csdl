@@ -38,11 +38,12 @@
       <PropertyRef Name="IDAsignacion" />
     </Key>
     <Property Name="IDAsignacion" Type="Int32" Nullable="false" />
+    <Property Name="IDResidencia" Type="Int32" Nullable="false" />
     <Property Name="IDPlan" Type="Int32" Nullable="false" />
     <Property Name="fechaAsignacion" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="estadoPago" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="GestionPlanCobros" Relationship="Self.FK_GestionAsignacionPlanes_IDPlan" FromRole="GestionAsignacionPlanes" ToRole="GestionPlanCobros" />
-    <NavigationProperty Name="GestionResidencias" Relationship="Self.FK_GestionResidencias_IDAsignacionPlan" FromRole="GestionAsignacionPlanes" ToRole="GestionResidencias" />
+    <NavigationProperty Name="GestionResidencias" Relationship="Self.FK_GestionAsignacionPlanes_IDResidencia" FromRole="GestionAsignacionPlanes" ToRole="GestionResidencias" />
   </EntityType>
   <EntityType Name="GestionPlanCobros">
     <Key>
@@ -73,12 +74,11 @@
     <Property Name="IDUsuario" Type="Int32" Nullable="false" />
     <Property Name="cantPersonas" Type="Int32" Nullable="false" />
     <Property Name="IDEstadoResidencia" Type="Int32" Nullable="false" />
-    <Property Name="IDAsignacionPlan" Type="Int32" Nullable="false" />
     <Property Name="annoInicio" Type="Int32" Nullable="false" />
     <Property Name="cantCarros" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Carros" Relationship="Self.FK_Carros_IDResidencia" FromRole="GestionResidencias" ToRole="Carros" />
     <NavigationProperty Name="EstadoResidencia" Relationship="Self.FK_GestionResidencias_IDEstadoResidencia" FromRole="GestionResidencias" ToRole="EstadoResidencia" />
-    <NavigationProperty Name="GestionAsignacionPlanes" Relationship="Self.FK_GestionResidencias_IDAsignacionPlan" FromRole="GestionResidencias" ToRole="GestionAsignacionPlanes" />
+    <NavigationProperty Name="GestionAsignacionPlanes" Relationship="Self.FK_GestionAsignacionPlanes_IDResidencia" FromRole="GestionResidencias" ToRole="GestionAsignacionPlanes" />
     <NavigationProperty Name="Usuarios" Relationship="Self.FK_GestionResidencias_IDUsuario" FromRole="GestionResidencias" ToRole="Usuarios" />
     <NavigationProperty Name="PersonasResidentes" Relationship="Self.FK_PersonasResidentes_IDResidencia" FromRole="GestionResidencias" ToRole="PersonasResidentes" />
   </EntityType>
@@ -225,15 +225,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_GestionResidencias_IDAsignacionPlan">
-    <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="1" />
-    <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="*" />
+  <Association Name="FK_GestionAsignacionPlanes_IDResidencia">
+    <End Role="GestionResidencias" Type="Self.GestionResidencias" Multiplicity="1" />
+    <End Role="GestionAsignacionPlanes" Type="Self.GestionAsignacionPlanes" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="GestionAsignacionPlanes">
-        <PropertyRef Name="IDAsignacion" />
+      <Principal Role="GestionResidencias">
+        <PropertyRef Name="IDResidencia" />
       </Principal>
-      <Dependent Role="GestionResidencias">
-        <PropertyRef Name="IDAsignacionPlan" />
+      <Dependent Role="GestionAsignacionPlanes">
+        <PropertyRef Name="IDResidencia" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -350,9 +350,9 @@
       <End Role="GestionPlanCobros" EntitySet="GestionPlanCobros" />
       <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
     </AssociationSet>
-    <AssociationSet Name="FK_GestionResidencias_IDAsignacionPlan" Association="Self.FK_GestionResidencias_IDAsignacionPlan">
-      <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
+    <AssociationSet Name="FK_GestionAsignacionPlanes_IDResidencia" Association="Self.FK_GestionAsignacionPlanes_IDResidencia">
       <End Role="GestionResidencias" EntitySet="GestionResidencias" />
+      <End Role="GestionAsignacionPlanes" EntitySet="GestionAsignacionPlanes" />
     </AssociationSet>
     <AssociationSet Name="FK_GestionReservas_IDUsuario" Association="Self.FK_GestionReservas_IDUsuario">
       <End Role="Usuarios" EntitySet="Usuarios" />
