@@ -4,16 +4,16 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalles del plan</h2>
-<div>
+<h2 class="text-center">Detalles del plan</h2>
+<div class="align-content-center">
     <div class="row row-cols-2 g-3">
         <div class="col">
-            <div class="card mb-3" style="max-width: 540px;">
+            <div class="card mb-3 align-content-center">
                 <div class="row g-0">
                     <div class="card-body">
-                        <span class="card-title" style="font-size: 25px; font-weight: 500; line-height: 1.2">@Html.DisplayFor(model => model.descripcion)</span>
-                        <p class="card-text" style="color: #0CB0BB; font-weight: 500;">
-                            @Html.DisplayFor(model => model.IDPlan)
+                        <span class="card-title" style="font-size: 28px; font-weight: 100; color: #0CB0BB;">@Html.DisplayFor(model => model.descripcion)</span>
+                        <p class="card-text" style="color: #ffffff; font-weight: 500;">
+                            Plan @Html.DisplayFor(model => model.IDPlan)
                         </p>
                         <p class="card-text">
                             <i class="fa-solid fa-bookmark"></i> <b>Rubros a cobrar dentro del plan:</b>
@@ -23,10 +23,10 @@
                                 }
                                 @foreach (var c in Model.GestionRubrosCobros)
                                 {
-                                    <li><i class="fa-solid fa-circle"></i>@c.descripcion: <i class="fa-solid fa-colon-sign"></i>@c.monto</li>
+                                    <li>@c.descripcion: <i class="fa-solid fa-colon-sign"></i>@c.monto</li>
                                     total += c.monto;
                                 }
-                                <li><i class="fa-solid fa-circle"></i>Total: <i class="fa-solid fa-colon-sign"></i>@total</li>
+                                <li>Total: <i class="fa-solid fa-colon-sign"></i>@total</li>
 
                             </ul>
                         </p>
@@ -37,10 +37,12 @@
         </div>
     </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+<div class="text-center">
+    <a href="@Url.Action("Index","GestionPlanCobros")" class="btn btn-primary">Volver al Inicio</a>
+</div>
+
 
 
 
