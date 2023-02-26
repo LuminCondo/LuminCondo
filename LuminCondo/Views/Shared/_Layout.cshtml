@@ -21,15 +21,13 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <div class="container-fluid bg-4 text-center">
-                <credit>&copy;Derechos Reservados</credit>
-                <credit id="date"></credit>
-                <script>document.getElementById("date").innerHTML = new Date().getFullYear()</script>
-                <br>
-                <credit>LuminCondo</credit>
-            </div>
-        </footer>
+        <div class="container-fluid bg-4 text-center">
+            <credit>&copy;Derechos Reservados</credit>
+            <credit id="date"></credit>
+            <script>document.getElementById("date").innerHTML = new Date().getFullYear()</script>
+            <br>
+            <credit> LuminCondo</credit>
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
