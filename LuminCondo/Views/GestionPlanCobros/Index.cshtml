@@ -22,9 +22,11 @@
                         <div class="text-center">
                             <a href="@Url.Action("Details","GestionPlanCobros", new { id = item.IDPlan })" class="btn btn-primary">Detalles del plan</a>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <p> @Html.DisplayFor(modelItem => item.descripcion)</p>
-                            <img src="~/Assets/Logo LuminCondo.jpg" class="d-block contentImg1" alt="...">
+                            <div class="text-center">
+                                <img src="~/Assets/Logo LuminCondo.jpg" class=" contentImg1" alt="...">
+                            </div>
                         </div>
                     </div>
                 </div>
