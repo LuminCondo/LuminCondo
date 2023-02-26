@@ -241,11 +241,15 @@
     <Compile Include="Repository\IRepositoryGestionPlanCobros.cs" />
     <Compile Include="Repository\IRepositoryGestionResidencias.cs" />
     <Compile Include="Repository\IRepositoryGestionRubrosCobros.cs" />
+    <Compile Include="Repository\IRepositoryInformacion.cs" />
+    <Compile Include="Repository\IRepositoryReporteIncidencias.cs" />
     <Compile Include="Repository\IRepositoryUsuario.cs" />
     <Compile Include="Repository\RepositoryGestionAsignacionPlanes.cs" />
     <Compile Include="Repository\RepositoryGestionPlanCobros.cs" />
     <Compile Include="Repository\RepositoryGestionResidencias.cs" />
     <Compile Include="Repository\RepositoryGestionRubrosCobros.cs" />
+    <Compile Include="Repository\RepositoryInformacion.cs" />
+    <Compile Include="Repository\RepositoryReporteIncidencias.cs" />
     <Compile Include="Repository\RepositoryUsuario.cs" />
     <Compile Include="Utils\Log.cs" />
   </ItemGroup>

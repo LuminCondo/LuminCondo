@@ -75,21 +75,21 @@ namespace Infraestructure.Models
     {
         [Display(Name = "Numero de Tipo")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
-        public int IdTipoInfo { get; set; }
+        public int IDTipoInfo { get; set; }
 
         [Display(Name = "Tipo de Informacion")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
-        public string estado { get; set; }
+        public string tipoInfo { get; set; }
     }
     internal partial class InformacionMetadata
     {
         [Display(Name = "Numero de Informacion")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
-        public int IDinformacion { get; set; }
+        public int IDInformacion { get; set; }
 
         [Display(Name = "Numero de Tipo de Informacion")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
-        public string IdTipoInfo { get; set; }
+        public string IDTipoInfo { get; set; }
         [Display(Name = "Fecha de la informacion")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
