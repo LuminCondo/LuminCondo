@@ -248,7 +248,9 @@
     <Compile Include="Controllers\EstadoDeCuentaController.cs" />
     <Compile Include="Controllers\GestionPlanCobrosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformacionController.cs" />
     <Compile Include="Controllers\ListaResidenciasController.cs" />
+    <Compile Include="Controllers\ReporteIncidenciasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -445,10 +447,13 @@
     <Content Include="Views\ListaResidencias\Index.cshtml" />
     <Content Include="Views\ListaResidencias\Details.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Index.cshtml" />
+    <Content Include="Views\EstadoDeCuenta\Details.cshtml" />
+    <Content Include="Views\Informacion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\ReporteIncidencias\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
