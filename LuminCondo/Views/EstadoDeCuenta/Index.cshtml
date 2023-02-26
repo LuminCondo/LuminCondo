@@ -1,69 +1,44 @@
 ﻿@model IEnumerable<Infraestructure.Models.GestionResidencias>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Estados de Cuenta";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">Estados de Cuenta</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
+<table class="table table-hover">
+    <tr class="text-center">
         <th>
             @Html.DisplayNameFor(model => model.IDResidencia)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Usuarios.ID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Usuarios.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GestionAsignacionPlanes.IDAsignacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GestionAsignacionPlanes.GestionPlanCobros.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GestionAsignacionPlanes.fechaAsignacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GestionAsignacionPlanes.estadoPago)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IDResidencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuarios.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuarios.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GestionAsignacionPlanes.IDAsignacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GestionAsignacionPlanes.GestionPlanCobros.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GestionAsignacionPlanes.fechaAsignacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GestionAsignacionPlanes.estadoPago)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr class="text-center">
+            <td>
+                @Html.DisplayFor(modelItem => item.IDResidencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuarios.nombre)
+            </td>
+            <td>
+                <div class="text-center">
+                    <a href="@Url.Action("Details","EstadoDeCuenta", new { id = item.IDResidencia })" class="btn btn-primary">
+                        Ver Estado de Cuenta
+                    </a>
+                </div>
+            </td>
+        </tr>
+    }
+
+
 
 </table>

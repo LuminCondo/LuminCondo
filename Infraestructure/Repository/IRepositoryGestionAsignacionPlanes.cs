@@ -10,6 +10,7 @@ namespace Infraestructure.Repository
     public interface IRepositoryGestionAsignacionPlanes
     {
         IEnumerable<GestionAsignacionPlanes> GetGestionAsignacionPlanes();
+        IEnumerable<GestionAsignacionPlanes> GetEstadodeCuentaByIDResidencia(int id);
         GestionAsignacionPlanes GetGestionAsignacionPlanesByID(int id);
     }
 }

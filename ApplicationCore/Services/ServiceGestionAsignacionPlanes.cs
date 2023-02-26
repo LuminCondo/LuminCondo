@@ -11,6 +11,12 @@ namespace ApplicationCore.Services
 {
     public class ServiceGestionAsignacionPlanes : IServiceGestionAsignacionPlanes
     {
+        public IEnumerable<GestionAsignacionPlanes> GetEstadodeCuentaByIDResidencia(int id)
+        {
+            IRepositoryGestionAsignacionPlanes repository = new RepositoryGestionAsignacionPlanes();
+            return repository.GetEstadodeCuentaByIDResidencia(id);
+        }
+
         public IEnumerable<GestionAsignacionPlanes> GetGestionAsignacionPlanes()
         {
             IRepositoryGestionAsignacionPlanes repository = new RepositoryGestionAsignacionPlanes();

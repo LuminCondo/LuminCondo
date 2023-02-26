@@ -17,11 +17,12 @@ namespace LuminCondo.Controllers
         public ActionResult Index()
         {
             IEnumerable<GestionResidencias> lista = null;
+            
             try
             {
                 IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
                 lista = _ServiceGestionResidencias.GetGestionResidencias();
-                ViewBag.title = "Usuarios";
+                ViewBag.title = "Listado de Residencias";
 
                 return View(lista);
             }
@@ -37,9 +38,31 @@ namespace LuminCondo.Controllers
         }
 
         // GET: EstadoDeCuenta/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            IEnumerable<GestionAsignacionPlanes> listaAsignaciones = null;
+            
+            try
+            {
+                IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                listaAsignaciones = _ServiceGestionAsignacionPlanes.GetEstadodeCuentaByIDResidencia(Convert.ToInt32(id)); 
+                return View(listaAsignaciones);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "EstadoDeCuenta";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+
         }
 
         // GET: EstadoDeCuenta/Create

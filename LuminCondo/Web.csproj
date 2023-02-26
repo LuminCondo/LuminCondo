@@ -446,9 +446,9 @@
     <Content Include="Views\GestionPlanCobros\Details.cshtml" />
     <Content Include="Views\ListaResidencias\Index.cshtml" />
     <Content Include="Views\ListaResidencias\Details.cshtml" />
+    <Content Include="Views\Informacion\Index.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Index.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Details.cshtml" />
-    <Content Include="Views\Informacion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
