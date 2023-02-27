@@ -171,7 +171,7 @@ namespace Web.Controllers
 
             try
             {
-                _ServiceGestionRubrosCobros.BorrarRubroCobros(gestionRubrosCobros);
+                _ServiceGestionRubrosCobros.BorrarRubroCobros(gestionRubrosCobros.IDRubro);
 
                 return RedirectToAction("Index");
             }
