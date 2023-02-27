@@ -16,13 +16,13 @@ namespace LuminCondo.Controllers
         // GET: GestionPlanCobros
         public ActionResult Index()
         {
-            IEnumerable <GestionPlanCobros> lista = null;
+            IEnumerable<GestionPlanCobros> lista = null;
             try
             {
                 IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
                 lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
                 ViewBag.title = "Lista de Planes";
-                IServiceGestionRubrosCobros _ServiceGestionRubrosCobros=new ServiceGestionRubrosCobros();
+                IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
                 ViewBag.listaRubros = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
 
                 return View(lista);
@@ -35,8 +35,26 @@ namespace LuminCondo.Controllers
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
+        }
 
-            
+        public ActionResult IndexAdmin()
+        {
+            IEnumerable<GestionPlanCobros> lista = null;
+            try
+            {
+                IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
+                lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
+
+                return View(lista);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // GET: GestionPlanCobros/Details/5
@@ -78,10 +96,18 @@ namespace LuminCondo.Controllers
         // GET: GestionPlanCobros/Create
         public ActionResult Create()
         {
+            ViewBag.IDPlanCobros = listaPlanCobros();
             return View();
         }
 
-        // POST: GestionPlanCobros/Create
+        private SelectList listaPlanCobros(int idPlan = 0)
+        {
+            IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
+            IEnumerable<GestionPlanCobros> lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
+            return new SelectList(lista);
+        }
+
+        /* POST: GestionPlanCobros/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -95,12 +121,80 @@ namespace LuminCondo.Controllers
             {
                 return View();
             }
+        }*/
+
+        /*****************************************************************************************************************************************/
+
+        public ActionResult Guardar(GestionPlanCobros gestionPlanCobros)
+        {
+            IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
+            MemoryStream stream = new MemoryStream();
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    GestionPlanCobros oGestionPlanCobros = _ServiceGestionPlanCobros.Guardar(gestionPlanCobros);
+                }
+                else
+                {
+                    ViewBag.IDGestionPlanCobros = listaPlanCobros(gestionPlanCobros.IDPlan);
+
+                    return View("Create", gestionPlanCobros);
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
+        /*****************************************************************************************************************************************/
+
         // GET: GestionPlanCobros/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            ServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
+            GestionPlanCobros gestionPlanCobros = null;
+
+            try
+            {
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                gestionPlanCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
+                if (gestionPlanCobros == null)
+                {
+                    TempData["Message"] = "No existe el libro solicitado";
+                    TempData["Redirect"] = "Libro";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+
+                ViewBag.IDPlanCobros = listaPlanCobros(gestionPlanCobros.IDPlan);
+                return View(gestionPlanCobros);
+
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // POST: GestionPlanCobros/Edit/5

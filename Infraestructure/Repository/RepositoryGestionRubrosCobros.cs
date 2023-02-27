@@ -2,6 +2,7 @@
 using Infraestructure.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,11 @@ namespace Infraestructure.Repository
 {
     public class RepositoryGestionRubrosCobros : IRepositoryGestionRubrosCobros
     {
+        public void BorrarRubroCobros(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<GestionRubrosCobros> GetGestionRubrosCobros()
         {
             try
@@ -63,6 +69,39 @@ namespace Infraestructure.Repository
                 Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw;
             }
+        }
+
+        public GestionRubrosCobros Guardar(GestionRubrosCobros gestionRubrosCobros)
+        {
+            int retorno = 0;
+            GestionRubrosCobros oGestionRubrosCobros = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oGestionRubrosCobros = GetGestionRubrosCobrosByID((int)gestionRubrosCobros.IDRubro);
+                IRepositoryGestionRubrosCobros _RepositoryGestionRubrosCobros = new RepositoryGestionRubrosCobros();
+
+                if (oGestionRubrosCobros == null)
+                {
+                    ctx.GestionRubrosCobros.Add(gestionRubrosCobros);
+
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+                    ctx.GestionRubrosCobros.Add(gestionRubrosCobros);
+
+                    ctx.Entry(gestionRubrosCobros).State = EntityState.Modified;
+
+                    retorno = ctx.SaveChanges();
+                }
+            }
+
+            if (retorno >= 0)
+                oGestionRubrosCobros = GetGestionRubrosCobrosByID((int)gestionRubrosCobros.IDRubro);
+
+            return oGestionRubrosCobros;
         }
     }
 }
