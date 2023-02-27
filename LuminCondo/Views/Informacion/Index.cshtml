@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<Infraestructure.Models.Informacion>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Noticias";
 }
 
-<h2>Lista de Noticias</h2>
+<h2 class="text-center">Lista de Noticias</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
+<div>
+    <a href="@Url.Action("Create","Informacion")" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Crear Nueva Noticia
+    </a>
+</div>
+<table class="table table-hover">
+    <tr class="text-center">
         <th>
             @Html.DisplayNameFor(model => model.IDInformacion)
         </th>
@@ -23,15 +25,12 @@
         <th>
             @Html.DisplayNameFor(model => model.titulo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr class="text-center">
             <td>
                 @Html.DisplayFor(modelItem => item.IDInformacion)
             </td>
@@ -45,11 +44,17 @@
                 @Html.DisplayFor(modelItem => item.titulo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.descripcion)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IDInformacion }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.IDInformacion })
+                <div class="text-center">
+                    <a href="@Url.Action("Edit","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
+                        Modificar Noticia
+                    </a>
+                    <a href="@Url.Action("Delete","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
+                        Borrar Noticia
+                    </a>
+                    <a href="@Url.Action("Details","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
+                        Ver Noticia
+                    </a>
+                </div>
             </td>
         </tr>
     }

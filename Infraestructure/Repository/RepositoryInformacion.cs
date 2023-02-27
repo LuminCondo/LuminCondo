@@ -53,7 +53,10 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
 
-                    oInformacion = ctx.Informacion.Find(id);
+                    oInformacion = ctx.Informacion.
+                    Where(l => l.IDInformacion == id).
+                        Include("TipoInformacion").
+                        FirstOrDefault();
                 }
                 return oInformacion;
             }

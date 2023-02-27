@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<Infraestructure.Models.ReporteIncidencias>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Reporte de Incidencias";
 }
 
-<h2>Index</h2>
+<h2>Reporte de Incidencias</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
+<div>
+    <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte 
+    </a>
+</div>
+<table class="table table-hover">
+    <tr class="text-center">
         <th>
             @Html.DisplayNameFor(model => model.IDIncidencia)
         </th>
@@ -28,7 +30,7 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr class="text-center">
             <td>
                 @Html.DisplayFor(modelItem => item.IDIncidencia)
             </td>
@@ -42,8 +44,14 @@
                 @Html.DisplayFor(modelItem => item.descripcion)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IDIncidencia }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.IDIncidencia })
+                <div class="text-center">
+                    <a href="@Url.Action("Edit","ReporteIncidencias", new { id = item.IDIncidencia })" class="btn btn-primary">
+                        Modificar Reporte
+                    </a>
+                    <a href="@Url.Action("Delete","ReporteIncidencias", new { id = item.IDIncidencia })" class="btn btn-primary">
+                        Borrar Reporte
+                    </a>
+                </div>
             </td>
         </tr>
     }

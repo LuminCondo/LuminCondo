@@ -455,6 +455,7 @@
     <Content Include="Views\ReporteIncidencias\Index.cshtml" />
     <Content Include="Views\ReporteIncidencias\Edit.cshtml" />
     <Content Include="Views\ReporteIncidencias\Create.cshtml" />
+    <Content Include="Views\Informacion\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
