@@ -10,9 +10,10 @@ namespace ApplicationCore.Services
 {
     public class ServiceGestionRubrosCobros : IServiceGestionRubrosCobros
     {
-        public void BorrarRubroCobros(int id)
+        public void BorrarRubroCobros(GestionRubrosCobros gestionRubrosCobros)
         {
-            throw new NotImplementedException();
+            IRepositoryGestionRubrosCobros repository = new RepositoryGestionRubrosCobros();
+            repository.BorrarRubroCobros(gestionRubrosCobros);
         }
 
         public IEnumerable<GestionRubrosCobros> GetGestionRubrosCobros()

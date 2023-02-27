@@ -12,9 +12,24 @@ namespace Infraestructure.Repository
 {
     public class RepositoryInformacion : IRepositoryInformacion
     {
-        public void BorrarInformacion(int id)
+        public void BorrarInformacion(Informacion informacion)
         {
-            throw new NotImplementedException();
+            int retorno = 0;
+            Informacion oInformacion = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oInformacion = GetInformacionByID((int)informacion.IDInformacion);
+                IRepositoryInformacion _RepositoryInformacion = new RepositoryInformacion();
+
+                if (oInformacion == null)
+                {
+                    ctx.Informacion.Remove(informacion);
+
+                    retorno = ctx.SaveChanges();
+                }
+            }
         }
 
         public IEnumerable<Informacion> GetInformacion()
@@ -94,9 +109,9 @@ namespace Infraestructure.Repository
                 else
                 {
                     ctx.Informacion.Add(informacion);
-                    
+
                     ctx.Entry(informacion).State = EntityState.Modified;
-                    
+
                     retorno = ctx.SaveChanges();
 
                 }

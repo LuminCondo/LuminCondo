@@ -162,10 +162,62 @@ namespace Web.Controllers
             }
         }
 
-        // GET: ReporteIncidencias/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Eliminar(ReporteIncidencias reporteIncidencias)
         {
-            return View();
+            IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
+            MemoryStream stream = new MemoryStream();
+
+            try
+            {
+                _ServiceReporteIncidencias.BorrarReporteIncidencias(reporteIncidencias);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        // GET: ReporteIncidencias/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
+            ReporteIncidencias reporteIncidencias = null;
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                reporteIncidencias = _ServiceReporteIncidencias.GetReporteIncidenciasByID(Convert.ToInt32(id));
+                if (reporteIncidencias == null)
+                {
+                    TempData["Message"] = "No existe el Plan solicitado";
+                    TempData["Redirect"] = "Informacion";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+                return View(reporteIncidencias);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "GestionPlanCobros";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // POST: ReporteIncidencias/Delete/5

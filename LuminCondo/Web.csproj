@@ -462,6 +462,10 @@
     <Content Include="Views\GestionRubrosCobros\Create.cshtml" />
     <Content Include="Views\GestionRubrosCobros\Edit.cshtml" />
     <Content Include="Views\GestionRubrosCobros\Index.cshtml" />
+    <Content Include="Views\Informacion\Delete.cshtml" />
+    <Content Include="Views\ReporteIncidencias\Delete.cshtml" />
+    <Content Include="Views\GestionRubrosCobros\Delete.cshtml" />
+    <Content Include="Views\GestionPlanCobros\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

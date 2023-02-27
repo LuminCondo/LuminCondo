@@ -10,9 +10,10 @@ namespace ApplicationCore.Services
 {
     public class ServiceGestionPlanCobros : IServiceGestionPlanCobros
     {
-        public void BorrarPlanCobros(int id)
+        public void BorrarPlanCobros(GestionPlanCobros gestionPlanCobros)
         {
-            throw new NotImplementedException();
+            IRepositoryGestionPlanCobros repository = new RepositoryGestionPlanCobros();
+            repository.BorrarPlanCobros(gestionPlanCobros);
         }
 
         public IEnumerable<GestionPlanCobros> GetGestionPlanCobros()
