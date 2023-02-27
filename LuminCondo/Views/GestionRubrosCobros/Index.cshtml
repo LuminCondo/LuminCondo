@@ -1,44 +1,56 @@
 ﻿@model IEnumerable<Infraestructure.Models.GestionRubrosCobros>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Mantenimiento Rubros de Cobro";
 }
 
-<h2>Index</h2>
+<div data-aos="fade-up">
+    <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IDRubro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.monto)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IDRubro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.monto)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.IDRubro }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IDRubro })
-        </td>
-    </tr>
-}
+    <div>
+        <a href="@Url.Action("Create","GestionRubrosCobros")" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Crear Nuevo Rubro de Cobro
+        </a>
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IDRubro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.monto)
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDRubro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.monto)
+                </td>
+                <td>
+                    <div class="text-center">
+                        <a href="@Url.Action("Edit","GestionRubrosCobros", new { id = item.IDRubro })" class="btn btn-primary">
+                            Modificar Rubro
+                        </a>
+                        <a href="@Url.Action("Delete","GestionRubrosCobros", new { id = item.IDRubro })" class="btn btn-primary">
+                            Borrar Rubro
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
