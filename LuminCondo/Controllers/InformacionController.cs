@@ -194,10 +194,62 @@ namespace Web.Controllers
 
         /*****************************************************************************************************************************************/
 
-        // GET: Informacion/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Eliminar(Informacion informacion)
         {
-            return View();
+            IServiceInformacion _ServiceInformacion = new ServiceInformacion();
+            MemoryStream stream = new MemoryStream();
+
+            try
+            {
+                _ServiceInformacion.BorrarInformacion(informacion);
+                
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        // GET: Informacion/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            IServiceInformacion _ServiceInformacion = new ServiceInformacion();
+            Informacion informacion = null;
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                informacion = _ServiceInformacion.GetInformacionByID(Convert.ToInt32(id));
+                if (informacion == null)
+                {
+                    TempData["Message"] = "No existe el Plan solicitado";
+                    TempData["Redirect"] = "Informacion";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+                return View(informacion);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "GestionPlanCobros";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // POST: Informacion/Delete/5

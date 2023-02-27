@@ -10,9 +10,10 @@ namespace ApplicationCore.Services
 {
     public class ServiceReporteIncidencias : IServiceReporteIncidencias
     {
-        public void BorrarReporteIncidencias(int id)
+        public void BorrarReporteIncidencias(ReporteIncidencias reporteIncidencias)
         {
-            throw new NotImplementedException();
+            IRepositoryReporteIncidencias repository = new RepositoryReporteIncidencias();
+            repository.BorrarReporteIncidencias(reporteIncidencias);
         }
 
         public IEnumerable<ReporteIncidencias> GetReporteIncidencias()

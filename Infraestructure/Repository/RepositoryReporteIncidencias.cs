@@ -12,9 +12,24 @@ namespace Infraestructure.Repository
 {
     public class RepositoryReporteIncidencias : IRepositoryReporteIncidencias
     {
-        public void BorrarReporteIncidencias(int id)
+        public void BorrarReporteIncidencias(ReporteIncidencias reporteIncidencias)
         {
-            throw new NotImplementedException();
+            int retorno = 0;
+            ReporteIncidencias oReporteIncidencias = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oReporteIncidencias = GetReporteIncidenciasByID((int)reporteIncidencias.IDIncidencia);
+                IRepositoryReporteIncidencias _RepositoryReporteIncidencias = new RepositoryReporteIncidencias();
+
+                if (oReporteIncidencias == null)
+                {
+                    ctx.ReporteIncidencias.Remove(reporteIncidencias);
+
+                    retorno = ctx.SaveChanges();
+                }
+            }
         }
 
         public IEnumerable<ReporteIncidencias> GetReporteIncidencias()
@@ -56,7 +71,11 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
 
-                    oReporteIncidencias = ctx.ReporteIncidencias.Find(id);
+                    oReporteIncidencias = ctx.ReporteIncidencias.
+                                                            Where(l => l.IDIncidencia == id).
+                                                            Include("Usuarios").
+                                                            Include("EstadoIncidencia").
+                                                            FirstOrDefault();
                 }
                 return oReporteIncidencias;
             }

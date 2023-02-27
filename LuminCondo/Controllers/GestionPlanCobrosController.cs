@@ -213,10 +213,62 @@ namespace LuminCondo.Controllers
             }
         }
 
-        // GET: GestionPlanCobros/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Eliminar(GestionPlanCobros gestionPlanCobros)
         {
-            return View();
+            IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
+            MemoryStream stream = new MemoryStream();
+
+            try
+            {
+                _ServiceGestionPlanCobros.BorrarPlanCobros(gestionPlanCobros);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        // GET: GestionPlanCobros/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
+            GestionPlanCobros gestionPlanCobros = null;
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                gestionPlanCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
+                if (gestionPlanCobros == null)
+                {
+                    TempData["Message"] = "No existe el Plan solicitado";
+                    TempData["Redirect"] = "Informacion";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+                return View(gestionPlanCobros);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "GestionPlanCobros";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // POST: GestionPlanCobros/Delete/5

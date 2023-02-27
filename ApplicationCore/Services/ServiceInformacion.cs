@@ -10,9 +10,10 @@ namespace ApplicationCore.Services
 {
     public class ServiceInformacion : IServiceInformacion
     {
-        public void BorrarInformacion(int id)
+        public void BorrarInformacion(Informacion informacion)
         {
-            throw new NotImplementedException();
+            IRepositoryInformacion repository = new RepositoryInformacion();
+            repository.BorrarInformacion(informacion);
         }
 
         public IEnumerable<Informacion> GetInformacion()

@@ -12,9 +12,24 @@ namespace Infraestructure.Repository
 {
     public class RepositoryGestionPlanCobros : IRepositoryGestionPlanCobros
     {
-        public void BorrarPlanCobros(int id)
+        public void BorrarPlanCobros(GestionPlanCobros gestionPlanCobros)
         {
-            throw new NotImplementedException();
+            int retorno = 0;
+            GestionPlanCobros oGestionPlanCobros = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oGestionPlanCobros = GetGestionPlanCobrosByID((int)gestionPlanCobros.IDPlan);
+                IRepositoryGestionPlanCobros _RepositoryGestionPlanCobros = new RepositoryGestionPlanCobros();
+
+                if (oGestionPlanCobros == null)
+                {
+                    ctx.GestionPlanCobros.Remove(gestionPlanCobros);
+
+                    retorno = ctx.SaveChanges();
+                }
+            }
         }
 
         public IEnumerable<GestionPlanCobros> GetGestionPlanCobros()

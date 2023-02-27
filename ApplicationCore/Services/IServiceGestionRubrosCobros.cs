@@ -12,6 +12,6 @@ namespace Infraestructure.Repository
         IEnumerable<GestionRubrosCobros> GetGestionRubrosCobros();
         GestionRubrosCobros GetGestionRubrosCobrosByID(int id);
         GestionRubrosCobros Guardar(GestionRubrosCobros gestionRubrosCobros);
-        void BorrarRubroCobros(int id);
+        void BorrarRubroCobros(GestionRubrosCobros gestionRubrosCobros);
     }
 }
