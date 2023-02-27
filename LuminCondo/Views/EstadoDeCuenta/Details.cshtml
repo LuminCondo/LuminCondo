@@ -19,96 +19,99 @@
         }
     }
 }
-<h1 class="text-center">Estado de Cuenta de la Residencia @Html.DisplayFor(model => model.FirstOrDefault().IDResidencia) de @Html.DisplayFor(model => model.FirstOrDefault().GestionResidencias.Usuarios.nombre)</h1>
+<h1 class="text-center" data-aos="fade-up">Estado de Cuenta de la Residencia @Html.DisplayFor(model => model.FirstOrDefault().IDResidencia) de @Html.DisplayFor(model => model.FirstOrDefault().GestionResidencias.Usuarios.nombre)</h1>
 
-<h2 class="text-center"><i class="fa-solid fa-clock-rotate-left"></i> Historial de Pagos</h2>
+<div data-aos="fade-up">
+    <h2 class="text-center"><i class="fa-solid fa-money-check-dollar"></i> Deudas Pendientes</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.GestionPlanCobros.descripcion)
-        </th>
-        <th>
-            Monto Pagado
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaAsignacion)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in historialDePago)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.GestionPlanCobros.descripcion)
-            </td>
-            <td>
-                @{
-                    decimal total = 0;
-                }
-                @foreach (var c in item.GestionPlanCobros.GestionRubrosCobros)
-                {
-
-                    total += c.monto;
-                }
-                <i class="fa-solid fa-colon-sign"></i>@total
-
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaAsignacion)
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.GestionPlanCobros.descripcion)
+            </th>
+            <th>
+                Monto a pagar
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaAsignacion)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in deudasPendientes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GestionPlanCobros.descripcion)
+                </td>
+                <td>
+                    @{
+                        decimal total = 0;
+                    }
+                    @foreach (var c in item.GestionPlanCobros.GestionRubrosCobros)
+                    {
 
-<h2 class="text-center"><i class="fa-solid fa-money-check-dollar"></i> Deudas Pendientes</h2>
+                        total += c.monto;
+                    }
+                    <i class="fa-solid fa-colon-sign"></i>@total
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.GestionPlanCobros.descripcion)
-        </th>
-        <th>
-            Monto a pagar
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaAsignacion)
-        </th>
-        <th></th>
-    </tr>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaAsignacion)
+                </td>
+                <td>
+                    <div class="text-center">
+                        <a href="@Url.Action("Details","EstadoDeCuenta", new { id = item.IDResidencia })" class="btn btn-primary">
+                            <i class="fa-solid fa-cart-shopping"></i> Pagar
+                        </a>
+                    </div>
+                </td>
+            </tr>
 
-    @foreach (var item in deudasPendientes)
-    {
+        }
+
+    </table>
+</div>
+<div data-aos="fade-up">
+    <h2 class="text-center"><i class="fa-solid fa-clock-rotate-left"></i> Historial de Pagos</h2>
+
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.GestionPlanCobros.descripcion)
-            </td>
-            <td>
-                @{
-                    decimal total = 0;
-                }
-                @foreach (var c in item.GestionPlanCobros.GestionRubrosCobros)
-                {
-
-                    total += c.monto;
-                }
-                <i class="fa-solid fa-colon-sign"></i>@total
-
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaAsignacion)
-            </td>
-            <td>
-                <div class="text-center">
-                    <a href="@Url.Action("Details","EstadoDeCuenta", new { id = item.IDResidencia })" class="btn btn-primary">
-                        <i class="fa-solid fa-cart-shopping"></i> Pagar
-                    </a>
-                </div>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.GestionPlanCobros.descripcion)
+            </th>
+            <th>
+                Monto Pagado
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaAsignacion)
+            </th>
+            <th></th>
         </tr>
-        
-    }
 
-</table>
+        @foreach (var item in historialDePago)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GestionPlanCobros.descripcion)
+                </td>
+                <td>
+                    @{
+                        decimal total = 0;
+                    }
+                    @foreach (var c in item.GestionPlanCobros.GestionRubrosCobros)
+                    {
+
+                        total += c.monto;
+                    }
+                    <i class="fa-solid fa-colon-sign"></i>@total
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaAsignacion)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -3,34 +3,35 @@
 @{
     ViewBag.Title = @Html.DisplayFor(model => model.titulo);
 }
+<div data-aos="fade-up">
+    <h2 class="text-center">@Html.DisplayFor(model => model.titulo)</h2>
 
-<h2 class="text-center">@Html.DisplayFor(model => model.titulo)</h2>
-
-<div class="text-center">
-    <hr />
-    <dl class="dl-horizontal">
-        <dt class="blueback">
-            @Html.DisplayNameFor(model => model.TipoInformacion.tipoInfo): @Html.DisplayFor(model => model.TipoInformacion.tipoInfo)
-        </dt>
-
-        <dt class="blackback">
-            @Html.DisplayNameFor(model => model.fechaPublicacion): @Html.DisplayFor(model => model.fechaPublicacion)
-        </dt>
-        <dt class="blueback">
-            @Html.DisplayFor(model => model.descripcion)
-        </dt>
-    </dl>
-</div>
-<p>
     <div class="text-center">
-        <a href="@Url.Action("Edit","Informacion", new { id = Model.IDInformacion })" class="btn btn-primary">
-            Modificar Noticia
-        </a>
-        <a href="@Url.Action("Delete","Informacion", new { id = Model.IDInformacion })" class="btn btn-primary">
-            Borrar Noticia
-        </a>
-        <a href="@Url.Action("Index","Informacion")" class="btn btn-primary">
-            Volver a Lista de Noticias
-        </a>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt class="blueback">
+                @Html.DisplayNameFor(model => model.TipoInformacion.tipoInfo): @Html.DisplayFor(model => model.TipoInformacion.tipoInfo)
+            </dt>
+
+            <dt class="blackback">
+                @Html.DisplayNameFor(model => model.fechaPublicacion): @Html.DisplayFor(model => model.fechaPublicacion)
+            </dt>
+            <dt class="blueback">
+                @Html.DisplayFor(model => model.descripcion)
+            </dt>
+        </dl>
     </div>
-</p>
+    <p>
+        <div class="text-center">
+            <a href="@Url.Action("Edit","Informacion", new { id = Model.IDInformacion })" class="btn btn-primary">
+                Modificar Noticia
+            </a>
+            <a href="@Url.Action("Delete","Informacion", new { id = Model.IDInformacion })" class="btn btn-primary">
+                Borrar Noticia
+            </a>
+            <a href="@Url.Action("Index","Informacion")" class="btn btn-primary">
+                Volver a Lista de Noticias
+            </a>
+        </div>
+    </p>
+</div>

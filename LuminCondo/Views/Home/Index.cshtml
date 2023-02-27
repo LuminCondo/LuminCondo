@@ -2,7 +2,7 @@
     ViewBag.Title = "Inicio";
 }
 
-<div class="row arreglomargen  ">
+<div class="row arreglomargen" data-aos="fade-up">
     <div class="jumbotron col-lg-6 col-md-12 col-sm-12 blueback ">
         <h1 class="text-center">Bienvenidos a LuminCondo</h1>
         <div class="gy-5">
@@ -55,7 +55,7 @@
             <div class="col-lg-6 col-md-12 col-sm-12 tiles blackback">
                 <h2>Areas Comunes</h2>
                 <p>
-                    Dentro del condominio contamos con diferentes espacios recreativosque te encantaran conocer
+                    Dentro del condominio contamos con diferentes espacios recreativos que te encantaran conocer
                 </p>
                 <div class="text-center">
                     <a href="@Url.Action("Index","Home")" class="btn btn-primary">Reserva Aquí</a>
@@ -83,20 +83,23 @@
         </div>
     </div>
 </div>
-<div class="jumbotron col-sm-12">
-    <div class="text-center">
-        <h1>Areas Comunes</h1>
-    </div>
-    <h3 class="text-center">Ranchos</h3>
-    <div class="row blueback">
-        <div class="col-lg-4 col-sm-12">
-            <img src="~/Assets/condominio3.jpg" class="d-block w-100 contentImg" alt="...">
+<div class="jumbotron col-sm-12" >
+    <div data-aos="fade-up">
+        <div class="text-center">
+            <h1>Areas Comunes</h1>
         </div>
-        <div class="col-lg-8 col-sm-12 d-flex align-items-center justify-content-center">
-            <p class="lead">Contamos con varios ranchos para desarrollar actividades familiares y con amigos, incluyendo parrillas, electricidad y agua en cada uno de ellos</p>
+        <h3 class="text-center">Ranchos</h3>
+        <div class="row blueback">
+            <div class="col-lg-4 col-sm-12">
+                <img src="~/Assets/condominio3.jpg" class="d-block w-100 contentImg" alt="...">
+            </div>
+            <div class="col-lg-8 col-sm-12 d-flex align-items-center justify-content-center">
+                <p class="lead">Contamos con varios ranchos para desarrollar actividades familiares y con amigos, incluyendo parrillas, electricidad y agua en cada uno de ellos</p>
+            </div>
         </div>
     </div>
-
+    
+    <div data-aos="fade-up">
     <h3 class="text-center">Piscinas</h3>
     <div class="row blackback">
         <div class="col-lg-4 col-sm-12">
@@ -106,7 +109,8 @@
             <p class="lead">Contamos con piscinas para el disfrute de la familia, en las cuales puede refrescarse en una de las hermosas tardes de verano Alajuelenses</p>
         </div>
     </div>
-
+    </div>
+    <div data-aos="fade-up">
     <h3 class="text-center">Sala de Eventos</h3>
     <div class="row blueback">
         <div class="col-lg-4 col-sm-12">
@@ -116,7 +120,8 @@
             <p class="lead">En nuestra sala de eventos podra celebrar cualquier tipo de evento que desee, con un espacio y ambientacion inigualables</p>
         </div>
     </div>
-
+    </div>
+    <div data-aos="fade-up">
     <h3 class="text-center">Coworking Spaces</h3>
     <div class="row blackback">
         <div class="col-lg-4 col-sm-12">
@@ -126,5 +131,5 @@
             <p class="lead">Contamos con pequeños cubiculos donde usted podra desarrollar su home office con la mayor satisfaccion del mundo y rodeado de todas las necesidades basicas en estos ambientes</p>
         </div>
     </div>
-
+    </div>
 </div>

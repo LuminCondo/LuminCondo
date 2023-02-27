@@ -3,56 +3,57 @@
 @{
     ViewBag.Title = "Reporte de Incidencias";
 }
+<div data-aos="fade-up">
+    <h2>Reporte de Incidencias</h2>
 
-<h2>Reporte de Incidencias</h2>
-
-<div>
-    <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
-        <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte 
-    </a>
-</div>
-<table class="table table-hover">
-    <tr class="text-center">
-        <th>
-            @Html.DisplayNameFor(model => model.IDIncidencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuarios.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <div>
+        <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte
+        </a>
+    </div>
+    <table class="table table-hover">
         <tr class="text-center">
-            <td>
-                @Html.DisplayFor(modelItem => item.IDIncidencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuarios.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.descripcion)
-            </td>
-            <td>
-                <div class="text-center">
-                    <a href="@Url.Action("Edit","ReporteIncidencias", new { id = item.IDIncidencia })" class="btn btn-primary">
-                        Modificar Reporte
-                    </a>
-                    <a href="@Url.Action("Delete","ReporteIncidencias", new { id = item.IDIncidencia })" class="btn btn-primary">
-                        Borrar Reporte
-                    </a>
-                </div>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.IDIncidencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuarios.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDIncidencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuarios.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>
+                <td>
+                    <div class="text-center">
+                        <a href="@Url.Action("Edit","ReporteIncidencias", new { id = item.IDIncidencia })" class="btn btn-primary">
+                            Modificar Reporte
+                        </a>
+                        <a href="@Url.Action("Delete","ReporteIncidencias", new { id = item.IDIncidencia })" class="btn btn-primary">
+                            Borrar Reporte
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

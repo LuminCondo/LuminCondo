@@ -4,38 +4,41 @@
     ViewBag.Title = "Estados de Cuenta";
 }
 
-<h2 class="text-center">Estados de Cuenta</h2>
+<div data-aos="fade-up">
 
-<table class="table table-hover">
-    <tr class="text-center">
-        <th>
-            @Html.DisplayNameFor(model => model.IDResidencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuarios.nombre)
-        </th>
-        <th></th>
-    </tr>
+    <h2 class="text-center">Estados de Cuenta</h2>
 
-    @foreach (var item in Model)
-    {
+    <table class="table table-hover">
         <tr class="text-center">
-            <td>
-                @Html.DisplayFor(modelItem => item.IDResidencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuarios.nombre)
-            </td>
-            <td>
-                <div class="text-center">
-                    <a href="@Url.Action("Details","EstadoDeCuenta", new { id = item.IDResidencia })" class="btn btn-primary">
-                        Ver Estado de Cuenta
-                    </a>
-                </div>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.IDResidencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuarios.nombre)
+            </th>
+            <th></th>
         </tr>
-    }
+
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDResidencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuarios.nombre)
+                </td>
+                <td>
+                    <div class="text-center">
+                        <a href="@Url.Action("Details","EstadoDeCuenta", new { id = item.IDResidencia })" class="btn btn-primary">
+                            Ver Estado de Cuenta
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
 
 
 
-</table>
+    </table>
+</div>

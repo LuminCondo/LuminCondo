@@ -3,60 +3,61 @@
 @{
     ViewBag.Title = "Noticias";
 }
+<div data-aos="fade-up">
+    <h2 class="text-center">Lista de Noticias</h2>
 
-<h2 class="text-center">Lista de Noticias</h2>
-
-<div>
-    <a href="@Url.Action("Create","Informacion")" class="btn btn-primary">
-        <i class="fa-solid fa-plus"></i> Crear Nueva Noticia
-    </a>
-</div>
-<table class="table table-hover">
-    <tr class="text-center">
-        <th>
-            @Html.DisplayNameFor(model => model.IDInformacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoInformacion.tipoInfo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaPublicacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.titulo)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <div>
+        <a href="@Url.Action("Create","Informacion")" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Crear Nueva Noticia
+        </a>
+    </div>
+    <table class="table table-hover">
         <tr class="text-center">
-            <td>
-                @Html.DisplayFor(modelItem => item.IDInformacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoInformacion.tipoInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaPublicacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.titulo)
-            </td>
-            <td>
-                <div class="text-center">
-                    <a href="@Url.Action("Edit","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
-                        Modificar Noticia
-                    </a>
-                    <a href="@Url.Action("Delete","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
-                        Borrar Noticia
-                    </a>
-                    <a href="@Url.Action("Details","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
-                        Ver Noticia
-                    </a>
-                </div>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.IDInformacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoInformacion.tipoInfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaPublicacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.titulo)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDInformacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoInformacion.tipoInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaPublicacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titulo)
+                </td>
+                <td>
+                    <div class="text-center">
+                        <a href="@Url.Action("Edit","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
+                            Modificar Noticia
+                        </a>
+                        <a href="@Url.Action("Delete","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
+                            Borrar Noticia
+                        </a>
+                        <a href="@Url.Action("Details","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
+                            Ver Noticia
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
