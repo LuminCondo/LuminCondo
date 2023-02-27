@@ -11,5 +11,7 @@ namespace ApplicationCore.Services
     {
         IEnumerable<ReporteIncidencias> GetReporteIncidencias();
         ReporteIncidencias GetReporteIncidenciasByID(int id);
+        ReporteIncidencias Guardar(ReporteIncidencias reporteIncidencias);
+        void BorrarReporteIncidencias(int id);
     }
 }

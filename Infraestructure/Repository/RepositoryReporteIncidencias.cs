@@ -2,6 +2,7 @@
 using Infraestructure.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,11 @@ namespace Infraestructure.Repository
 {
     public class RepositoryReporteIncidencias : IRepositoryReporteIncidencias
     {
+        public void BorrarReporteIncidencias(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<ReporteIncidencias> GetReporteIncidencias()
         {
             try
@@ -20,7 +26,10 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
 
-                    lista = ctx.ReporteIncidencias.ToList<ReporteIncidencias>();
+                    lista = ctx.ReporteIncidencias.
+                                                    Include("EstadoIncidencia").
+                                                    Include("Usuarios").
+                                                    ToList();
                 }
                 return lista;
             }
@@ -63,6 +72,40 @@ namespace Infraestructure.Repository
                 Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw;
             }
+        }
+
+        public ReporteIncidencias Guardar(ReporteIncidencias reporteIncidencias)
+        {
+            int retorno = 0;
+            ReporteIncidencias oReporteIncidencias = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oReporteIncidencias = GetReporteIncidenciasByID((int)reporteIncidencias.IDIncidencia);
+                IRepositoryInformacion _RepositoryInformacion = new RepositoryInformacion();
+
+                if (oReporteIncidencias == null)
+                {
+                    ctx.ReporteIncidencias.Add(reporteIncidencias);
+
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+                    ctx.ReporteIncidencias.Add(reporteIncidencias);
+
+                    ctx.Entry(reporteIncidencias).State = EntityState.Modified;
+
+                    retorno = ctx.SaveChanges();
+
+                }
+            }
+
+            if (retorno >= 0)
+                oReporteIncidencias = GetReporteIncidenciasByID((int)reporteIncidencias.IDIncidencia);
+
+            return oReporteIncidencias;
         }
     }
 }

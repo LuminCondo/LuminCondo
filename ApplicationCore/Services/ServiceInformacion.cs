@@ -10,6 +10,11 @@ namespace ApplicationCore.Services
 {
     public class ServiceInformacion : IServiceInformacion
     {
+        public void BorrarInformacion(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Informacion> GetInformacion()
         {
             IRepositoryInformacion repository = new RepositoryInformacion();
@@ -19,6 +24,12 @@ namespace ApplicationCore.Services
         {
             IRepositoryInformacion repository = new RepositoryInformacion();
             return repository.GetInformacionByID(id);
+        }
+
+        public Informacion Guardar(Informacion informacion)
+        {
+            IRepositoryInformacion repository = new RepositoryInformacion();
+            return repository.Guardar(informacion);
         }
     }
 }
