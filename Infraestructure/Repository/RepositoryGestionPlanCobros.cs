@@ -12,6 +12,11 @@ namespace Infraestructure.Repository
 {
     public class RepositoryGestionPlanCobros : IRepositoryGestionPlanCobros
     {
+        public void BorrarPlanCobros(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<GestionPlanCobros> GetGestionPlanCobros()
         {
             try
@@ -66,6 +71,40 @@ namespace Infraestructure.Repository
                 Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw;
             }
+        }
+
+        public GestionPlanCobros Guardar(GestionPlanCobros gestionPlanCobros)
+        {
+            int retorno = 0;
+            GestionPlanCobros oGestionPlanCobros = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oGestionPlanCobros = GetGestionPlanCobrosByID((int)gestionPlanCobros.IDPlan);
+                IRepositoryGestionPlanCobros _RepositoryGestionPlanCobros = new RepositoryGestionPlanCobros();
+
+                if (oGestionPlanCobros == null)
+                {
+                    ctx.GestionPlanCobros.Add(gestionPlanCobros);
+
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+                    ctx.GestionPlanCobros.Add(gestionPlanCobros);
+
+                    ctx.Entry(gestionPlanCobros).State = EntityState.Modified;
+
+                    retorno = ctx.SaveChanges();
+
+                }
+            }
+
+            if (retorno >= 0)
+                oGestionPlanCobros = GetGestionPlanCobrosByID((int)gestionPlanCobros.IDPlan);
+
+            return oGestionPlanCobros;
         }
     }
 }

@@ -54,18 +54,29 @@
                         </a>
                     </div>
                 </li>
+                @*Dropdown de Mantenimientos*@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-gears"></i>Mantenimientos</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item"
-                           href="@Url.Action("Index","Home")">
+                           href="@Url.Action("Index","Informacion")">
                             <i class="fa-solid fa-gears"></i>
-                            Rubros de Cobro
+                            Información
                         </a>
                         <a class="dropdown-item"
-                           href="@Url.Action("Index","Home")">
+                           href="@Url.Action("Index","ReporteIncidencias")">
                             <i class="fa-solid fa-gears"></i>
-                            Asignacion de Planes de Cobro
+                            Reporte de Incidencias
+                        </a>
+                        <a class="dropdown-item"
+                           href="@Url.Action("IndexAdmin","GestionPlanCobros")">
+                            <i class="fa-solid fa-gears"></i>
+                            Plan de Cobros
+                        </a>
+                        <a class="dropdown-item"
+                           href="@Url.Action("Index","GestionRubrosCobros")">
+                            <i class="fa-solid fa-gears"></i>
+                            Rubros de Cobro
                         </a>
                     </div>
                 </li>

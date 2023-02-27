@@ -10,6 +10,11 @@ namespace ApplicationCore.Services
 {
     public class ServiceGestionRubrosCobros : IServiceGestionRubrosCobros
     {
+        public void BorrarRubroCobros(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<GestionRubrosCobros> GetGestionRubrosCobros()
         {
             IRepositoryGestionRubrosCobros repository = new RepositoryGestionRubrosCobros();
@@ -20,6 +25,12 @@ namespace ApplicationCore.Services
         {
             IRepositoryGestionRubrosCobros repository = new RepositoryGestionRubrosCobros();
             return repository.GetGestionRubrosCobrosByID(id);
+        }
+
+        public GestionRubrosCobros Guardar(GestionRubrosCobros gestionRubrosCobros)
+        {
+            IRepositoryGestionRubrosCobros repository = new RepositoryGestionRubrosCobros();
+            return repository.Guardar(gestionRubrosCobros);
         }
     }
 }

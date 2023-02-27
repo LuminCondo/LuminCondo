@@ -10,6 +10,11 @@ namespace ApplicationCore.Services
 {
     public class ServiceGestionPlanCobros : IServiceGestionPlanCobros
     {
+        public void BorrarPlanCobros(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<GestionPlanCobros> GetGestionPlanCobros()
         {
             IRepositoryGestionPlanCobros repository = new RepositoryGestionPlanCobros();
@@ -20,6 +25,12 @@ namespace ApplicationCore.Services
         {
             IRepositoryGestionPlanCobros repository = new RepositoryGestionPlanCobros();
             return repository.GetGestionPlanCobrosByID(id);
+        }
+
+        public GestionPlanCobros Guardar(GestionPlanCobros gestionPlanCobros)
+        {
+            IRepositoryGestionPlanCobros repository = new RepositoryGestionPlanCobros();
+            return repository.Guardar(gestionPlanCobros);
         }
     }
 }

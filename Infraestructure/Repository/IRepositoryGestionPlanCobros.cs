@@ -11,5 +11,7 @@ namespace Infraestructure.Repository
     {
         IEnumerable<GestionPlanCobros> GetGestionPlanCobros();
         GestionPlanCobros GetGestionPlanCobrosByID(int id);
+        GestionPlanCobros Guardar(GestionPlanCobros gestionPlanCobros);
+        void BorrarPlanCobros(int id);
     }
 }
