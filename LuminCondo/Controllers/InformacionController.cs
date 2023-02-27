@@ -89,7 +89,7 @@ namespace Web.Controllers
                 {
                     ViewBag.IdInformacion = listaInformacion(informacion.IDInformacion);
 
-                    return View("Create",informacion);
+                    return View("Create", informacion);
                 }
 
                 return RedirectToAction("Index");
@@ -107,7 +107,7 @@ namespace Web.Controllers
         }
 
         /*****************************************************************************************************************************************/
-        
+
         // GET: Informacion/Edit/5
         public ActionResult Edit(int? id)
         {
