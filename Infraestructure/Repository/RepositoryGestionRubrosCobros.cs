@@ -103,5 +103,7 @@ namespace Infraestructure.Repository
 
             return oGestionRubrosCobros;
         }
+
+        
     }
 }
