@@ -96,15 +96,21 @@ namespace LuminCondo.Controllers
         // GET: GestionPlanCobros/Create
         public ActionResult Create()
         {
-            ViewBag.IDPlanCobros = listaPlanCobros();
+            ViewBag.IDRubrosCobros = listaRubrosCobros();
             return View();
         }
 
-        private SelectList listaPlanCobros(int idPlan = 0)
+        private MultiSelectList listaRubrosCobros(ICollection<GestionRubrosCobros> gestionRubrosCobros=null)
         {
-            IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
-            IEnumerable<GestionPlanCobros> lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
-            return new SelectList(lista);
+            IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
+            IEnumerable<GestionRubrosCobros> lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
+            //Seleccionar Rubros
+            int[] listaRubrosCobrosSelect = null;
+            if (gestionRubrosCobros != null)
+            {
+                listaRubrosCobrosSelect = gestionRubrosCobros.Select(c => c.IDRubro).ToArray();
+            }
+            return new MultiSelectList(lista, "IDRubro", "descripcion", listaRubrosCobrosSelect);
         }
 
         /* POST: GestionPlanCobros/Create
@@ -125,24 +131,30 @@ namespace LuminCondo.Controllers
 
         /*****************************************************************************************************************************************/
 
-        public ActionResult Guardar(GestionPlanCobros gestionPlanCobros)
+        public ActionResult Guardar(GestionPlanCobros gestionPlanCobros, string[] selectedRubrosCobros)
         {
             IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
-            MemoryStream stream = new MemoryStream();
 
             try
             {
                 if (ModelState.IsValid)
                 {
-                    GestionPlanCobros oGestionPlanCobros = _ServiceGestionPlanCobros.Guardar(gestionPlanCobros);
+                    GestionPlanCobros oGestionPlanCobros = _ServiceGestionPlanCobros.Guardar(gestionPlanCobros, selectedRubrosCobros);
                 }
                 else
                 {
-                    ViewBag.IDGestionPlanCobros = listaPlanCobros(gestionPlanCobros.IDPlan);
-
-                    return View("Create", gestionPlanCobros);
+                    Util.ValidateErrors(this);
+                    ViewBag.IDRubrosCobros = listaRubrosCobros(gestionPlanCobros.GestionRubrosCobros);
+                    if (gestionPlanCobros.IDPlan > 0)
+                    {
+                        return (ActionResult)View("Edit", gestionPlanCobros);
+                    }
+                    else
+                    {
+                        return View("Create", gestionPlanCobros);
+                    }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexAdmin");
             }
             catch (Exception ex)
             {
@@ -174,14 +186,14 @@ namespace LuminCondo.Controllers
                 gestionPlanCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
                 if (gestionPlanCobros == null)
                 {
-                    TempData["Message"] = "No existe el libro solicitado";
-                    TempData["Redirect"] = "Libro";
-                    TempData["Redirect-Action"] = "Index";
+                    TempData["Message"] = "No existe el Plan solicitado";
+                    TempData["Redirect"] = "GestionPlanCobros";
+                    TempData["Redirect-Action"] = "IndexAdmin";
                     // Redireccion a la captura del Error
                     return RedirectToAction("Default", "Error");
                 }
 
-                ViewBag.IDPlanCobros = listaPlanCobros(gestionPlanCobros.IDPlan);
+                ViewBag.IDRubrosCobros = listaRubrosCobros(gestionPlanCobros.GestionRubrosCobros);
                 return View(gestionPlanCobros);
 
             }

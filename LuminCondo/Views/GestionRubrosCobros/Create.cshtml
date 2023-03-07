@@ -1,11 +1,11 @@
 ﻿@model Infraestructure.Models.GestionRubrosCobros
 
 @{
-    ViewBag.Title = "Crear Nuevo Rubro";
+    ViewBag.Title = "Gestion de los Rubros de Cobro";
 }
 
 <div data-aos="fade-up">
-    <h2>@ViewBag.Title</h2>
+    <h2 class="text-center">@ViewBag.Title</h2>
 
 
     @using (Html.BeginForm("Guardar", "GestionRubrosCobros", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -13,7 +13,6 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Gestion de los Rubros de Cobro</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
@@ -42,7 +41,7 @@
             <hr />
             <div class="form-group">
                 <div class="btn-group" role="group">
-                    <input type="submit" value="Crear" class="btn btn-primary" />
+                    <input type="submit" value="Crear" class="btn btn-success" />
                     <a href="@Url.Action("Index","GestionRubrosCobros")" class="btn btn-primary">
                         Regresar al listado
                     </a>

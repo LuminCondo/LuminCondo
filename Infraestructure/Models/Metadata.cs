@@ -184,6 +184,10 @@ namespace Infraestructure.Models
         [Display(Name = "Descripcion del Plan")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
+        [Display(Name = "Rubros a Cobrar")]
+        public virtual ICollection<GestionRubrosCobros> GestionRubrosCobros { get; set; }
+
+
     }
 
     internal partial class GestionRubrosCobrosMetadata

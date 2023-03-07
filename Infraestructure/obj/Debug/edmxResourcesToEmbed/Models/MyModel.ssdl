@@ -103,8 +103,6 @@
     <Property Name="IDUsuario" Type="int" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="Rubros_Planes">
     <Key>
       <PropertyRef Name="IDPlan" />
@@ -112,6 +110,16 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
     </Key>
     <Property Name="IDPlan" Type="int" Nullable="false" />
     <Property Name="IDRubro" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TipoInformacion">
     <Key>
@@ -320,15 +328,11 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
     <EntitySet Name="Informacion" EntityType="Self.Informacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonasResidentes" EntityType="Self.PersonasResidentes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rubros_Planes" EntityType="Self.Rubros_Planes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Rubros_Planes" EntityType="Self.Rubros_Planes" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Rubros_Planes].[IDPlan] AS [IDPlan], 
-    [Rubros_Planes].[IDRubro] AS [IDRubro]
-    FROM [dbo].[Rubros_Planes] AS [Rubros_Planes]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_Carros_IDResidencia" Association="Self.FK_Carros_IDResidencia">
       <End Role="GestionResidencias" EntitySet="GestionResidencias" />
       <End Role="Carros" EntitySet="Carros" />

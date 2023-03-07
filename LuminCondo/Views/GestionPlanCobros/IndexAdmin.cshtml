@@ -5,16 +5,13 @@
 }
 
 <div data-aos="fade-up">
-    <h2>@ViewBag.Title</h2>
+    <h2 class="text-center">@ViewBag.Title</h2>
 
     <a href="@Url.Action("Create","GestionPlanCobros")" class="btn btn-primary">
         <i class="fa-solid fa-plus"></i> Crear Nuevo Plan
     </a>
     <table class="table table-hover">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IDPlan)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.descripcion)
             </th>
@@ -25,18 +22,12 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IDPlan)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.descripcion)
                 </td>
                 <td>
                     <div class="text-center">
                         <a href="@Url.Action("Edit","GestionPlanCobros", new { id = item.IDPlan })" class="btn btn-primary">
                             Modificar Plan
-                        </a>
-                        <a href="@Url.Action("Delete","GestionPlanCobros", new { id = item.IDPlan })" class="btn btn-primary">
-                            Borrar Plan
                         </a>
                     </div>
                 </td>

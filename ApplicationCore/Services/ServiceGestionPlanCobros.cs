@@ -28,10 +28,10 @@ namespace ApplicationCore.Services
             return repository.GetGestionPlanCobrosByID(id);
         }
 
-        public GestionPlanCobros Guardar(GestionPlanCobros gestionPlanCobros)
+        public GestionPlanCobros Guardar(GestionPlanCobros gestionPlanCobros, string[] selectedRubrosCobros)
         {
             IRepositoryGestionPlanCobros repository = new RepositoryGestionPlanCobros();
-            return repository.Guardar(gestionPlanCobros);
+            return repository.Guardar(gestionPlanCobros, selectedRubrosCobros);
         }
     }
 }
