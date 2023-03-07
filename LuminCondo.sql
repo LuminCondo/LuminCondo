@@ -141,7 +141,12 @@ CREATE TABLE Rubros_Planes (
 								CONSTRAINT FK_Rubros_Planes_IDPlan FOREIGN KEY (IDPlan) REFERENCES GestionPlanCobros(IDPlan)
 								);
 
-Set Identity_Insert GestionRubrosCobros ON;			
+ALTER TABLE [dbo].[Rubros_Planes] ADD  CONSTRAINT [PK_Rubros_Planes] PRIMARY KEY NONCLUSTERED 
+(
+	[IDPlan] ASC,
+	[IDRubro] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO		
 
 
 /*CREATE TABLE GestionDeudas (
