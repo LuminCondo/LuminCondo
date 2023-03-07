@@ -77,7 +77,6 @@ namespace Web.Controllers
         public ActionResult Guardar(GestionRubrosCobros gestionRubrosCobros)
         {
             IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
-            MemoryStream stream = new MemoryStream();
 
             try
             {
@@ -87,6 +86,8 @@ namespace Web.Controllers
                 }
                 else
                 {
+                    // Valida Errores si Javascript está deshabilitado
+                    Utils.Util.ValidateErrors(this);
                     ViewBag.IDRubroCobro = listaRubrosCobros(gestionRubrosCobros.IDRubro);
 
                     return View("Create", gestionRubrosCobros);
@@ -99,8 +100,8 @@ namespace Web.Controllers
                 // Salvar el error en un archivo 
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData["Redirect"] = "GestionRubrosCobros";
+                TempData["Redirect-Action"] = "Create";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
@@ -145,97 +146,6 @@ namespace Web.Controllers
                 TempData["Redirect-Action"] = "IndexAdmin";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // POST: GestionRubrosCobros/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Eliminar(GestionRubrosCobros gestionRubrosCobros)
-        {
-            IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
-            MemoryStream stream = new MemoryStream();
-
-            try
-            {
-               // _ServiceGestionRubrosCobros.BorrarRubroCobros(gestionRubrosCobros.IDRubro);
-               //Lo comente debido a que genera un error
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // GET: GestionRubrosCobros/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
-            GestionRubrosCobros gestionRubrosCobros = null;
-            try
-            {
-                // Si va null
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                gestionRubrosCobros = _ServiceGestionRubrosCobros.GetGestionRubrosCobrosByID(Convert.ToInt32(id));
-                if (gestionRubrosCobros == null)
-                {
-                    TempData["Message"] = "No existe el Plan solicitado";
-                    TempData["Redirect"] = "Informacion";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
-                }
-                return View(gestionRubrosCobros);
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "GestionPlanCobros";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // POST: GestionRubrosCobros/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
             }
         }
     }

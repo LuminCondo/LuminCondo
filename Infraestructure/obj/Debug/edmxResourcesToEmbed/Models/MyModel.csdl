@@ -13,7 +13,7 @@
     <Key>
       <PropertyRef Name="IDEspacio" />
     </Key>
-    <Property Name="IDEspacio" Type="Int32" Nullable="false" />
+    <Property Name="IDEspacio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="descripcion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="GestionReservas" Relationship="Self.FK_GestionReservas_IDEspacio" FromRole="Espacios" ToRole="GestionReservas" />
   </EntityType>
@@ -21,7 +21,7 @@
     <Key>
       <PropertyRef Name="IDEstado" />
     </Key>
-    <Property Name="IDEstado" Type="Int32" Nullable="false" />
+    <Property Name="IDEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="TipoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="ReporteIncidencias" Relationship="Self.FK_ReporteIncidencias_IDEstado" FromRole="EstadoIncidencia" ToRole="ReporteIncidencias" />
   </EntityType>
@@ -29,7 +29,7 @@
     <Key>
       <PropertyRef Name="IDEstadoResidencia" />
     </Key>
-    <Property Name="IDEstadoResidencia" Type="Int32" Nullable="false" />
+    <Property Name="IDEstadoResidencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="GestionResidencias" Relationship="Self.FK_GestionResidencias_IDEstadoResidencia" FromRole="EstadoResidencia" ToRole="GestionResidencias" />
   </EntityType>
@@ -37,7 +37,7 @@
     <Key>
       <PropertyRef Name="IDAsignacion" />
     </Key>
-    <Property Name="IDAsignacion" Type="Int32" Nullable="false" />
+    <Property Name="IDAsignacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IDResidencia" Type="Int32" Nullable="false" />
     <Property Name="IDPlan" Type="Int32" Nullable="false" />
     <Property Name="fechaAsignacion" Type="DateTime" Nullable="false" Precision="0" />
@@ -49,7 +49,7 @@
     <Key>
       <PropertyRef Name="IDPlan" />
     </Key>
-    <Property Name="IDPlan" Type="Int32" Nullable="false" />
+    <Property Name="IDPlan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="GestionAsignacionPlanes" Relationship="Self.FK_GestionAsignacionPlanes_IDPlan" FromRole="GestionPlanCobros" ToRole="GestionAsignacionPlanes" />
     <NavigationProperty Name="GestionRubrosCobros" Relationship="Self.Rubros_Planes" FromRole="GestionPlanCobros" ToRole="GestionRubrosCobros" />
@@ -58,7 +58,7 @@
     <Key>
       <PropertyRef Name="IDReserva" />
     </Key>
-    <Property Name="IDReserva" Type="Int32" Nullable="false" />
+    <Property Name="IDReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IDUsuario" Type="Int32" Nullable="false" />
     <Property Name="IDEspacio" Type="Int32" Nullable="false" />
     <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
@@ -70,7 +70,7 @@
     <Key>
       <PropertyRef Name="IDResidencia" />
     </Key>
-    <Property Name="IDResidencia" Type="Int32" Nullable="false" />
+    <Property Name="IDResidencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IDUsuario" Type="Int32" Nullable="false" />
     <Property Name="cantPersonas" Type="Int32" Nullable="false" />
     <Property Name="IDEstadoResidencia" Type="Int32" Nullable="false" />
@@ -86,7 +86,7 @@
     <Key>
       <PropertyRef Name="IDRubro" />
     </Key>
-    <Property Name="IDRubro" Type="Int32" Nullable="false" />
+    <Property Name="IDRubro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="monto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <NavigationProperty Name="GestionPlanCobros" Relationship="Self.Rubros_Planes" FromRole="GestionRubrosCobros" ToRole="GestionPlanCobros" />
@@ -95,7 +95,7 @@
     <Key>
       <PropertyRef Name="IDInformacion" />
     </Key>
-    <Property Name="IDInformacion" Type="Int32" Nullable="false" />
+    <Property Name="IDInformacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IDTipoInfo" Type="Int32" Nullable="false" />
     <Property Name="fechaPublicacion" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -116,28 +116,18 @@
     <Key>
       <PropertyRef Name="IDIncidencia" />
     </Key>
-    <Property Name="IDIncidencia" Type="Int32" Nullable="false" />
+    <Property Name="IDIncidencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IDEstado" Type="Int32" Nullable="false" />
     <Property Name="IDUsuario" Type="Int32" Nullable="false" />
     <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="EstadoIncidencia" Relationship="Self.FK_ReporteIncidencias_IDEstado" FromRole="ReporteIncidencias" ToRole="EstadoIncidencia" />
     <NavigationProperty Name="Usuarios" Relationship="Self.FK_ReporteIncidencias_IDUsuario" FromRole="ReporteIncidencias" ToRole="Usuarios" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="TipoInformacion">
     <Key>
       <PropertyRef Name="IDTipoInfo" />
     </Key>
-    <Property Name="IDTipoInfo" Type="Int32" Nullable="false" />
+    <Property Name="IDTipoInfo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="tipoInfo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Informacion" Relationship="Self.FK_Informacion_IDTipoInfo" FromRole="TipoInformacion" ToRole="Informacion" />
   </EntityType>
@@ -145,7 +135,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="tipoUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_IDTipoUsuario" FromRole="TiposUsuarios" ToRole="Usuarios" />
   </EntityType>
@@ -153,7 +143,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="contrasenna" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="IDTipoUsuario" Type="Int32" Nullable="false" />
@@ -326,7 +316,6 @@
     <EntitySet Name="Informacion" EntityType="Self.Informacion" />
     <EntitySet Name="PersonasResidentes" EntityType="Self.PersonasResidentes" />
     <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" />
     <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />

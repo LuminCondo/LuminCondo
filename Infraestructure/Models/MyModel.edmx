@@ -17,28 +17,28 @@
           <Key>
             <PropertyRef Name="IDEspacio" />
           </Key>
-          <Property Name="IDEspacio" Type="int" Nullable="false" />
+          <Property Name="IDEspacio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="EstadoIncidencia">
           <Key>
             <PropertyRef Name="IDEstado" />
           </Key>
-          <Property Name="IDEstado" Type="int" Nullable="false" />
+          <Property Name="IDEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TipoEstado" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="EstadoResidencia">
           <Key>
             <PropertyRef Name="IDEstadoResidencia" />
           </Key>
-          <Property Name="IDEstadoResidencia" Type="int" Nullable="false" />
+          <Property Name="IDEstadoResidencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="estado" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="GestionAsignacionPlanes">
           <Key>
             <PropertyRef Name="IDAsignacion" />
           </Key>
-          <Property Name="IDAsignacion" Type="int" Nullable="false" />
+          <Property Name="IDAsignacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDResidencia" Type="int" Nullable="false" />
           <Property Name="IDPlan" Type="int" Nullable="false" />
           <Property Name="fechaAsignacion" Type="date" Nullable="false" />
@@ -48,14 +48,14 @@
           <Key>
             <PropertyRef Name="IDPlan" />
           </Key>
-          <Property Name="IDPlan" Type="int" Nullable="false" />
+          <Property Name="IDPlan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="GestionReservas">
           <Key>
             <PropertyRef Name="IDReserva" />
           </Key>
-          <Property Name="IDReserva" Type="int" Nullable="false" />
+          <Property Name="IDReserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDUsuario" Type="int" Nullable="false" />
           <Property Name="IDEspacio" Type="int" Nullable="false" />
           <Property Name="fecha" Type="date" Nullable="false" />
@@ -65,7 +65,7 @@
           <Key>
             <PropertyRef Name="IDResidencia" />
           </Key>
-          <Property Name="IDResidencia" Type="int" Nullable="false" />
+          <Property Name="IDResidencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDUsuario" Type="int" Nullable="false" />
           <Property Name="cantPersonas" Type="int" Nullable="false" />
           <Property Name="IDEstadoResidencia" Type="int" Nullable="false" />
@@ -76,7 +76,7 @@
           <Key>
             <PropertyRef Name="IDRubro" />
           </Key>
-          <Property Name="IDRubro" Type="int" Nullable="false" />
+          <Property Name="IDRubro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="monto" Type="money" Nullable="false" />
         </EntityType>
@@ -84,7 +84,7 @@
           <Key>
             <PropertyRef Name="IDInformacion" />
           </Key>
-          <Property Name="IDInformacion" Type="int" Nullable="false" />
+          <Property Name="IDInformacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDTipoInfo" Type="int" Nullable="false" />
           <Property Name="fechaPublicacion" Type="date" Nullable="false" />
           <Property Name="titulo" Type="varchar" MaxLength="50" Nullable="false" />
@@ -103,7 +103,7 @@
           <Key>
             <PropertyRef Name="IDIncidencia" />
           </Key>
-          <Property Name="IDIncidencia" Type="int" Nullable="false" />
+          <Property Name="IDIncidencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDEstado" Type="int" Nullable="false" />
           <Property Name="IDUsuario" Type="int" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
@@ -118,35 +118,25 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Property Name="IDPlan" Type="int" Nullable="false" />
           <Property Name="IDRubro" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="TipoInformacion">
           <Key>
             <PropertyRef Name="IDTipoInfo" />
           </Key>
-          <Property Name="IDTipoInfo" Type="int" Nullable="false" />
+          <Property Name="IDTipoInfo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tipoInfo" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TiposUsuarios">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tipoUsuario" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="contrasenna" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="IDTipoUsuario" Type="int" Nullable="false" />
@@ -335,7 +325,6 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <EntitySet Name="Informacion" EntityType="Self.Informacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonasResidentes" EntityType="Self.PersonasResidentes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
@@ -420,7 +409,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDEspacio" />
           </Key>
-          <Property Name="IDEspacio" Type="Int32" Nullable="false" />
+          <Property Name="IDEspacio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="GestionReservas" Relationship="Self.FK_GestionReservas_IDEspacio" FromRole="Espacios" ToRole="GestionReservas" />
         </EntityType>
@@ -428,7 +417,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDEstado" />
           </Key>
-          <Property Name="IDEstado" Type="Int32" Nullable="false" />
+          <Property Name="IDEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoEstado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="ReporteIncidencias" Relationship="Self.FK_ReporteIncidencias_IDEstado" FromRole="EstadoIncidencia" ToRole="ReporteIncidencias" />
         </EntityType>
@@ -436,7 +425,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDEstadoResidencia" />
           </Key>
-          <Property Name="IDEstadoResidencia" Type="Int32" Nullable="false" />
+          <Property Name="IDEstadoResidencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="GestionResidencias" Relationship="Self.FK_GestionResidencias_IDEstadoResidencia" FromRole="EstadoResidencia" ToRole="GestionResidencias" />
         </EntityType>
@@ -444,7 +433,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDAsignacion" />
           </Key>
-          <Property Name="IDAsignacion" Type="Int32" Nullable="false" />
+          <Property Name="IDAsignacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDResidencia" Type="Int32" Nullable="false" />
           <Property Name="IDPlan" Type="Int32" Nullable="false" />
           <Property Name="fechaAsignacion" Type="DateTime" Nullable="false" Precision="0" />
@@ -456,7 +445,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDPlan" />
           </Key>
-          <Property Name="IDPlan" Type="Int32" Nullable="false" />
+          <Property Name="IDPlan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="GestionAsignacionPlanes" Relationship="Self.FK_GestionAsignacionPlanes_IDPlan" FromRole="GestionPlanCobros" ToRole="GestionAsignacionPlanes" />
           <NavigationProperty Name="GestionRubrosCobros" Relationship="Self.Rubros_Planes" FromRole="GestionPlanCobros" ToRole="GestionRubrosCobros" />
@@ -465,7 +454,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDReserva" />
           </Key>
-          <Property Name="IDReserva" Type="Int32" Nullable="false" />
+          <Property Name="IDReserva" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDUsuario" Type="Int32" Nullable="false" />
           <Property Name="IDEspacio" Type="Int32" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
@@ -477,7 +466,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDResidencia" />
           </Key>
-          <Property Name="IDResidencia" Type="Int32" Nullable="false" />
+          <Property Name="IDResidencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDUsuario" Type="Int32" Nullable="false" />
           <Property Name="cantPersonas" Type="Int32" Nullable="false" />
           <Property Name="IDEstadoResidencia" Type="Int32" Nullable="false" />
@@ -493,7 +482,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDRubro" />
           </Key>
-          <Property Name="IDRubro" Type="Int32" Nullable="false" />
+          <Property Name="IDRubro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="monto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="GestionPlanCobros" Relationship="Self.Rubros_Planes" FromRole="GestionRubrosCobros" ToRole="GestionPlanCobros" />
@@ -502,7 +491,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDInformacion" />
           </Key>
-          <Property Name="IDInformacion" Type="Int32" Nullable="false" />
+          <Property Name="IDInformacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDTipoInfo" Type="Int32" Nullable="false" />
           <Property Name="fechaPublicacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -523,28 +512,18 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="IDIncidencia" />
           </Key>
-          <Property Name="IDIncidencia" Type="Int32" Nullable="false" />
+          <Property Name="IDIncidencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDEstado" Type="Int32" Nullable="false" />
           <Property Name="IDUsuario" Type="Int32" Nullable="false" />
           <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="EstadoIncidencia" Relationship="Self.FK_ReporteIncidencias_IDEstado" FromRole="ReporteIncidencias" ToRole="EstadoIncidencia" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_ReporteIncidencias_IDUsuario" FromRole="ReporteIncidencias" ToRole="Usuarios" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="TipoInformacion">
           <Key>
             <PropertyRef Name="IDTipoInfo" />
           </Key>
-          <Property Name="IDTipoInfo" Type="Int32" Nullable="false" />
+          <Property Name="IDTipoInfo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tipoInfo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Informacion" Relationship="Self.FK_Informacion_IDTipoInfo" FromRole="TipoInformacion" ToRole="Informacion" />
         </EntityType>
@@ -552,7 +531,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tipoUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_IDTipoUsuario" FromRole="TiposUsuarios" ToRole="Usuarios" />
         </EntityType>
@@ -560,7 +539,7 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="contrasenna" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IDTipoUsuario" Type="Int32" Nullable="false" />
@@ -733,7 +712,6 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
           <EntitySet Name="Informacion" EntityType="Self.Informacion" />
           <EntitySet Name="PersonasResidentes" EntityType="Self.PersonasResidentes" />
           <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" />
           <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
@@ -908,17 +886,6 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
                 <ScalarProperty Name="IDEstado" ColumnName="IDEstado" />
                 <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Lumincondo_DBModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

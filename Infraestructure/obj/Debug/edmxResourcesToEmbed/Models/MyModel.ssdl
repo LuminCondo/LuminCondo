@@ -12,28 +12,28 @@
     <Key>
       <PropertyRef Name="IDEspacio" />
     </Key>
-    <Property Name="IDEspacio" Type="int" Nullable="false" />
+    <Property Name="IDEspacio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="25" Nullable="false" />
   </EntityType>
   <EntityType Name="EstadoIncidencia">
     <Key>
       <PropertyRef Name="IDEstado" />
     </Key>
-    <Property Name="IDEstado" Type="int" Nullable="false" />
+    <Property Name="IDEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TipoEstado" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="EstadoResidencia">
     <Key>
       <PropertyRef Name="IDEstadoResidencia" />
     </Key>
-    <Property Name="IDEstadoResidencia" Type="int" Nullable="false" />
+    <Property Name="IDEstadoResidencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="estado" Type="varchar" MaxLength="25" Nullable="false" />
   </EntityType>
   <EntityType Name="GestionAsignacionPlanes">
     <Key>
       <PropertyRef Name="IDAsignacion" />
     </Key>
-    <Property Name="IDAsignacion" Type="int" Nullable="false" />
+    <Property Name="IDAsignacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IDResidencia" Type="int" Nullable="false" />
     <Property Name="IDPlan" Type="int" Nullable="false" />
     <Property Name="fechaAsignacion" Type="date" Nullable="false" />
@@ -43,14 +43,14 @@
     <Key>
       <PropertyRef Name="IDPlan" />
     </Key>
-    <Property Name="IDPlan" Type="int" Nullable="false" />
+    <Property Name="IDPlan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="GestionReservas">
     <Key>
       <PropertyRef Name="IDReserva" />
     </Key>
-    <Property Name="IDReserva" Type="int" Nullable="false" />
+    <Property Name="IDReserva" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IDUsuario" Type="int" Nullable="false" />
     <Property Name="IDEspacio" Type="int" Nullable="false" />
     <Property Name="fecha" Type="date" Nullable="false" />
@@ -60,7 +60,7 @@
     <Key>
       <PropertyRef Name="IDResidencia" />
     </Key>
-    <Property Name="IDResidencia" Type="int" Nullable="false" />
+    <Property Name="IDResidencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IDUsuario" Type="int" Nullable="false" />
     <Property Name="cantPersonas" Type="int" Nullable="false" />
     <Property Name="IDEstadoResidencia" Type="int" Nullable="false" />
@@ -71,7 +71,7 @@
     <Key>
       <PropertyRef Name="IDRubro" />
     </Key>
-    <Property Name="IDRubro" Type="int" Nullable="false" />
+    <Property Name="IDRubro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="monto" Type="money" Nullable="false" />
   </EntityType>
@@ -79,7 +79,7 @@
     <Key>
       <PropertyRef Name="IDInformacion" />
     </Key>
-    <Property Name="IDInformacion" Type="int" Nullable="false" />
+    <Property Name="IDInformacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IDTipoInfo" Type="int" Nullable="false" />
     <Property Name="fechaPublicacion" Type="date" Nullable="false" />
     <Property Name="titulo" Type="varchar" MaxLength="50" Nullable="false" />
@@ -98,7 +98,7 @@
     <Key>
       <PropertyRef Name="IDIncidencia" />
     </Key>
-    <Property Name="IDIncidencia" Type="int" Nullable="false" />
+    <Property Name="IDIncidencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IDEstado" Type="int" Nullable="false" />
     <Property Name="IDUsuario" Type="int" Nullable="false" />
     <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
@@ -113,35 +113,25 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
     <Property Name="IDPlan" Type="int" Nullable="false" />
     <Property Name="IDRubro" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="TipoInformacion">
     <Key>
       <PropertyRef Name="IDTipoInfo" />
     </Key>
-    <Property Name="IDTipoInfo" Type="int" Nullable="false" />
+    <Property Name="IDTipoInfo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="tipoInfo" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="TiposUsuarios">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="tipoUsuario" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="Usuarios">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nombre" Type="varchar" MaxLength="25" Nullable="false" />
     <Property Name="contrasenna" Type="varchar" MaxLength="25" Nullable="false" />
     <Property Name="IDTipoUsuario" Type="int" Nullable="false" />
@@ -330,7 +320,6 @@ advertencia 6002: La tabla o vista 'Lumincondo_DB.dbo.Rubros_Planes' no tiene de
     <EntitySet Name="Informacion" EntityType="Self.Informacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonasResidentes" EntityType="Self.PersonasResidentes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />

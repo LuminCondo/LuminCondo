@@ -6,44 +6,44 @@ DROP DATABASE Lumincondo_DB;
 */
 
 CREATE TABLE TiposUsuarios (
-							ID INT NOT NULL, /*PK*/
+							ID INT IDENTITY(1,1) NOT NULL, /*PK*/
 							tipoUsuario VARCHAR(20) NOT NULL,
 							PRIMARY KEY (ID)
 							);/*#1*/
 
 CREATE TABLE EstadoIncidencia (
-								IDEstado INT NOT NULL, /*PK*/
+								IDEstado INT IDENTITY(1,1) NOT NULL, /*PK*/
 								TipoEstado VARCHAR(20) NOT NULL,
 								PRIMARY KEY (IDEstado)
 								);/*#2*/
 
 CREATE TABLE TipoInformacion (
-								IDTipoInfo INT NOT NULL, /*PK*/
+								IDTipoInfo INT IDENTITY(1,1) NOT NULL, /*PK*/
 								tipoInfo VARCHAR(20)NOT NULL,
 								PRIMARY KEY (IDTipoInfo)
 								);/*#3*/
 
 CREATE TABLE Espacios (
-						IDEspacio INT NOT NULL, /*PK*/
+						IDEspacio INT IDENTITY(1,1) NOT NULL, /*PK*/
 						descripcion VARCHAR(25) NOT NULL,
 						PRIMARY KEY (IDEspacio)
 						);/*#4*/
 
 CREATE TABLE EstadoResidencia (
-								IDEstadoResidencia INT NOT NULL, /*PK*/
+								IDEstadoResidencia INT IDENTITY(1,1) NOT NULL, /*PK*/
 								estado VARCHAR(25) NOT NULL,
 								PRIMARY KEY (IDEstadoResidencia)
 								);/*#5*/
 
 CREATE TABLE GestionRubrosCobros (
-									IDRubro INT NOT NULL, /*PK*/
+									IDRubro INT IDENTITY(1,1) NOT NULL, /*PK*/
 									descripcion VARCHAR(100) NOT NULL,
 									monto MONEY NOT NULL,
 									PRIMARY KEY (IDRubro)
 									);/*#6*/
 /*CAMBIAR NOMBRES DE FKS*/
 CREATE TABLE Usuarios (
-						ID INT NOT NULL, /*PK*/ 
+						ID INT IDENTITY(1,1) NOT NULL, /*PK*/ 
 						nombre VARCHAR(25) NOT NULL, 
 						contrasenna VARCHAR(25) NOT NULL, 
 						IDTipoUsuario INT NOT NULL, /*FK*/ 
@@ -55,7 +55,7 @@ CREATE TABLE Usuarios (
 						);/*#7*/
 
 CREATE TABLE ReporteIncidencias (
-									IDIncidencia INT NOT NULL, /*PK*/
+									IDIncidencia INT IDENTITY(1,1) NOT NULL, /*PK*/
 									IDEstado INT NOT NULL, /*FK*/
 									IDUsuario INT NOT NULL, /*FK*/
 									descripcion VARCHAR(50) NOT NULL, /*
@@ -66,7 +66,7 @@ CREATE TABLE ReporteIncidencias (
 									);
 
 CREATE TABLE Informacion (
-							IDInformacion INT NOT NULL, /*PK*/
+							IDInformacion INT IDENTITY(1,1) NOT NULL, /*PK*/
 							IDTipoInfo INT NOT NULL, /*FK*/
 							fechaPublicacion DATE NOT NULL,
 							titulo VARCHAR(50) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE Informacion (
 							);
 
 CREATE TABLE GestionReservas (
-								IDReserva INT NOT NULL, /*PK*/
+								IDReserva INT IDENTITY(1,1) NOT NULL, /*PK*/
 								IDUsuario INT NOT NULL, /*FK*/
 								IDEspacio INT NOT NULL, /*FK*/
 								fecha DATE NOT NULL,/*
@@ -90,7 +90,7 @@ CREATE TABLE GestionReservas (
 								);
 
 CREATE TABLE GestionResidencias (
-									IDResidencia INT NOT NULL, /*PK*/
+									IDResidencia INT IDENTITY(1,1) NOT NULL, /*PK*/
 									IDUsuario INT NOT NULL, /*FK*/
 									cantPersonas INT NOT NULL,
 									IDEstadoResidencia INT NOT NULL, /*FK*/
@@ -118,13 +118,13 @@ CREATE TABLE PersonasResidentes (
 									);
 
 CREATE TABLE GestionPlanCobros (
-									IDPlan INT NOT NULL, /*PK*/
+									IDPlan INT IDENTITY(1,1) NOT NULL, /*PK*/
 									descripcion VARCHAR(100) NOT NULL,
 									PRIMARY KEY (IDPlan),
 									);
 
 CREATE TABLE GestionAsignacionPlanes (
-										IDAsignacion INT NOT NULL, /*PK*/
+										IDAsignacion INT IDENTITY(1,1) NOT NULL, /*PK*/
 										IDResidencia INT NOT NULL, /*FK*/
 										IDPlan INT NOT NULL, /*FK*/
 										fechaAsignacion DATE NOT NULL,
@@ -141,6 +141,9 @@ CREATE TABLE Rubros_Planes (
 								CONSTRAINT FK_Rubros_Planes_IDPlan FOREIGN KEY (IDPlan) REFERENCES GestionPlanCobros(IDPlan)
 								);
 
+Set Identity_Insert GestionRubrosCobros ON;			
+
+
 /*CREATE TABLE GestionDeudas (
 								IDDeuda INT NOT NULL, /*PK*/
 								IDAsignacion INT NOT NULL, /*FK*/
@@ -149,57 +152,58 @@ CREATE TABLE Rubros_Planes (
 								);*/
 
 /**********************************************Inserts de las tablas**************************************************************/
+SELECT * FROM dbo.TiposUsuarios
 insert into dbo.TiposUsuarios values
-(1, 'Administrador'), 
-(2,'Residente')
+('Administrador'), 
+('Residente')
 
 insert into dbo.Usuarios values
-(1, 'Israel', '123456',1,'cmisra2407@gmail.com',1,21211212),
-(2, 'Luis', '123456',1,'lumincondo@gmail.com',1,24242424),
-(3, 'Jocelyn', '123456',2,'luminCondo@gmail.com',1,89170301)
+( 'Israel', '123456',1,'cmisra2407@gmail.com',1,21211212),
+( 'Luis', '123456',1,'lumincondo@gmail.com',1,24242424),
+( 'Jocelyn', '123456',2,'luminCondo@gmail.com',1,89170301)
 
 insert into dbo.Espacios values
-(1, 'Piscina #1'), 
-(2, 'Piscina #2'),
-(3,'Rancho #1'),
-(4,'Rancho #2'),
-(5,'Rancho #3'),
-(6,'Rancho #4'),
-(7,'Sala de Eventos'),
-(8,'Working Space #1'),
-(9,'Working Space #2'),
-(10,'Working Space #3'),
-(11, 'Cancha Multiusos')
+( 'Piscina #1'), 
+( 'Piscina #2'),
+('Rancho #1'),
+('Rancho #2'),
+('Rancho #3'),
+('Rancho #4'),
+('Sala de Eventos'),
+('Working Space #1'),
+('Working Space #2'),
+('Working Space #3'),
+( 'Cancha Multiusos')
 
 insert into dbo.GestionReservas values
-(1,1,1,CONVERT(date, '19/02/2023', 103),0),
-(2,1,2,CONVERT(date, '19/02/2023', 103),0),
-(3,2,3,CONVERT(date, '28/02/2023', 103),0),
-(4,3,7,CONVERT(date, '24/02/2023', 103),0)
+(1,1,CONVERT(date, '19/02/2023', 103),0),
+(1,2,CONVERT(date, '19/02/2023', 103),0),
+(2,3,CONVERT(date, '28/02/2023', 103),0),
+(3,7,CONVERT(date, '24/02/2023', 103),0)
 
 insert into dbo.EstadoIncidencia values 
-(0,'Nueva'),
-(1, 'Activa'),
-(2,'Resuelta'),
-(3, 'Rechazada'),
-(4,'Duplicada')
+('Nueva'),
+('Activa'),
+('Resuelta'),
+('Rechazada'),
+('Duplicada')
 
 insert into dbo.ReporteIncidencias values
-(1,0,1,'Fuga de Agua en calle frente mi residencia'),
-(2,1,2,'Problema Tomacorriente de la cocina'),
-(3,2,3, 'Caida de Arbol')
+(1,1,'Fuga de Agua en calle frente mi residencia'),
+(2,2,'Problema Tomacorriente de la cocina'),
+(3,3, 'Caida de Arbol')
 
 insert into dbo.EstadoResidencia values
-(1,'En Construccion'),
-(2, 'Habitada'),
-(3,'Sin Habitar'),
-(4,'Abandonada'),
-(5,'Alquilada')
+('En Construccion'),
+('Habitada'),
+('Sin Habitar'),
+('Abandonada'),
+('Alquilada')
 
 insert into dbo.GestionResidencias values
-(1,1,4,2,2020,1),
-(2,2,3,2,2016,2),
-(3,3,6,2,2006,1)
+(1,4,2,2020,1),
+(2,3,2,2016,2),
+(3,6,2,2006,1)
 
 insert into dbo.Carros values
 ('LDA-249',1,'BMW Serie3 2022'),
@@ -215,26 +219,26 @@ insert into PersonasResidentes values
 (445577669,3,'Jocelyn')
 
 insert into TipoInformacion values
-(1,'Noticia'),
-(2,'Comunicado Urgente'),
-(3,'Aviso')
+('Noticia'),
+('Comunicado Urgente'),
+('Aviso')
 
-insert into dbo.Informacion (IDInformacion,IDTipoInfo,fechaPublicacion,titulo,descripcion)values
-(1,1,CONVERT(date, '18/02/2023', 103),'Campaña de donación','En la comunidad se van a desarrollar varia actividades en conjunto con el objetivo de recaudar fondos para ayudar a una asociacion sin fines de lucro, pronto mas detalles de la actividad.'),
-(2,2,CONVERT(date, '18/02/2023', 103),'Calle en reparación','La Calle principal del condominio va a estar con paso regulado durante esta semana debido a resparaciones en las tuberias'),
-(3,3,CONVERT(date, '18/02/2023', 103),'Corte de agua por parte de AYA', 'El dia 24/02/2023 se tiene precisto un corte de agua por el AYA, por favor tomar las medidas necesarias.')
+insert into dbo.Informacion (IDTipoInfo,fechaPublicacion,titulo,descripcion)values
+(1,CONVERT(date, '18/02/2023', 103),'Campaña de donación','En la comunidad se van a desarrollar varia actividades en conjunto con el objetivo de recaudar fondos para ayudar a una asociacion sin fines de lucro, pronto mas detalles de la actividad.'),
+(2,CONVERT(date, '18/02/2023', 103),'Calle en reparación','La Calle principal del condominio va a estar con paso regulado durante esta semana debido a resparaciones en las tuberias'),
+(3,CONVERT(date, '18/02/2023', 103),'Corte de agua por parte de AYA', 'El dia 24/02/2023 se tiene precisto un corte de agua por el AYA, por favor tomar las medidas necesarias.')
 
 insert into GestionRubrosCobros values 
-(1,'Mensuallidad Condominio', 25000),
-(2,'Mantenimiento de Areas comunes',7500),
-(3,'Renta de Sala de Eventos',30000)
+('Mensuallidad Condominio', 25000),
+('Mantenimiento de Areas comunes',7500),
+('Renta de Sala de Eventos',30000)
 
 insert into GestionPlanCobros values 
-(1,'Solo Mensuallidad'),
-(2,'Solo Mantenimiento de Areas comunes'),
-(3,'Mantenimiento y Mensualidad, con uso de Sala de Eventos'),
-(4,'Mantenimiento y Mensualidad'),
-(5,'Uso de Sala de Eventos')
+('Solo Mensuallidad'),
+('Solo Mantenimiento de Areas comunes'),
+('Mantenimiento y Mensualidad, con uso de Sala de Eventos'),
+('Mantenimiento y Mensualidad'),
+('Uso de Sala de Eventos')
 
 insert into Rubros_Planes values
 (1,1),
@@ -247,9 +251,9 @@ insert into Rubros_Planes values
 (5,3)
 
 insert into GestionAsignacionPlanes values
-(1,1,3,CONVERT(date, '18/02/2023', 103),1),
-(2,2,4,CONVERT(date, '18/02/2023', 103),1),
-(3,3,1,CONVERT(date, '18/02/2023', 103),1)
+(1,3,CONVERT(date, '18/02/2023', 103),1),
+(2,4,CONVERT(date, '18/02/2023', 103),1),
+(3,1,CONVERT(date, '18/02/2023', 103),1)
 
 
 USE Lumincondo_DB;

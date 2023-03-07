@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6b7a136a746a441c81af302fcf0a9902" Name="Diagram1">
+      <Diagram DiagramId="50d7cbcc821d4e329666351aed3057bf" Name="Diagram1">
         <EntityTypeShape EntityType="Lumincondo_DBModel.Carros" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Lumincondo_DBModel.Espacios" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Lumincondo_DBModel.EstadoIncidencia" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
@@ -17,7 +17,6 @@
         <EntityTypeShape EntityType="Lumincondo_DBModel.Informacion" Width="1.5" PointX="15" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="Lumincondo_DBModel.PersonasResidentes" Width="1.5" PointX="10.5" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Lumincondo_DBModel.ReporteIncidencias" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Lumincondo_DBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Lumincondo_DBModel.TipoInformacion" Width="1.5" PointX="12.75" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Lumincondo_DBModel.TiposUsuarios" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Lumincondo_DBModel.Usuarios" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
