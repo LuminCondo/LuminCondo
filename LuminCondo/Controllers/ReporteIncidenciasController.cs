@@ -76,20 +76,57 @@ namespace Web.Controllers
         public ActionResult Guardar(ReporteIncidencias reporteIncidencias)
         {
             IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
-            MemoryStream stream = new MemoryStream();
 
             try
             {
+                ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
+                /*ModelState.Remove("IDEstado");
+                ModelState.Remove("IDUsuario");
                 if (ModelState.IsValid)
                 {
-                    ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
+                    
                 }
                 else
                 {
                     ViewBag.IDReporteIncidencias = listaReporteIncidencias(reporteIncidencias.IDIncidencia);
 
                     return View("Create", reporteIncidencias);
+                }*/
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        public ActionResult Actualizar(int idIncidencia)
+        {
+            IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
+            ReporteIncidencias reporteIncidencias = _ServiceReporteIncidencias.GetReporteIncidenciasByID(idIncidencia);
+            reporteIncidencias.IDEstado = 2;
+            try
+            {
+                ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
+                /*ModelState.Remove("IDEstado");
+                ModelState.Remove("IDUsuario");
+                if (ModelState.IsValid)
+                {
+                    
                 }
+                else
+                {
+                    ViewBag.IDReporteIncidencias = listaReporteIncidencias(reporteIncidencias.IDIncidencia);
+
+                    return View("Create", reporteIncidencias);
+                }*/
 
                 return RedirectToAction("Index");
             }

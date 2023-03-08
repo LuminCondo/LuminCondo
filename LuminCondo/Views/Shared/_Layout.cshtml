@@ -14,7 +14,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     @RenderSection("styles", required: false)
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 <body>
@@ -32,13 +32,12 @@
         </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
     </script>
+    
 
     @RenderSection("scripts", required: false)
 </body>

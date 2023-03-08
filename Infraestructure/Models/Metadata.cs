@@ -15,7 +15,7 @@ namespace Infraestructure.Models
 
         [Display(Name = "Tipo de Usuario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
-        public string TipoUsuario { get; set; }
+        public string tipoUsuario { get; set; }
     }
     internal partial class UsuariosMetadata
     {
@@ -98,6 +98,9 @@ namespace Infraestructure.Models
         public string descripcion { get; set; }
         [Display(Name = "Foto")]
         public byte[] foto { get; set; }
+
+        [Display(Name = "Tipo de Informacion")]
+        public virtual ICollection<TipoInformacion> TipoInformacion { get; set; }
     }
     internal partial class EstadoIncidenciaMetadata
     {
@@ -114,10 +117,10 @@ namespace Infraestructure.Models
         [Display(Name = "Numero de Estado")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDEstado { get; set; }
-        [Display(Name = "Estado de la Incidencia")]
+        [Display(Name = "Uusario que reporta la Incidencia")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDUsuario { get; set; }
-        [Display(Name = "Estado de la Incidencia")]
+        [Display(Name = "Descripcion de la Incidencia")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
     }

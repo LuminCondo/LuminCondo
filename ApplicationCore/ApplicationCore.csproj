@@ -48,6 +48,7 @@
     <Compile Include="Services\IServiceGestionRubrosCobros.cs" />
     <Compile Include="Services\IServiceInformacion.cs" />
     <Compile Include="Services\IServiceReporteIncidencias.cs" />
+    <Compile Include="Services\IServiceTipoInformacion.cs" />
     <Compile Include="Services\IServiceUsuario.cs" />
     <Compile Include="Services\ServiceGestionAsignacionPlanes.cs" />
     <Compile Include="Services\ServiceGestionPlanCobros.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Services\ServiceGestionRubrosCobros.cs" />
     <Compile Include="Services\ServiceInformacion.cs" />
     <Compile Include="Services\ServiceReporteIncidencias.cs" />
+    <Compile Include="Services\ServiceTipoInformacion.cs" />
     <Compile Include="Services\ServiceUsuario.cs" />
   </ItemGroup>
   <ItemGroup>

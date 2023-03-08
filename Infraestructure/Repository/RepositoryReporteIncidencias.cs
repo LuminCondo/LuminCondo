@@ -103,18 +103,23 @@ namespace Infraestructure.Repository
                 ctx.Configuration.LazyLoadingEnabled = false;
                 oReporteIncidencias = GetReporteIncidenciasByID((int)reporteIncidencias.IDIncidencia);
                 IRepositoryInformacion _RepositoryInformacion = new RepositoryInformacion();
+                IRepositoryEstadoIncidencia _RepositoryEstadoIncidencia= new RepositoryEstadoIncidencia();
+                IRepositoryUsuario _RepositoryUsuario= new RepositoryUsuario();
 
                 if (oReporteIncidencias == null)
                 {
+                    
+                    reporteIncidencias.IDUsuario = 1;
+                    reporteIncidencias.IDEstado = 1;
+
                     ctx.ReporteIncidencias.Add(reporteIncidencias);
 
                     retorno = ctx.SaveChanges();
                 }
                 else
                 {
-                    ctx.ReporteIncidencias.Add(reporteIncidencias);
 
-                    ctx.Entry(reporteIncidencias).State = EntityState.Modified;
+                    oReporteIncidencias.IDEstado = reporteIncidencias.IDEstado;
 
                     retorno = ctx.SaveChanges();
 

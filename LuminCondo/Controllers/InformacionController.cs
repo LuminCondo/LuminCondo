@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Utils;
 
 namespace Web.Controllers
 {
@@ -28,7 +29,7 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
 
                 // Redireccion a la captura del Error
@@ -62,7 +63,7 @@ namespace Web.Controllers
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
                 TempData["Redirect"] = "GestionPlanCobros";
                 TempData["Redirect-Action"] = "Index";
@@ -75,15 +76,15 @@ namespace Web.Controllers
         // GET: Informacion/Create
         public ActionResult Create()
         {
-            ViewBag.IDInformacion = listaInformacion();
+            ViewBag.IDTipoInformacion = listaTipoInformacion();
             return View();
         }
 
-        private SelectList listaInformacion(int idInfo = 0)
+        private SelectList listaTipoInformacion(int idTipoInfo = 0)
         {
-            IServiceInformacion _ServiceInformacion = new ServiceInformacion();
-            IEnumerable<Informacion> lista = _ServiceInformacion.GetInformacion();
-            return new SelectList(lista);
+            IServiceTipoInformacion _ServiceTipoInformacion = new ServiceTipoInformacion();
+            IEnumerable<TipoInformacion> lista = _ServiceTipoInformacion.GetTipoInformacion();
+            return new SelectList(lista,"IDTipoInfo","tipoInfo", idTipoInfo);
         }
 
         /* POST: Informacion/Create
@@ -107,19 +108,28 @@ namespace Web.Controllers
         public ActionResult Guardar(Informacion informacion)
         {
             IServiceInformacion _ServiceInformacion = new ServiceInformacion();
-            MemoryStream stream = new MemoryStream();
-
+            informacion.fechaPublicacion = DateTime.Now;
             try
             {
+                ModelState.Remove("fechapublicacion");
+                ModelState.Remove("IDInformacion");
+                ModelState.Remove("IDTipoInfo");
                 if (ModelState.IsValid)
                 {
                     Informacion oInformacion = _ServiceInformacion.Guardar(informacion);
                 }
                 else
                 {
-                    ViewBag.IdInformacion = listaInformacion(informacion.IDInformacion);
-
-                    return View("Create", informacion);
+                    Util.ValidateErrors(this);
+                    ViewBag.IDTipoInformacion = listaTipoInformacion(informacion.IDTipoInfo);
+                    if (informacion.IDTipoInfo > 0)
+                    {
+                        return (ActionResult)View("Edit", informacion);
+                    }
+                    else
+                    {
+                        return View("Create", informacion);
+                    };
                 }
 
                 return RedirectToAction("Index");
@@ -127,7 +137,7 @@ namespace Web.Controllers
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Infraestructure.Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
                 TempData["Redirect"] = "Libro";
                 TempData["Redirect-Action"] = "IndexAdmin";
@@ -161,13 +171,13 @@ namespace Web.Controllers
                     return RedirectToAction("Default", "Error");
                 }
 
-                ViewBag.IdInformacion = listaInformacion(informacion.IDInformacion);
+                ViewBag.IdTipoInformacion = listaTipoInformacion(informacion.IDTipoInfo);
                 return View(informacion);
             }
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
                 TempData["Redirect"] = "Libro";
                 TempData["Redirect-Action"] = "IndexAdmin";
@@ -208,7 +218,7 @@ namespace Web.Controllers
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
                 TempData["Redirect"] = "Libro";
                 TempData["Redirect-Action"] = "IndexAdmin";
@@ -243,7 +253,7 @@ namespace Web.Controllers
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
                 TempData["Redirect"] = "GestionPlanCobros";
                 TempData["Redirect-Action"] = "Index";

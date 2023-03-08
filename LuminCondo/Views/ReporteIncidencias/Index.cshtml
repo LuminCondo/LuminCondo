@@ -14,9 +14,6 @@
     <table class="table table-hover">
         <tr class="text-center">
             <th>
-                @Html.DisplayNameFor(model => model.IDIncidencia)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
             </th>
             <th>
@@ -32,9 +29,6 @@
         {
             <tr class="text-center">
                 <td>
-                    @Html.DisplayFor(modelItem => item.IDIncidencia)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
                 </td>
                 <td>
@@ -45,15 +39,31 @@
                 </td>
                 <td>
                     <div class="text-center">
-                        <a href="@Url.Action("Edit","ReporteIncidencias", new { id = item.IDIncidencia })" class="btn btn-primary">
-                            Modificar Reporte
-                        </a>
-                        <a href="@Url.Action("Delete","ReporteIncidencias", new { id = item.IDIncidencia })" class="btn btn-primary">
-                            Borrar Reporte
-                        </a>
+                        <button id="btnActualizar" class="btn btn-primary" data-id="@item.IDIncidencia">Actualizar Estado</button>
                     </div>
                 </td>
             </tr>
         }
     </table>
 </div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        
+        $("#btnActualizar").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                method: 'POST',
+                url: '/ReporteIncidencias/Actualizar',
+                data: { idIncidencia: id },
+                success: function (response) {
+                    $('#resultado').html('');
+                    $('#resultado').html(response);
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        })
+    </script>
+}

@@ -14,9 +14,6 @@
     <table class="table table-hover">
         <tr class="text-center">
             <th>
-                @Html.DisplayNameFor(model => model.IDInformacion)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.TipoInformacion.tipoInfo)
             </th>
             <th>
@@ -32,9 +29,6 @@
         {
             <tr class="text-center">
                 <td>
-                    @Html.DisplayFor(modelItem => item.IDInformacion)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.TipoInformacion.tipoInfo)
                 </td>
                 <td>
@@ -47,12 +41,6 @@
                     <div class="text-center">
                         <a href="@Url.Action("Edit","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
                             Modificar Noticia
-                        </a>
-                        <a href="@Url.Action("Details","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
-                            Ver Noticia
-                        </a>
-                        <a href="@Url.Action("Delete","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
-                            Borrar Noticia
                         </a>
                     </div>
                 </td>
