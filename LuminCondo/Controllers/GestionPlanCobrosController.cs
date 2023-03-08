@@ -32,7 +32,7 @@ namespace LuminCondo.Controllers
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
 
-                // Redireccion a la captura del Error
+                // Direccional a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
         }

@@ -36,7 +36,7 @@ namespace Infraestructure.Models
         [Display(Name = "Estado del Usuario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public bool estado { get; set; }
-        [Display(Name = "Telefono del Usuario")]
+        [Display(Name = "Teléfono del Usuario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int telefono { get; set; }
     }
@@ -44,7 +44,7 @@ namespace Infraestructure.Models
     {
         
         public int IDEspacio { get; set; }
-        [Display(Name = "Descripcion del Espacio")]
+        [Display(Name = "Descripción del Espacio")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
     }
@@ -52,7 +52,7 @@ namespace Infraestructure.Models
     {
         
         public int IDReserva { get; set; }
-        [Display(Name = "Identificacion de Usuario")]
+        [Display(Name = "Identificación de Usuario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDUsuario { get; set; }
         [Display(Name = "Numero del Espacio")]
@@ -73,7 +73,7 @@ namespace Infraestructure.Models
        
         public int IDTipoInfo { get; set; }
 
-        [Display(Name = "Tipo de Informacion")]
+        [Display(Name = "Tipo de Información")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string tipoInfo { get; set; }
     }
@@ -82,10 +82,10 @@ namespace Infraestructure.Models
         
         public int IDInformacion { get; set; }
 
-        [Display(Name = "Numero de Tipo de Informacion")]
+        [Display(Name = "Numero de Tipo de Información")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string IDTipoInfo { get; set; }
-        [Display(Name = "Fecha de la informacion")]
+        [Display(Name = "Fecha de la información")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
@@ -93,13 +93,13 @@ namespace Infraestructure.Models
         [Display(Name = "Titulo")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string titulo { get; set; }
-        [Display(Name = "Descripcion")]
+        [Display(Name = "Descripción")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
         [Display(Name = "Foto")]
         public byte[] foto { get; set; }
 
-        [Display(Name = "Tipo de Informacion")]
+        [Display(Name = "Tipo de Información")]
         public virtual ICollection<TipoInformacion> TipoInformacion { get; set; }
     }
     internal partial class EstadoIncidenciaMetadata
@@ -117,10 +117,10 @@ namespace Infraestructure.Models
         [Display(Name = "Numero de Estado")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDEstado { get; set; }
-        [Display(Name = "Uusario que reporta la Incidencia")]
+        [Display(Name = "Usuario que reporta la Incidencia")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDUsuario { get; set; }
-        [Display(Name = "Descripcion de la Incidencia")]
+        [Display(Name = "Descripción de la Incidencia")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
     }
@@ -138,7 +138,7 @@ namespace Infraestructure.Models
     {
         [Display(Name = "Número de Residencia")]
         public int IDResidencia { get; set; }
-        [Display(Name = "Idetificacion del Usuario")]
+        [Display(Name = "Identificativo del Usuario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDUsuario { get; set; }
         [Display(Name = "Cantidad de Residentes")]
@@ -184,7 +184,7 @@ namespace Infraestructure.Models
         
         public int IDPlan { get; set; }
 
-        [Display(Name = "Descripcion del Plan")]
+        [Display(Name = "Descripción del Plan")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
         [Display(Name = "Rubros a Cobrar")]
@@ -196,7 +196,7 @@ namespace Infraestructure.Models
     internal partial class GestionRubrosCobrosMetadata
     {
         public int IDRubro { get; set; }
-        [Display(Name = "Descripcion del Rubro")]
+        [Display(Name = "Descripción del Rubro")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
         [Display(Name = "Monto del Rubro")]
@@ -212,7 +212,7 @@ namespace Infraestructure.Models
         [Display(Name = "Numero de Plan")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDPlan { get; set; }
-        [Display(Name = "Fecha de asignacion")]
+        [Display(Name = "Fecha de asignación")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "{0} es un dato requerido")]

@@ -124,7 +124,7 @@ namespace Infraestructure.Repository
 
                     retorno = ctx.SaveChanges();
 
-                    //Logica para actualizar Categorias
+                    //Lógica para actualizar Categorías
                     var selectedRubrosID = new HashSet<string>(selectedRubrosCobros);
                     if (selectedRubrosCobros != null)
                     {
