@@ -136,7 +136,7 @@ namespace Infraestructure.Models
 
     internal partial class GestionResidenciasMetadata
     {
-        
+        [Display(Name = "Número de Residencia")]
         public int IDResidencia { get; set; }
         [Display(Name = "Idetificacion del Usuario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]

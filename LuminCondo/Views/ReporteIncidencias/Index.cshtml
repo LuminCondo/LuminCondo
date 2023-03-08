@@ -4,13 +4,13 @@
     ViewBag.Title = "Reporte de Incidencias";
 }
 <div data-aos="fade-up">
-    <h2>Reporte de Incidencias</h2>
-
+    <h2 class="text-center">@ViewBag.Title</h2>
     <div>
         <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
             <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte
         </a>
     </div>
+    <hr />
     <table class="table table-hover">
         <tr class="text-center">
             <th>

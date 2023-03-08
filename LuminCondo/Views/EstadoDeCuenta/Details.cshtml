@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Infraestructure.Models.GestionAsignacionPlanes>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle del Estado de Cuenta";
 }
 @{
     var historialDePago = new List<Infraestructure.Models.GestionAsignacionPlanes>();
@@ -19,8 +19,12 @@
         }
     }
 }
-<h1 class="text-center" data-aos="fade-up">Estado de Cuenta de la Residencia @Html.DisplayFor(model => model.FirstOrDefault().IDResidencia) de @Html.DisplayFor(model => model.FirstOrDefault().GestionResidencias.Usuarios.nombre)</h1>
-
+<h1 class="text-center" data-aos="fade-up"><i class="fa-solid fa-file-invoice"></i> Estado de Cuenta</h1>
+<hr />
+<h5>Nombre del Propietario: @Html.DisplayFor(model => model.FirstOrDefault().GestionResidencias.Usuarios.nombre)</h5>
+<h5>Número de Residencia: @Html.DisplayFor(model => model.FirstOrDefault().IDResidencia)</h5>
+<h5>Fecha del Estado de Cuenta: @DateTime.Now.ToString("dd/MM/yyyy")</h5>
+<hr />
 <div data-aos="fade-up">
     <h2 class="text-center"><i class="fa-solid fa-money-check-dollar"></i> Deudas Pendientes</h2>
 
@@ -72,6 +76,7 @@
 
     </table>
 </div>
+<hr />
 <div data-aos="fade-up">
     <h2 class="text-center"><i class="fa-solid fa-clock-rotate-left"></i> Historial de Pagos</h2>
 

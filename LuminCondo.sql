@@ -256,6 +256,7 @@ insert into Rubros_Planes values
 (5,3)
 
 insert into GestionAsignacionPlanes values
+(1,3,CONVERT(date, '26/02/2023', 103),0),
 (1,3,CONVERT(date, '18/02/2023', 103),1),
 (2,4,CONVERT(date, '18/02/2023', 103),1),
 (3,1,CONVERT(date, '18/02/2023', 103),1)
