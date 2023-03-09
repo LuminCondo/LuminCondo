@@ -16,6 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.descripcion)
             </th>
+            <th>
+                Total
+            </th>
             <th></th>
         </tr>
 
@@ -24,6 +27,14 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.descripcion)
+                </td>
+                <td>
+                    @{ decimal total = 0;}
+                    @foreach (var rubro in item.GestionRubrosCobros)
+                    {
+                        total += rubro.monto;
+                    }
+                    <i class="fa-solid fa-colon-sign"></i> @total.ToString("N2")
                 </td>
                 <td>
                     <div class="text-center">

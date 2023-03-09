@@ -34,7 +34,7 @@ namespace Infraestructure.Models
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string email { get; set; }
         [Display(Name = "Estado del Usuario")]
-        [Required(ErrorMessage = "{0} es un dato requerido")]
+
         public bool estado { get; set; }
         [Display(Name = "Teléfono del Usuario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]

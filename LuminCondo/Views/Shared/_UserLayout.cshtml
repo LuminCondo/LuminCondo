@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LuminCondo</title>
+    <link rel="shortcut icon" href="~/Assets/favicon.ico">
+    @Styles.Render("~/Content/Mybootstrap.min.css")
+    @Styles.Render("~/Content/StylesLuminCondo.css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    @RenderSection("styles", required: false)
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0CB0BB; font-size:20px">
+        <div class="container-fluid ">
+            <a class="navbar-brand"
+               @*Accion, Controlador*@
+               href="@Url.Action("Index","Login")">
+                <img src="~/Assets/Logo LuminCondo.jpg" width="50" height="50" class="d-inline-block align-top mr-2" style="border-radius:10px" alt="LuminCondo">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+
+                    @* Información usuario *@
+                    @{
+                        String nombre = "";
+                        String email = "Perfil";
+
+                        if (Session["User"] != null)
+                        {
+                            Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+                            usuario = (Infraestructure.Models.Usuarios)Session["User"];
+                            nombre = $"{usuario.nombre}";
+                            email = usuario.email;
+                        }
+                    }
+                    <li class="nav-item dropdown ml-auto">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                           href="#" role="button" aria-haspopup="true"
+                           aria-expanded="false"><i class="fa-solid fa-user"></i> Perfil</a>
+                        <div class="dropdown-menu">
+                            @if (Session["User"] != null)
+                            {
+                                <div class="dropdown-item">
+                                    @* Nombre Usuario *@
+                                    Usuario: @nombre
+                                </div>
+                            }
+
+                            @if (Session["User"] == null)
+                            {
+                                <a class="dropdown-item"
+                                   @*Accion, Controlador*@
+                                   href="@Url.Action("Index","Login")">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    Login
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item"
+                                   href="@Url.Action("Logout","Login")">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    Logout
+                                </a>
+                            }
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <div class="container-fluid bg-4 text-center">
+            <credit>&copy;Derechos Reservados</credit>
+            <credit id="date"></credit>
+            <script>document.getElementById("date").innerHTML = new Date().getFullYear()</script>
+            <br>
+            <credit> LuminCondo</credit>
+        </div>
+    </div>
+
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+
+    @RenderSection("scripts", required: false)
+
+    @if (ViewBag.NotificationMessage != null)
+    {
+        <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+        </script>
+    }
+</body>
+</html>

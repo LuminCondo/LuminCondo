@@ -157,15 +157,14 @@ GO
 								);*/
 
 /**********************************************Inserts de las tablas**************************************************************/
-SELECT * FROM dbo.TiposUsuarios
 insert into dbo.TiposUsuarios values
 ('Administrador'), 
 ('Residente')
 
 insert into dbo.Usuarios values
-( 'Israel', '123456',1,'cmisra2407@gmail.com',1,21211212),
-( 'Luis', '123456',1,'lumincondo@gmail.com',1,24242424),
-( 'Jocelyn', '123456',2,'luminCondo@gmail.com',1,89170301)
+( 'Israel', 'u6QXcpElu3jBzi22FNFdrw==',1,'cmisra2407@gmail.com',1,21211212),
+( 'Luis', 'u6QXcpElu3jBzi22FNFdrw==',1,'lumincondo@gmail.com',1,24242424),
+( 'Jocelyn', 'u6QXcpElu3jBzi22FNFdrw==',2,'luminCondo1@gmail.com',1,89170301)
 
 insert into dbo.Espacios values
 ( 'Piscina #1'), 

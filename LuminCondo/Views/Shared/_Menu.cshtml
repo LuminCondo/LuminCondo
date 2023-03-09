@@ -11,15 +11,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
-                @*Enlace a Noticias*@
-                <li class="nav-item">
-                    <a class="nav-link"
-                       @*Accion, Controlador*@
-                       href="@Url.Action("Index","Informacion")">
-                        <i class="fa-solid fa-newspaper"></i>
-                        Noticias
-                    </a>
-                </li>
+                @* Información usuario *@
+                @{
+                    String nombre = "";
+                    String email = "Perfil";
+                    int tipoUsuario = 0;
+
+                    if (Session["User"] != null)
+                    {
+                        Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+                        usuario = (Infraestructure.Models.Usuarios)Session["User"];
+                        nombre = $"{usuario.nombre}";
+                        email = usuario.email;
+                        tipoUsuario = usuario.IDTipoUsuario;
+                    }
+                }
                 @*Dropdown de Gestiones*@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-business-time"></i>Gestiones</a>
@@ -54,47 +60,51 @@
                         </a>
                     </div>
                 </li>
-                @*Dropdown de Mantenimientos*@
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-gears"></i>Mantenimientos</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item"
-                           href="@Url.Action("Index","Informacion")">
-                            <i class="fa-solid fa-gears"></i>
-                            Información
-                        </a>
-                        <a class="dropdown-item"
-                           href="@Url.Action("Index","ReporteIncidencias")">
-                            <i class="fa-solid fa-gears"></i>
-                            Reporte de Incidencias
-                        </a>
-                        <a class="dropdown-item"
-                           href="@Url.Action("IndexAdmin","GestionPlanCobros")">
-                            <i class="fa-solid fa-gears"></i>
-                            Plan de Cobros
-                        </a>
-                        <a class="dropdown-item"
-                           href="@Url.Action("Index","GestionRubrosCobros")">
-                            <i class="fa-solid fa-gears"></i>
-                            Rubros de Cobro
-                        </a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-regular fa-file-lines"></i> Reportes</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item"
-                           href="@Url.Action("Index","Home")">
-                            <i class="fa-solid fa-file-lines"></i>
-                            Reporte de Ingresos
-                        </a>
-                        <a class="dropdown-item"
-                           href="@Url.Action("Index","Home")">
-                            <i class="fa-regular fa-file-lines"></i>
-                            Reporte de Deudas
-                        </a>
-                    </div>
-                </li>
+                @if (tipoUsuario == 1)
+                {
+                    @*Dropdown de Mantenimientos*@
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-gears"></i>Mantenimientos</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="@Url.Action("Index","Informacion")">
+                                @*<i class="fa-solid fa-newspaper"></i>*@
+                                <i class="fa-solid fa-gears"></i>
+                                Noticias
+                            </a>
+                            <a class="dropdown-item"
+                               href="@Url.Action("Index","ReporteIncidencias")">
+                                <i class="fa-solid fa-gears"></i>
+                                Reporte de Incidencias
+                            </a>
+                            <a class="dropdown-item"
+                               href="@Url.Action("IndexAdmin","GestionPlanCobros")">
+                                <i class="fa-solid fa-gears"></i>
+                                Plan de Cobros
+                            </a>
+                            <a class="dropdown-item"
+                               href="@Url.Action("Index","GestionRubrosCobros")">
+                                <i class="fa-solid fa-gears"></i>
+                                Rubros de Cobro
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-regular fa-file-lines"></i> Reportes</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="@Url.Action("Index","Home")">
+                                <i class="fa-solid fa-file-lines"></i>
+                                Reporte de Ingresos
+                            </a>
+                            <a class="dropdown-item"
+                               href="@Url.Action("Index","Home")">
+                                <i class="fa-regular fa-file-lines"></i>
+                                Reporte de Deudas
+                            </a>
+                        </div>
+                    </li>
+                }
                 <li class="nav-item">
                     <a class="nav-link"
                        @*Accion, Controlador*@
@@ -116,17 +126,31 @@
                        href="#" role="button" aria-haspopup="true"
                        aria-expanded="false"><i class="fa-solid fa-user"></i> Perfil</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item"
-                           @*Accion, Controlador*@
-                           href="@Url.Action("Index","Login")">
-                            <i class="fa-solid fa-user-plus"></i>
-                            Login
-                        </a>
-                        <a class="dropdown-item"
-                           href="@Url.Action("Logout","Login")">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Logout
-                        </a>
+                        @if (Session["User"] != null)
+                        {
+                            <div class="dropdown-item">
+                                @* Nombre Usuario *@
+                                Usuario: @nombre
+                            </div>
+                        }
+
+                        @if (Session["User"] == null)
+                        {
+                            <a class="dropdown-item"
+                               @*Accion, Controlador*@
+                               href="@Url.Action("Index","Login")">
+                                <i class="fa-solid fa-user-plus"></i>
+                                Login
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="dropdown-item"
+                               href="@Url.Action("Logout","Login")">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Logout
+                            </a>
+                        }
                     </div>
                 </li>
             </ul>

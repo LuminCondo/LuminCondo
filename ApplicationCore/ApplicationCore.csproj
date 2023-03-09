@@ -61,6 +61,7 @@
     <Compile Include="Services\ServiceReporteIncidencias.cs" />
     <Compile Include="Services\ServiceTipoInformacion.cs" />
     <Compile Include="Services\ServiceUsuario.cs" />
+    <Compile Include="Utils\Cryptography.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj">

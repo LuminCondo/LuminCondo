@@ -34,11 +34,19 @@
 
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         AOS.init();
     </script>
-    
+
 
     @RenderSection("scripts", required: false)
+
+    @if (ViewBag.NotificationMessage != null)
+    {
+        <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+        </script>
+    }
 </body>
 </html>

@@ -41,7 +41,8 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
 
-                    lista = ctx.GestionPlanCobros.ToList<GestionPlanCobros>();
+                    lista = ctx.GestionPlanCobros.
+                        Include("GestionRubrosCobros").ToList<GestionPlanCobros>();
                 }
                 return lista;
             }

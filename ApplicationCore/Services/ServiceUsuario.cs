@@ -1,4 +1,5 @@
-﻿using Infraestructure.Models;
+﻿using ApplicationCore.Utils;
+using Infraestructure.Models;
 using Infraestructure.Repository;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,25 @@ namespace ApplicationCore.Services
         {
             IRepositoryUsuario repository = new RepositoryUsuario();
             return repository.GetUsuarioByID(id);
+        }
+
+        public Usuarios GetUsuario(string email, string contrasenna)
+        {
+            IRepositoryUsuario repository = new RepositoryUsuario();
+            // Encriptar el password para poder compararlo
+
+            string cryptPassword = Cryptography.EncrypthAES(contrasenna);
+
+            return repository.GetUsuario(email, cryptPassword);
+        }
+
+        public Usuarios Save(Usuarios usuario)
+        {
+            IRepositoryUsuario repository = new RepositoryUsuario();
+            // Encriptar el password para guardarlo
+            usuario.contrasenna = Cryptography.EncrypthAES(usuario.contrasenna);
+
+            return repository.Save(usuario);
         }
 
 

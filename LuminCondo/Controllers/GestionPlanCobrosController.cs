@@ -44,6 +44,8 @@ namespace LuminCondo.Controllers
             {
                 IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
                 lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
+                IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
+                ViewBag.listaRubros = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
 
                 return View(lista);
             }

@@ -254,12 +254,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformacionController.cs" />
     <Compile Include="Controllers\ListaResidenciasController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReporteIncidenciasController.cs" />
+    <Compile Include="Enum\Enum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AutorizeView.cs" />
+    <Compile Include="Security\CustomAuthenticationFilter.cs" />
+    <Compile Include="Security\CustomAuthorizeAttribute.cs" />
     <Compile Include="Utils\Log.cs" />
+    <Compile Include="Utils\SweetAlertHelper.cs" />
     <Compile Include="Utils\Util.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -381,6 +387,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Mybootstrap.min.css" />
+    <Content Include="Content\sweetalert.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -512,6 +519,7 @@
     <Content Include="Scripts\src\utils\setStyles.js" />
     <Content Include="Scripts\src\utils\setupEventListeners.js" />
     <Content Include="Content\StylesLuminCondo.css" />
+    <Content Include="Scripts\sweetalert.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -561,6 +569,9 @@
     <Content Include="Views\GestionRubrosCobros\Create.cshtml" />
     <Content Include="Views\GestionRubrosCobros\Edit.cshtml" />
     <Content Include="Views\GestionRubrosCobros\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\UnAuthorized.cshtml" />
+    <Content Include="Views\Shared\_UserLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

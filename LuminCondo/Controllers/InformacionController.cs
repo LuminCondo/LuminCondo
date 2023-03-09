@@ -120,7 +120,7 @@ namespace Web.Controllers
                 }
                 else
                 {
-                    Util.ValidateErrors(this);
+                    Utils.Util.ValidateErrors(this);
                     ViewBag.IDTipoInformacion = listaTipoInformacion(informacion.IDTipoInfo);
                     if (informacion.IDTipoInfo > 0)
                     {
