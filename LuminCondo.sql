@@ -189,17 +189,15 @@ insert into dbo.GestionReservas values
 insert into dbo.EstadoIncidencia values 
 ('Nueva'),
 ('Activa'),
-('Resuelta'),
-('Rechazada'),
-('Duplicada')
+('Resuelta')
 
 insert into dbo.ReporteIncidencias values
 (1,1,'Fuga de Agua en calle frente mi residencia'),
 (2,2,'Problema Tomacorriente de la cocina'),
-(3,3, 'Caida de Arbol')
+(3,3, 'Caída de Arbol')
 
 insert into dbo.EstadoResidencia values
-('En Construccion'),
+('En Construcción'),
 ('Habitada'),
 ('Sin Habitar'),
 ('Abandonada'),
@@ -239,7 +237,7 @@ insert into GestionRubrosCobros values
 ('Renta de Sala de Eventos',30000)
 
 insert into GestionPlanCobros values 
-('Solo Mensuallidad'),
+('Solo Mensualidad'),
 ('Solo Mantenimiento de Areas comunes'),
 ('Mantenimiento y Mensualidad, con uso de Sala de Eventos'),
 ('Mantenimiento y Mensualidad'),

@@ -100,8 +100,8 @@ namespace Web.Controllers
                 // Salvar el error en un archivo 
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData["Redirect"] = "ReporteIncidencias";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
@@ -111,7 +111,18 @@ namespace Web.Controllers
         {
             IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
             ReporteIncidencias reporteIncidencias = _ServiceReporteIncidencias.GetReporteIncidenciasByID(idIncidencia);
-            reporteIncidencias.IDEstado = 2;
+            if (reporteIncidencias.IDEstado == 1)
+            {
+                reporteIncidencias.IDEstado = 2;
+            }
+            else
+            {
+                if (reporteIncidencias.IDEstado == 2)
+                {
+                    reporteIncidencias.IDEstado = 3;
+                }
+            }
+            
             try
             {
                 ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
@@ -135,8 +146,8 @@ namespace Web.Controllers
                 // Salvar el error en un archivo 
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData["Redirect"] = "ReporteIncidencias";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }

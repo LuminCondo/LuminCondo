@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IdentityModel.Metadata;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,9 +103,6 @@ namespace Infraestructure.Repository
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
                 oReporteIncidencias = GetReporteIncidenciasByID((int)reporteIncidencias.IDIncidencia);
-                IRepositoryInformacion _RepositoryInformacion = new RepositoryInformacion();
-                IRepositoryEstadoIncidencia _RepositoryEstadoIncidencia= new RepositoryEstadoIncidencia();
-                IRepositoryUsuario _RepositoryUsuario= new RepositoryUsuario();
 
                 if (oReporteIncidencias == null)
                 {
@@ -118,8 +116,8 @@ namespace Infraestructure.Repository
                 }
                 else
                 {
-
-                    oReporteIncidencias.IDEstado = reporteIncidencias.IDEstado;
+                    var objetoExistente = ctx.ReporteIncidencias.FirstOrDefault(o => o.IDIncidencia == reporteIncidencias.IDIncidencia);
+                    objetoExistente.IDEstado = reporteIncidencias.IDEstado;
 
                     retorno = ctx.SaveChanges();
 

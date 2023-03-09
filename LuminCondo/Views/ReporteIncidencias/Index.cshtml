@@ -38,32 +38,40 @@
                     @Html.DisplayFor(modelItem => item.descripcion)
                 </td>
                 <td>
-                    <div class="text-center">
-                        <button id="btnActualizar" class="btn btn-primary" data-id="@item.IDIncidencia">Actualizar Estado</button>
-                    </div>
+                    @if (item.IDEstado != 3)
+                    {
+                        <form method="post" action="@Url.Action("Actualizar","ReporteIncidencias")">
+                            <input type="hidden" name="idIncidencia" value=@item.IDIncidencia />
+                            <button class="btn btn-primary">Actualizar Estado</button>
+                        </form>
+                    }
+
+                    @*<div class="text-center">
+            <a href="@Url.Action("Actualizar","ReporteIncidenciasController", new { id = item.IDIncidencia })" class="btn btn-primary">Actualizar Estado</a>
+        </div>*@
                 </td>
             </tr>
         }
     </table>
 </div>
 
+@*
+    @section Scripts{
+        <script type="text/javascript">
 
-@section Scripts{
-    <script type="text/javascript">
-        
-        $("#btnActualizar").click(function () {
-            var id = $(this).data("id");
-            $.ajax({
-                method: 'POST',
-                url: '/ReporteIncidencias/Actualizar',
-                data: { idIncidencia: id },
-                success: function (response) {
-                    $('#resultado').html('');
-                    $('#resultado').html(response);
-                }, error: function (xhr, status, error) {
-                    console.log('Error' + error + ',No Error' + xhr.status);
-                }
+            $("#btnActualizar").click(function () {
+                var id = $(this).data("id");
+                $.ajax({
+                    method: 'POST',
+                    url: '/ReporteIncidencias/Actualizar',
+                    data: { idIncidencia: id },
+                    success: function (response) {
+                        $('#resultado').html('');
+                        $('#resultado').html(response);
+                    }, error: function (xhr, status, error) {
+                        console.log('Error' + error + ',No Error' + xhr.status);
+                    }
+                })
             })
-        })
-    </script>
-}
+        </script>
+    }*@
