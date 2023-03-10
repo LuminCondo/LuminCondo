@@ -60,7 +60,7 @@
                         </a>
                     </div>
                 </li>
-                @if (tipoUsuario == 1)
+                @if (tipoUsuario == 1||Session["User"] == null)
                 {
                     @*Dropdown de Mantenimientos*@
                     <li class="nav-item dropdown">

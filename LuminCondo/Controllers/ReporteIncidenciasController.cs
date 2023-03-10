@@ -35,6 +35,8 @@ namespace Web.Controllers
             }
         }
 
+        
+
         // GET: ReporteIncidencias/Details/5
         public ActionResult Details(int id)
         {
@@ -75,6 +77,14 @@ namespace Web.Controllers
 
         public ActionResult Guardar(ReporteIncidencias reporteIncidencias)
         {
+                if (Session["User"] != null)
+                {
+                    Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+                    usuario = (Infraestructure.Models.Usuarios)Session["User"];
+                    reporteIncidencias.IDUsuario = usuario.ID;
+                }
+            
+
             IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
 
             try
@@ -92,8 +102,10 @@ namespace Web.Controllers
 
                     return View("Create", reporteIncidencias);
                 }*/
-
                 return RedirectToAction("Index");
+                
+              
+                
             }
             catch (Exception ex)
             {

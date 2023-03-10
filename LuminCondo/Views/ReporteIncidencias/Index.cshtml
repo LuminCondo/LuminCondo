@@ -3,57 +3,129 @@
 @{
     ViewBag.Title = "Reporte de Incidencias";
 }
-<div data-aos="fade-up">
-    <h2 class="text-center">@ViewBag.Title</h2>
-    <div>
-        <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte
-        </a>
-    </div>
-    <hr />
-    <table class="table table-hover">
-        <tr class="text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuarios.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.descripcion)
-            </th>
-            <th></th>
-        </tr>
+@* Información usuario *@
+@{
+    String nombre = "Israel";
+    int id = 1;
+    int idTipoUsuario = 1;
 
-        @foreach (var item in Model)
-        {
+    if (Session["User"] != null)
+    {
+        Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+        usuario = (Infraestructure.Models.Usuarios)Session["User"];
+        nombre = $"{usuario.nombre}";
+        id = usuario.ID;
+        idTipoUsuario = usuario.IDTipoUsuario;
+    }
+}
+
+@if (idTipoUsuario == 1)
+{
+    <div data-aos="fade-up">
+        <h2 class="text-center">@ViewBag.Title</h2>
+        <div>
+            <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte
+            </a>
+        </div>
+        <hr />
+        <table class="table table-hover">
             <tr class="text-center">
-                <td>
-                    @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Usuarios.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.descripcion)
-                </td>
-                <td>
-                    @if (item.IDEstado != 3)
-                    {
-                        <form method="post" action="@Url.Action("Actualizar","ReporteIncidencias")">
-                            <input type="hidden" name="idIncidencia" value=@item.IDIncidencia />
-                            <button class="btn btn-primary">Actualizar Estado</button>
-                        </form>
-                    }
-
-                    @*<div class="text-center">
-            <a href="@Url.Action("Actualizar","ReporteIncidenciasController", new { id = item.IDIncidencia })" class="btn btn-primary">Actualizar Estado</a>
-        </div>*@
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuarios.nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.descripcion)
+                </th>
+                <th></th>
             </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usuarios.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.descripcion)
+                    </td>
+                    <td>
+                        @if (item.IDEstado == 1)
+                        {
+                            <form method="post" action="@Url.Action("Actualizar","ReporteIncidencias")">
+                                <input type="hidden" name="idIncidencia" value=@item.IDIncidencia />
+                                <button class="btn btn-primary">Actualizar Incidencia</button>
+                            </form>
+                        }
+                        @if (item.IDEstado == 2)
+                        {
+                            <form method="post" action="@Url.Action("Actualizar","ReporteIncidencias")">
+                                <input type="hidden" name="idIncidencia" value=@item.IDIncidencia />
+                                <button class="btn btn-primary">Resolver Incidencia</button>
+                            </form>
+                        }
+
+                        @*<div class="text-center">
+                                <a href="@Url.Action("Actualizar","ReporteIncidenciasController", new { id = item.IDIncidencia })" class="btn btn-primary">Actualizar Estado</a>
+                            </div>*@
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+
+@if (idTipoUsuario == 2)
+{
+    var incidenciasUser = new List<Infraestructure.Models.ReporteIncidencias>();
+
+    foreach (var item in Model.ToList())
+    {
+        if (item.IDUsuario == id)
+        {
+            incidenciasUser.Add(item);
         }
-    </table>
-</div>
+
+    }
+
+    <div data-aos="fade-up">
+        <h2 class="text-center">@ViewBag.Title hechas por @nombre</h2>
+        <div>
+            <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte
+            </a>
+        </div>
+        <hr />
+        <table class="table table-hover">
+            <tr class="text-center">
+                <th>
+                    @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.descripcion)
+                </th>
+            </tr>
+
+            @foreach (var item in incidenciasUser)
+            {
+                <tr class="text-center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.descripcion)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
 
 @*
     @section Scripts{
