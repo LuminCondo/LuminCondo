@@ -106,11 +106,6 @@ namespace Infraestructure.Repository
 
                 if (oReporteIncidencias == null)
                 {
-                    if (reporteIncidencias.IDUsuario == 0)
-                        reporteIncidencias.IDUsuario = 1;
-
-                    reporteIncidencias.IDEstado = 1;
-
                     ctx.ReporteIncidencias.Add(reporteIncidencias);
 
                     retorno = ctx.SaveChanges();

@@ -82,26 +82,29 @@ namespace Web.Controllers
                     Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
                     usuario = (Infraestructure.Models.Usuarios)Session["User"];
                     reporteIncidencias.IDUsuario = usuario.ID;
-                }
-            
+            }
+            else
+            {
+                reporteIncidencias.IDUsuario = 1;
+            }
+            reporteIncidencias.IDEstado = 1;
 
             IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
 
             try
             {
-                ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
-                /*ModelState.Remove("IDEstado");
-                ModelState.Remove("IDUsuario");
+                ModelState.Remove("IDIncidencia");
+                ModelState.Remove("descripcion");
                 if (ModelState.IsValid)
                 {
-                    
+                    ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
                 }
                 else
                 {
                     ViewBag.IDReporteIncidencias = listaReporteIncidencias(reporteIncidencias.IDIncidencia);
 
                     return View("Create", reporteIncidencias);
-                }*/
+                }
                 return RedirectToAction("Index");
                 
               
@@ -137,19 +140,16 @@ namespace Web.Controllers
             
             try
             {
-                ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
-                /*ModelState.Remove("IDEstado");
-                ModelState.Remove("IDUsuario");
                 if (ModelState.IsValid)
                 {
-                    
+                    ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
                 }
                 else
                 {
                     ViewBag.IDReporteIncidencias = listaReporteIncidencias(reporteIncidencias.IDIncidencia);
 
                     return View("Create", reporteIncidencias);
-                }*/
+                }
 
                 return RedirectToAction("Index");
             }
