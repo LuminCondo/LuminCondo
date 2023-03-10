@@ -1,6 +1,35 @@
-﻿@{
+﻿@model IEnumerable<Infraestructure.Models.Informacion>
+@{
     ViewBag.Title = "Inicio";
 }
+
+@{
+    var Noticias = new List<Infraestructure.Models.Informacion>();
+    var Avisos = new List<Infraestructure.Models.Informacion>();
+    var ArchivosDocumentales = new List<Infraestructure.Models.Informacion>();
+
+    foreach (var item in Model.ToList())
+    {
+        if (item.IDTipoInfo == 1)
+        {
+            Noticias.Add(item);
+        }
+        if (item.IDTipoInfo == 3)
+        {
+            Avisos.Add(item);
+        }
+        if (item.IDTipoInfo == 2)
+        {
+            ArchivosDocumentales.Add(item);
+        }
+        Noticias.Reverse();
+        Avisos.Reverse();
+        ArchivosDocumentales.Reverse();
+    }
+
+
+}
+
 
 <div class="row arreglomargen" data-aos="fade-up">
     <div class="jumbotron col-lg-6 col-md-12 col-sm-12 blueback ">
@@ -82,4 +111,51 @@
             </div>
         </div>
     </div>
+
+
+    <hr />
+    <h1 class="text-center">Noticias</h1>
+    <hr />
+
+    <div class="row text-center">
+        <div class="col-lg-4 col-md-6 col-sm-12" data-aos="fade-up">
+            <h3 class="text-center">Noticias</h3>
+            <hr />
+            @foreach (var item in Noticias)
+            {
+                <div class="blackback">
+                    <h3 class="text-center">@item.titulo</h3>
+                    <p>Fecha: @item.fechaPublicacion.ToString("dd/MM/yyyy")</p>
+                    <p>@item.descripcion</p>
+                </div>
+            }
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12" data-aos="fade-up">
+            <h3 class="text-center bla">Avisos</h3>
+            <hr />
+            @foreach (var item in Avisos)
+            {
+                <div class="blackback">
+                    <h3 class="text-center">@item.titulo</h3>
+                    <p>Fecha: @item.fechaPublicacion.ToString("dd/MM/yyyy")</p>
+                    <p>@item.descripcion</p>
+                </div>
+            }
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12" data-aos="fade-up">
+            <h3 class="text-center">Archivos Documentales</h3>
+            <hr />
+            @foreach (var item in ArchivosDocumentales)
+            {
+                <div class="blackback">
+                    <h3 class="text-center">@item.titulo</h3>
+                    <p>Fecha: @item.fechaPublicacion.ToString("dd/MM/yyyy")</p>
+                    <p>@item.descripcion</p>
+                </div>
+            }
+        </div>
+    </div>
+
 </div>
+
+

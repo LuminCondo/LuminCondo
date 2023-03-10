@@ -19,7 +19,7 @@ CREATE TABLE EstadoIncidencia (
 
 CREATE TABLE TipoInformacion (
 								IDTipoInfo INT IDENTITY(1,1) NOT NULL, /*PK*/
-								tipoInfo VARCHAR(20)NOT NULL,
+								tipoInfo VARCHAR(40)NOT NULL,
 								PRIMARY KEY (IDTipoInfo)
 								);/*#3*/
 
@@ -221,9 +221,9 @@ insert into PersonasResidentes values
 (445577669,3,'Jocelyn')
 
 insert into TipoInformacion values
-('Noticia'),
-('Comunicado Urgente'),
-('Aviso')
+('Noticias'),
+('Archivos Documentales'),
+('Avisos')
 
 insert into dbo.Informacion (IDTipoInfo,fechaPublicacion,titulo,descripcion)values
 (1,CONVERT(date, '18/02/2023', 103),'Campaña de donación','En la comunidad se van a desarrollar varia actividades en conjunto con el objetivo de recaudar fondos para ayudar a una asociacion sin fines de lucro, pronto mas detalles de la actividad.'),
@@ -231,7 +231,7 @@ insert into dbo.Informacion (IDTipoInfo,fechaPublicacion,titulo,descripcion)valu
 (3,CONVERT(date, '18/02/2023', 103),'Corte de agua por parte de AYA', 'El dia 24/02/2023 se tiene precisto un corte de agua por el AYA, por favor tomar las medidas necesarias.')
 
 insert into GestionRubrosCobros values 
-('Mensuallidad Condominio', 25000),
+('Mensualidad Condominio', 25000),
 ('Mantenimiento de Areas comunes',7500),
 ('Renta de Sala de Eventos',30000)
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,10 @@ namespace LuminCondo.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            IServiceInformacion _ServiceInformacion=new ServiceInformacion();
+
+            var model = _ServiceInformacion.GetInformacion();
+            return View("~/Views/Home/Index.cshtml", model);
         }
 
         public ActionResult About()
