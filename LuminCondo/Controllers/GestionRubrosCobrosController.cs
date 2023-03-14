@@ -55,23 +55,6 @@ namespace Web.Controllers
             IEnumerable<GestionRubrosCobros> lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
             return new SelectList(lista);
         }
-
-        /* POST: GestionRubrosCobros/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
-
         /*****************************************************************************************************************************************/
 
         public ActionResult Guardar(GestionRubrosCobros gestionRubrosCobros)
@@ -127,7 +110,7 @@ namespace Web.Controllers
                 if (gestionRubrosCobros == null)
                 {
                     TempData["Message"] = "No existe el libro solicitado";
-                    TempData["Redirect"] = "Libro";
+                    TempData["Redirect"] = "GestionRubrosCobros";
                     TempData["Redirect-Action"] = "Index";
                     // Redireccion a la captura del Error
                     return RedirectToAction("Default", "Error");

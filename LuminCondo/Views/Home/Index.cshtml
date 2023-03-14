@@ -16,6 +16,7 @@
         }
         if (item.IDTipoInfo == 3)
         {
+
             Avisos.Add(item);
         }
         if (item.IDTipoInfo == 2)
@@ -123,7 +124,7 @@
             <hr />
             @foreach (var item in Noticias)
             {
-                <div class="blackback">
+                <div class="blackbackInfo">
                     <h3 class="text-center">@item.titulo</h3>
                     <p>Fecha: @item.fechaPublicacion.ToString("dd/MM/yyyy")</p>
                     <p>@item.descripcion</p>
@@ -135,7 +136,7 @@
             <hr />
             @foreach (var item in Avisos)
             {
-                <div class="blackback">
+                <div class="blackbackInfo">
                     <h3 class="text-center">@item.titulo</h3>
                     <p>Fecha: @item.fechaPublicacion.ToString("dd/MM/yyyy")</p>
                     <p>@item.descripcion</p>
@@ -147,7 +148,7 @@
             <hr />
             @foreach (var item in ArchivosDocumentales)
             {
-                <div class="blackback">
+                <div class="blackbackInfo">
                     <h3 class="text-center">@item.titulo</h3>
                     <p>Fecha: @item.fechaPublicacion.ToString("dd/MM/yyyy")</p>
                     <p>@item.descripcion</p>

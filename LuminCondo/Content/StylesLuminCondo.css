@@ -48,6 +48,13 @@ imgSetting {
     border-radius: 20px;
 }
 
+.blackbackInfo {
+    background-color: #3f3f3fe9;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px;
+}
+
 .parent {
     display: grid;
     place-items: center;

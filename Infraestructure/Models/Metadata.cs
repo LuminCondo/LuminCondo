@@ -14,6 +14,7 @@ namespace Infraestructure.Models
         public int ID { get; set; }
 
         [Display(Name = "Tipo de Usuario")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "El tipo debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string tipoUsuario { get; set; }
     }
@@ -22,21 +23,25 @@ namespace Infraestructure.Models
         
         public int ID { get; set; }
         [Display(Name = "Nombre del Usuario")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "El nombre debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string nombre { get; set; }
         [Display(Name = "Contraseña del Usuario")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "La contraseña debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string contrasenna { get; set; }
         [Display(Name = "ID de Tipo de Usuario")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDTipoUsuario { get; set; }
         [Display(Name = "Correo del Usuario")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "{0} no tiene formato válido")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string email { get; set; }
         [Display(Name = "Estado del Usuario")]
 
         public bool estado { get; set; }
         [Display(Name = "Teléfono del Usuario")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} El numero de teléfono no lleva guiones ni espacios, Ej: 24242424")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int telefono { get; set; }
     }
@@ -45,6 +50,7 @@ namespace Infraestructure.Models
         
         public int IDEspacio { get; set; }
         [Display(Name = "Descripción del Espacio")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "La descripción debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
     }
@@ -53,9 +59,11 @@ namespace Infraestructure.Models
         
         public int IDReserva { get; set; }
         [Display(Name = "Identificación de Usuario")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDUsuario { get; set; }
         [Display(Name = "Numero del Espacio")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDEspacio { get; set; }
         [Display(Name = "Numero de Reserva")]
@@ -74,6 +82,7 @@ namespace Infraestructure.Models
         public int IDTipoInfo { get; set; }
 
         [Display(Name = "Tipo de Información")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "El tipo de información debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string tipoInfo { get; set; }
     }
@@ -91,9 +100,11 @@ namespace Infraestructure.Models
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime fechaPublicacion { get; set; }
         [Display(Name = "Titulo")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "El titulo debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string titulo { get; set; }
         [Display(Name = "Descripción")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "La descripción debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
         [Display(Name = "Foto")]
@@ -107,6 +118,7 @@ namespace Infraestructure.Models
         
         public int IDEstado { get; set; }
         [Display(Name = "Estado de la Incidencia")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "El estado debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string TipoEstado { get; set; }
     }
@@ -115,12 +127,15 @@ namespace Infraestructure.Models
         
         public int IDIncidencia { get; set; }
         [Display(Name = "Numero de Estado")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDEstado { get; set; }
         [Display(Name = "Usuario que reporta la Incidencia")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDUsuario { get; set; }
         [Display(Name = "Descripción de la Incidencia")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "La descripción debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
     }
@@ -130,6 +145,7 @@ namespace Infraestructure.Models
         public int IDEstadoResidencia { get; set; }
 
         [Display(Name = "Estado de la Residencia")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "El estado debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string estado { get; set; }
     }
@@ -139,18 +155,23 @@ namespace Infraestructure.Models
         [Display(Name = "Número de Residencia")]
         public int IDResidencia { get; set; }
         [Display(Name = "Identificativo del Usuario")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDUsuario { get; set; }
         [Display(Name = "Cantidad de Residentes")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int cantPersonas { get; set; }
         [Display(Name = "ID del Estado de la Residencia")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDEstadoResidencia { get; set; }
         [Display(Name = "Año de Inicio")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int annoInicio { get; set; }
         [Display(Name = "Cantidad de Carros")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int cantCarros { get; set; }
     }
@@ -160,9 +181,11 @@ namespace Infraestructure.Models
         
         public string IDPlaca { get; set; }
         [Display(Name = "Numero de Residencia")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDResidencia { get; set; }
         [Display(Name = "Modelo del Carro")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "El modelo debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string modelo { get; set; }
     }
@@ -172,9 +195,11 @@ namespace Infraestructure.Models
         
         public int IDCedula { get; set; }
         [Display(Name = "Numero de Residencia")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDResidencia { get; set; }
         [Display(Name = "Nombre de la persona")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "El nombre debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string nombre { get; set;}
     }
@@ -185,6 +210,7 @@ namespace Infraestructure.Models
         public int IDPlan { get; set; }
 
         [Display(Name = "Descripción del Plan")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "La descripción debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
         [Display(Name = "Rubros a Cobrar")]
@@ -197,6 +223,7 @@ namespace Infraestructure.Models
     {
         public int IDRubro { get; set; }
         [Display(Name = "Descripción del Rubro")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "La descripción debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string descripcion { get; set; }
         [Display(Name = "Monto del Rubro")]

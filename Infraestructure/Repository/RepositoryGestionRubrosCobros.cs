@@ -12,25 +12,7 @@ namespace Infraestructure.Repository
 {
     public class RepositoryGestionRubrosCobros : IRepositoryGestionRubrosCobros
     {
-        public void BorrarRubroCobros(GestionRubrosCobros gestionRubrosCobros)
-        {
-            int retorno = 0;
-            GestionRubrosCobros oGestionRubrosCobros = null;
-
-            using (MyContext ctx = new MyContext())
-            {
-                ctx.Configuration.LazyLoadingEnabled = false;
-                oGestionRubrosCobros = GetGestionRubrosCobrosByID((int)gestionRubrosCobros.IDRubro);
-                IRepositoryGestionRubrosCobros _RepositoryGestionRubrosCobros = new RepositoryGestionRubrosCobros();
-
-                if (oGestionRubrosCobros == null)
-                {
-                    ctx.GestionRubrosCobros.Remove(gestionRubrosCobros);
-
-                    retorno = ctx.SaveChanges();
-                }
-            }
-        }
+        
 
         public IEnumerable<GestionRubrosCobros> GetGestionRubrosCobros()
         {
@@ -95,7 +77,6 @@ namespace Infraestructure.Repository
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
                 oGestionRubrosCobros = GetGestionRubrosCobrosByID((int)gestionRubrosCobros.IDRubro);
-                IRepositoryGestionRubrosCobros _RepositoryGestionRubrosCobros = new RepositoryGestionRubrosCobros();
 
                 if (oGestionRubrosCobros == null)
                 {

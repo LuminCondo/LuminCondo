@@ -10,12 +10,6 @@ namespace ApplicationCore.Services
 {
     public class ServiceGestionRubrosCobros : IServiceGestionRubrosCobros
     {
-        public void BorrarRubroCobros(GestionRubrosCobros gestionRubrosCobros)
-        {
-            IRepositoryGestionRubrosCobros repository = new RepositoryGestionRubrosCobros();
-            repository.BorrarRubroCobros(gestionRubrosCobros);
-        }
-
         public IEnumerable<GestionRubrosCobros> GetGestionRubrosCobros()
         {
             IRepositoryGestionRubrosCobros repository = new RepositoryGestionRubrosCobros();

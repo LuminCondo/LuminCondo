@@ -71,7 +71,7 @@ namespace LuminCondo.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                planCobros=_ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
+                planCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
                 if (planCobros == null)
                 {
                     TempData["Message"] = "No existe el Plan solicitado";
@@ -102,7 +102,7 @@ namespace LuminCondo.Controllers
             return View();
         }
 
-        private MultiSelectList listaRubrosCobros(ICollection<GestionRubrosCobros> gestionRubrosCobros=null)
+        private MultiSelectList listaRubrosCobros(ICollection<GestionRubrosCobros> gestionRubrosCobros = null)
         {
             IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
             IEnumerable<GestionRubrosCobros> lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
@@ -114,23 +114,6 @@ namespace LuminCondo.Controllers
             }
             return new MultiSelectList(lista, "IDRubro", "descripcion", listaRubrosCobrosSelect);
         }
-
-        /* POST: GestionPlanCobros/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
-
         /*****************************************************************************************************************************************/
 
         public ActionResult Guardar(GestionPlanCobros gestionPlanCobros, string[] selectedRubrosCobros)
@@ -208,96 +191,6 @@ namespace LuminCondo.Controllers
                 TempData["Redirect-Action"] = "IndexAdmin";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // POST: GestionPlanCobros/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Eliminar(GestionPlanCobros gestionPlanCobros)
-        {
-            IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
-            MemoryStream stream = new MemoryStream();
-
-            try
-            {
-                _ServiceGestionPlanCobros.BorrarPlanCobros(gestionPlanCobros);
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // GET: GestionPlanCobros/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
-            GestionPlanCobros gestionPlanCobros = null;
-            try
-            {
-                // Si va null
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                gestionPlanCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
-                if (gestionPlanCobros == null)
-                {
-                    TempData["Message"] = "No existe el Plan solicitado";
-                    TempData["Redirect"] = "Informacion";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
-                }
-                return View(gestionPlanCobros);
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "GestionPlanCobros";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // POST: GestionPlanCobros/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
             }
         }
     }
