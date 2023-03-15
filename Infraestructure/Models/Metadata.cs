@@ -122,7 +122,7 @@ namespace Infraestructure.Models
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string TipoEstado { get; set; }
     }
-    internal partial class ReporteIncidenciasMetadata
+    public partial class ReporteIncidenciasMetadata
     {
         
         public int IDIncidencia { get; set; }
@@ -236,9 +236,12 @@ namespace Infraestructure.Models
     {
         
         public int IDAsignacion { get; set; }
-        [Display(Name = "Numero de Plan")]
+        [Display(Name = "Número de Plan")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDPlan { get; set; }
+        [Display(Name = "Número de Residencia")]
+        [Required(ErrorMessage = "{0} es un dato requerido")]
+        public int IDResidencia { get; set; }
         [Display(Name = "Fecha de asignación")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]

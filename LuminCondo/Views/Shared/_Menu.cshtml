@@ -60,7 +60,7 @@
                         </a>
                     </div>
                 </li>
-                @if (tipoUsuario == 1||Session["User"] == null)
+                @if (tipoUsuario == 1 || Session["User"] == null)
                 {
                     @*Dropdown de Mantenimientos*@
                     <li class="nav-item dropdown">
@@ -88,6 +88,14 @@
                                 Rubros de Cobro
                             </a>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           @*Accion, Controlador*@
+                           href="@Url.Action("Index", "GestionAsignacionPlanes")">
+                            <i class="far fa-clipboard-list"></i>
+                            Asignación de Planes 
+                        </a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-regular fa-file-lines"></i> Reportes</a>

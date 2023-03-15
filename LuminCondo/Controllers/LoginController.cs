@@ -36,16 +36,16 @@ namespace Web.Controllers
                     {
                         Session["User"] = oUsuario;
                         Log.Info($"Inicio sesion: {usuario.email}");
-                        TempData["mensaje"] = Util.SweetAlertHelper.Mensaje("Login",
-                            "Usuario autenticado", Util.SweetAlertMessageType.success
+                        TempData["mensaje"] = Utils.SweetAlertHelper.Mensaje("Login",
+                            "Usuario autenticado", Utils.SweetAlertMessageType.success
                             );
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
                         Log.Warn($"Intento de inicio: {usuario.email}");
-                        ViewBag.NotificationMessage = Util.SweetAlertHelper.Mensaje("Login",
-                            "Usuario no válido", Util.SweetAlertMessageType.error
+                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Login",
+                            "Usuario no válido", Utils.SweetAlertMessageType.error
                             );
                     }
                 }

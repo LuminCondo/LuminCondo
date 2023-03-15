@@ -12,5 +12,6 @@ namespace Infraestructure.Repository
         IEnumerable<GestionAsignacionPlanes> GetGestionAsignacionPlanes();
         IEnumerable<GestionAsignacionPlanes> GetEstadodeCuentaByIDResidencia(int id);
         GestionAsignacionPlanes GetGestionAsignacionPlanesByID(int id);
+        GestionAsignacionPlanes Guardar(GestionAsignacionPlanes gestionAsignacionPlanes);
     }
 }

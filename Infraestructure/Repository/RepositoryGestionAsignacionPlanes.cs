@@ -56,7 +56,8 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled= false;
 
-                    lista=ctx.GestionAsignacionPlanes.Include("Rubros").ToList();
+                    lista=ctx.GestionAsignacionPlanes.Include("GestionResidencias").
+                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").ToList();
                 }
                 return lista;
             }
@@ -100,6 +101,38 @@ namespace Infraestructure.Repository
                 Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw;
             }
+        }
+
+        public GestionAsignacionPlanes Guardar(GestionAsignacionPlanes gestionAsignacionPlanes)
+        {
+            int retorno = 0;
+            GestionAsignacionPlanes oGestionAsignacionPlanes = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oGestionAsignacionPlanes = GetGestionAsignacionPlanesByID((int)gestionAsignacionPlanes.IDAsignacion);
+
+                if (oGestionAsignacionPlanes == null)
+                {
+                    ctx.GestionAsignacionPlanes.Add(gestionAsignacionPlanes);
+
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+                    ctx.GestionAsignacionPlanes.Add(gestionAsignacionPlanes);
+
+                    ctx.Entry(gestionAsignacionPlanes).State = EntityState.Modified;
+
+                    retorno = ctx.SaveChanges();
+                }
+            }
+
+            if (retorno >= 0)
+                oGestionAsignacionPlanes = GetGestionAsignacionPlanesByID((int)gestionAsignacionPlanes.IDAsignacion);
+
+            return oGestionAsignacionPlanes;
         }
     }
 }

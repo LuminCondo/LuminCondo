@@ -28,5 +28,11 @@ namespace ApplicationCore.Services
             IRepositoryGestionAsignacionPlanes repository = new RepositoryGestionAsignacionPlanes();
             return repository.GetGestionAsignacionPlanesByID(id);
         }
+
+        public GestionAsignacionPlanes Guardar(GestionAsignacionPlanes gestionAsignacionPlanes)
+        {
+            IRepositoryGestionAsignacionPlanes repository = new RepositoryGestionAsignacionPlanes();
+            return repository.Guardar(gestionAsignacionPlanes);
+        }
     }
 }

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Infraestructure.Models.GestionAsignacionPlanes>
+
+@{
+    ViewBag.Title = "Listado de Asignaciones";
+}
+
+<div data-aos="fade-up">
+    <h2 class="text-center">@ViewBag.Title</h2>
+
+    <div>
+        <a href="@Url.Action("Create","GestionAsignacionPlanes")" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Crear una nueva asignación de plan
+        </a>
+    </div>
+    <table class="table table-hover">
+        <tr class="text-center">
+
+            <th>
+                @Html.DisplayNameFor(model => model.IDResidencia)
+            </th>
+            <th>
+                Propietario de la Residencia
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GestionPlanCobros.descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaAsignacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estadoPago)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Reverse())
+        {
+            <tr class="text-center">
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDResidencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GestionResidencias.Usuarios.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GestionPlanCobros.descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaAsignacion)
+                </td>
+                <td>
+                    @if (item.estadoPago == true)
+                    {
+                        <p>Pagado</p>
+                    }
+                    else
+                    {
+                        <p>Sin Pagar</p>
+                    }
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a href="@Url.Action("Edit","GestionAsignacionPlanes", new { id = item.IDAsignacion })" class="btn btn-primary">
+                            Actualizar
+                        </a>
+                        <a href="@Url.Action("Details","GestionAsignacionPlanes", new { id = item.IDPlan })" class="btn btn-secondary">
+                            Detalles
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
