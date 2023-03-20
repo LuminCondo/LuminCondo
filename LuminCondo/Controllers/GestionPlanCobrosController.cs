@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 using Web.Utils;
 namespace LuminCondo.Controllers
 {
@@ -36,7 +37,7 @@ namespace LuminCondo.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
-
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult IndexAdmin()
         {
             IEnumerable<GestionPlanCobros> lista = null;
