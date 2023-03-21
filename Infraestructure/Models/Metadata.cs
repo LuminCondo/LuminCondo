@@ -154,13 +154,11 @@ namespace Infraestructure.Models
     {
         [Display(Name = "Número de Residencia")]
         public int IDResidencia { get; set; }
-        [Display(Name = "Identificativo del Usuario")]
+        [Display(Name = "Usuario Propietario")]
         [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDUsuario { get; set; }
         [Display(Name = "Cantidad de Residentes")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
-        [Required(ErrorMessage = "{0} es un dato requerido")]
         public int cantPersonas { get; set; }
         [Display(Name = "ID del Estado de la Residencia")]
         [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
@@ -171,8 +169,6 @@ namespace Infraestructure.Models
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int annoInicio { get; set; }
         [Display(Name = "Cantidad de Carros")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
-        [Required(ErrorMessage = "{0} es un dato requerido")]
         public int cantCarros { get; set; }
     }
 

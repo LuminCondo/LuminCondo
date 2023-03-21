@@ -11,5 +11,6 @@ namespace Infraestructure.Repository
     {
         IEnumerable<GestionResidencias> GetGestionResidencias();
         GestionResidencias GetGestionResidenciasByID(int id);
+        GestionResidencias Guardar(GestionResidencias gestionResidencias);
     }
 }

@@ -21,5 +21,11 @@ namespace ApplicationCore.Services
             IRepositoryGestionResidencias repository = new RepositoryGestionResidencias();
             return repository.GetGestionResidenciasByID(id);
         }
+
+        public GestionResidencias Guardar(GestionResidencias gestionResidencias)
+        {
+            IRepositoryGestionResidencias repository = new RepositoryGestionResidencias();
+            return repository.Guardar(gestionResidencias);
+        }
     }
 }

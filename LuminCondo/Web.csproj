@@ -577,6 +577,8 @@
     <Content Include="Views\GestionAsignacionPlanes\Create.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\Details.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\Edit.cshtml" />
+    <Content Include="Views\ListaResidencias\Create.cshtml" />
+    <Content Include="Views\ListaResidencias\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

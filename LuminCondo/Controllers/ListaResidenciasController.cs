@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Web.Security;
+using Web.Utils;
 
 namespace Web.Controllers
 {
@@ -30,7 +31,7 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
 
                 // Redireccion a la captura del Error
@@ -64,7 +65,7 @@ namespace Web.Controllers
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
                 TempData["Redirect"] = "GestionPlanCobros";
                 TempData["Redirect-Action"] = "Index";
@@ -73,18 +74,108 @@ namespace Web.Controllers
             }
 
         }
+        private SelectList listaUsuarios(int idUsuario = 0)
+        {
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+            IEnumerable<Usuarios> lista = _ServiceUsuario.GetUsuarios();
+            return new SelectList(lista, "ID", "nombre", idUsuario);
+        }
+        private SelectList listaEstadosResidencia(int idEstado = 0)
+        {
+            IServiceEstadoResidencia _ServiceEstadoResidencia = new ServiceEstadoResidencia();
+            IEnumerable<EstadoResidencia> lista = _ServiceEstadoResidencia.GetEstadoResidencia();
+            return new SelectList(lista, "IDEstadoResidencia", "estado", idEstado);
+        }
 
         [CustomAuthorize((int)Roles.Administrador)]
         // GET: ListaResidencias/Create
         public ActionResult Create()
         {
+            ViewBag.IDUsuarios = listaUsuarios();
+            ViewBag.IDEstadoResidencias = listaEstadosResidencia();
             return View();
         }
         // GET: ListaResidencias/Edit/5
         [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
+            GestionResidencias gestionResidencias = null;
+
+            try
+            {
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(id));
+
+                if (gestionResidencias == null)
+                {
+                    TempData["Message"] = "No existe el libro solicitado";
+                    TempData["Redirect"] = "ListaResidencias";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+
+                ViewBag.IDUsuarios = listaUsuarios(gestionResidencias.IDUsuario);
+                ViewBag.IDEstadoResidencias = listaEstadosResidencia(gestionResidencias.IDEstadoResidencia);
+                return View(gestionResidencias);
+
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Infraestructure.Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "ListaResidencias";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        public ActionResult Guardar(GestionResidencias gestionResidencias)
+        {
+            IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
+
+            try
+            {
+                ModelState.Remove("IDResidencia");
+                ModelState.Remove("cantPersonas");
+                ModelState.Remove("cantCarros");
+                if (ModelState.IsValid)
+                {
+                    GestionResidencias oGestionResidencias = _ServiceGestionResidencias.Guardar(gestionResidencias);
+                }
+                else
+                {
+                    Util.ValidateErrors(this);
+                    ViewBag.IDUsuarios = listaUsuarios(gestionResidencias.IDUsuario);
+                    ViewBag.IDEstadoResidencias = listaEstadosResidencia(gestionResidencias.IDEstadoResidencia);
+                    if (gestionResidencias.IDResidencia > 0)
+                    {
+                        return (ActionResult)View("Edit", gestionResidencias);
+                    }
+                    else
+                    {
+                        return View("Create", gestionResidencias);
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "ListaResidencias";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
     }
 }

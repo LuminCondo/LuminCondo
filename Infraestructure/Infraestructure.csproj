@@ -244,6 +244,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Repository\IRepositoryEstadoIncidencia.cs" />
+    <Compile Include="Repository\IRepositoryEstadoResidencia.cs" />
     <Compile Include="Repository\IRepositoryGestionAsignacionPlanes.cs" />
     <Compile Include="Repository\IRepositoryGestionPlanCobros.cs" />
     <Compile Include="Repository\IRepositoryGestionResidencias.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Repository\IRepositoryReporteIncidencias.cs" />
     <Compile Include="Repository\IRepositoryTipoInformacion.cs" />
     <Compile Include="Repository\IRepositoryUsuario.cs" />
+    <Compile Include="Repository\RepositoryEstadoResidencia.cs" />
     <Compile Include="Repository\RepositoryGestionAsignacionPlanes.cs" />
     <Compile Include="Repository\RepositoryGestionPlanCobros.cs" />
     <Compile Include="Repository\RepositoryGestionResidencias.cs" />

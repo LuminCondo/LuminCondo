@@ -52,7 +52,7 @@ namespace Infraestructure.Repository
                     ctx.Configuration.LazyLoadingEnabled = false;
 
                     oGestionResidencia = ctx.GestionResidencias.
-                                                            Where(l => l.IDUsuario == id).
+                                                            Where(l => l.IDResidencia == id).
                                                             Include("Usuarios").
                                                             Include("EstadoResidencia").
                                                             Include("GestionAsignacionPlanes").
@@ -72,6 +72,38 @@ namespace Infraestructure.Repository
                 Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw;
             }
+        }
+
+        public GestionResidencias Guardar(GestionResidencias gestionResidencias)
+        {
+            int retorno = 0;
+            GestionResidencias oGestionResidencias = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oGestionResidencias = GetGestionResidenciasByID((int)gestionResidencias.IDResidencia);
+
+                if (oGestionResidencias == null)
+                {
+
+                    ctx.GestionResidencias.Add(gestionResidencias);
+
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+                    ctx.GestionResidencias.Add(gestionResidencias);
+                    ctx.Entry(gestionResidencias).State = EntityState.Modified;
+
+                    retorno = ctx.SaveChanges();
+                }
+            }
+
+            if (retorno >= 0)
+                oGestionResidencias = GetGestionResidenciasByID((int)gestionResidencias.IDResidencia);
+
+            return oGestionResidencias;
         }
     }
 }
