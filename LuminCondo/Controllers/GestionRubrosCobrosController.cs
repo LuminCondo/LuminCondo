@@ -9,12 +9,14 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 
 namespace Web.Controllers
 {
     public class GestionRubrosCobrosController : Controller
     {
         // GET: GestionRubrosCobros
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
         {
             IEnumerable<GestionRubrosCobros> lista = null;
@@ -35,13 +37,13 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
-
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionRubrosCobros/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionRubrosCobros/Create
         public ActionResult Create()
         {
@@ -91,7 +93,7 @@ namespace Web.Controllers
         }
 
         /*****************************************************************************************************************************************/
-
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionRubrosCobros/Edit/5
         public ActionResult Edit(int? id)
         {

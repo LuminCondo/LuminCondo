@@ -7,11 +7,12 @@
 <div data-aos="fade-up">
     <h2 class="text-center">@ViewBag.Title</h2>
 
-    <div>
-        <a href="@Url.Action("Create","GestionAsignacionPlanes")" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Crear una nueva asignación de plan
-        </a>
-    </div>
+        <div>
+            <a href="@Url.Action("Create","GestionAsignacionPlanes")" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Crear una nueva asignación de plan
+            </a>
+        </div>
+    
     <table class="table table-hover">
         <tr class="text-center">
 
@@ -64,6 +65,7 @@
                         <a href="@Url.Action("Edit","GestionAsignacionPlanes", new { id = item.IDAsignacion })" class="btn btn-primary">
                             Actualizar
                         </a>
+                        
                         <a href="@Url.Action("Details","GestionAsignacionPlanes", new { id = item.IDPlan })" class="btn btn-secondary">
                             Detalles
                         </a>

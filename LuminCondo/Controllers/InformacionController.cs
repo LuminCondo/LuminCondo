@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 using Web.Utils;
 
 namespace Web.Controllers
@@ -16,6 +17,7 @@ namespace Web.Controllers
     public class InformacionController : Controller
     {
         // GET: Informacion
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
         {
             IEnumerable<Informacion> lista = null;
@@ -38,6 +40,7 @@ namespace Web.Controllers
         }
 
         // GET: Informacion/Details/5
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Details(int? id)
         {
             IServiceInformacion _ServiceInformacion = new ServiceInformacion();
@@ -72,7 +75,7 @@ namespace Web.Controllers
             }
 
         }
-
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: Informacion/Create
         public ActionResult Create()
         {
@@ -86,23 +89,6 @@ namespace Web.Controllers
             IEnumerable<TipoInformacion> lista = _ServiceTipoInformacion.GetTipoInformacion();
             return new SelectList(lista,"IDTipoInfo","tipoInfo", idTipoInfo);
         }
-
-        /* POST: Informacion/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
-
         /*****************************************************************************************************************************************/
 
         public ActionResult Guardar(Informacion informacion)
@@ -149,6 +135,7 @@ namespace Web.Controllers
         /*****************************************************************************************************************************************/
 
         // GET: Informacion/Edit/5
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int? id)
         {
             ServiceInformacion _ServiceInformacion = new ServiceInformacion();
@@ -183,98 +170,6 @@ namespace Web.Controllers
                 TempData["Redirect-Action"] = "IndexAdmin";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // POST: Informacion/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        /*****************************************************************************************************************************************/
-
-        public ActionResult Eliminar(Informacion informacion)
-        {
-            IServiceInformacion _ServiceInformacion = new ServiceInformacion();
-            MemoryStream stream = new MemoryStream();
-
-            try
-            {
-                _ServiceInformacion.BorrarInformacion(informacion);
-                
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // GET: Informacion/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            IServiceInformacion _ServiceInformacion = new ServiceInformacion();
-            Informacion informacion = null;
-            try
-            {
-                // Si va null
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                informacion = _ServiceInformacion.GetInformacionByID(Convert.ToInt32(id));
-                if (informacion == null)
-                {
-                    TempData["Message"] = "No existe el Plan solicitado";
-                    TempData["Redirect"] = "Informacion";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
-                }
-                return View(informacion);
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "GestionPlanCobros";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // POST: Informacion/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
             }
         }
     }

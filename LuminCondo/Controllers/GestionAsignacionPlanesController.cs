@@ -8,11 +8,13 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 
 namespace Web.Controllers
 {
     public class GestionAsignacionPlanesController : Controller
     {
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionAsignacionPlanes
         public ActionResult Index()
         {
@@ -47,6 +49,16 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     GestionAsignacionPlanes oGestionAsignacionPlanes = _ServiceGestionAsignacionPlanes.Guardar(gestionAsignacionPlanes);
+                    if (oGestionAsignacionPlanes==null)
+                    {
+                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Fallo al guardar la asignación",
+                            "Ya esta residencia posee una asignación establecida para este mes", Utils.SweetAlertMessageType.error
+                            );
+                        ViewBag.IDResidencias = listaResidencias(gestionAsignacionPlanes.IDResidencia);
+                        ViewBag.IDPlanes = listaPlanes(gestionAsignacionPlanes.IDPlan);
+                        return View("Create");
+
+                    }
                 }
                 else
                 {
@@ -75,7 +87,7 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
-
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionAsignacionPlanes/Details/5
         public ActionResult Details(int? id)
         {
@@ -111,7 +123,7 @@ namespace Web.Controllers
             }
 
         }
-
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionAsignacionPlanes/Create
         public ActionResult Create()
         {
@@ -134,22 +146,7 @@ namespace Web.Controllers
             return new SelectList(lista, "IDPlan", "descripcion", idPlan);
         }
 
-        // POST: GestionAsignacionPlanes/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionAsignacionPlanes/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -193,44 +190,6 @@ namespace Web.Controllers
                 TempData["Redirect-Action"] = "IndexAdmin";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // POST: GestionAsignacionPlanes/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: GestionAsignacionPlanes/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: GestionAsignacionPlanes/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
             }
         }
     }

@@ -8,11 +8,14 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 
 namespace Web.Controllers
 {
     public class ReporteIncidenciasController : Controller
     {
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
+
         // GET: ReporteIncidencias
         public ActionResult Index()
         {
@@ -35,14 +38,10 @@ namespace Web.Controllers
             }
         }
 
-        
 
-        // GET: ReporteIncidencias/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
+
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: ReporteIncidencias/Create
         public ActionResult Create()
         {
@@ -56,23 +55,6 @@ namespace Web.Controllers
             IEnumerable<ReporteIncidencias> lista = _ServiceReporteIncidencias.GetReporteIncidencias();
             return new SelectList(lista);
         }
-
-        /* POST: ReporteIncidencias/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
-
         /*****************************************************************************************************************************************/
 
         public ActionResult Guardar(ReporteIncidencias reporteIncidencias)
@@ -168,6 +150,7 @@ namespace Web.Controllers
         /*****************************************************************************************************************************************/
 
         // GET: ReporteIncidencias/Edit/5
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int? id)
         {
             ServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
@@ -203,96 +186,6 @@ namespace Web.Controllers
                 TempData["Redirect-Action"] = "IndexAdmin";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // POST: ReporteIncidencias/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Eliminar(ReporteIncidencias reporteIncidencias)
-        {
-            IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
-            MemoryStream stream = new MemoryStream();
-
-            try
-            {
-                _ServiceReporteIncidencias.BorrarReporteIncidencias(reporteIncidencias);
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // GET: ReporteIncidencias/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
-            ReporteIncidencias reporteIncidencias = null;
-            try
-            {
-                // Si va null
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                reporteIncidencias = _ServiceReporteIncidencias.GetReporteIncidenciasByID(Convert.ToInt32(id));
-                if (reporteIncidencias == null)
-                {
-                    TempData["Message"] = "No existe el Plan solicitado";
-                    TempData["Redirect"] = "Informacion";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
-                }
-                return View(reporteIncidencias);
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "GestionPlanCobros";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-        }
-
-        // POST: ReporteIncidencias/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
             }
         }
     }

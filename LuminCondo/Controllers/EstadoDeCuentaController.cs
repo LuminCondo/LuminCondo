@@ -8,14 +8,17 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 
 namespace LuminCondo.Controllers
 {
     public class EstadoDeCuentaController : Controller
     {
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: EstadoDeCuenta
         public ActionResult Index()
         {
+
             IEnumerable<GestionResidencias> lista = null;
             
             try
@@ -36,7 +39,7 @@ namespace LuminCondo.Controllers
             }
 
         }
-
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: EstadoDeCuenta/Details/5
         public ActionResult Details(int? id)
         {
@@ -63,72 +66,6 @@ namespace LuminCondo.Controllers
                 return RedirectToAction("Default", "Error");
             }
 
-        }
-
-        // GET: EstadoDeCuenta/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: EstadoDeCuenta/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: EstadoDeCuenta/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: EstadoDeCuenta/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: EstadoDeCuenta/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: EstadoDeCuenta/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

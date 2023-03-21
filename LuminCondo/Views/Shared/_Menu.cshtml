@@ -60,7 +60,7 @@
                         </a>
                     </div>
                 </li>
-                @if (tipoUsuario == 1 || Session["User"] == null)
+                @if (tipoUsuario == 1)
                 {
                     @*Dropdown de Mantenimientos*@
                     <li class="nav-item dropdown">
@@ -90,11 +90,11 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" 
+                        <a class="nav-link"
                            @*Accion, Controlador*@
                            href="@Url.Action("Index", "GestionAsignacionPlanes")">
                             <i class="fa-regular fa-rectangle-list"></i>
-                            Asignación de Planes 
+                            Asignación de Planes
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -113,6 +113,7 @@
                         </div>
                     </li>
                 }
+
                 <li class="nav-item">
                     <a class="nav-link"
                        @*Accion, Controlador*@

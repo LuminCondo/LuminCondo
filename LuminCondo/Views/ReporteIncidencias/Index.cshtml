@@ -5,9 +5,9 @@
 }
 @* Información usuario *@
 @{
-    String nombre = "Israel";
-    int id = 1;
-    int idTipoUsuario = 1;
+    String nombre = "";
+    int id = 0;
+    int idTipoUsuario = 0;
 
     if (Session["User"] != null)
     {
@@ -17,133 +17,108 @@
         id = usuario.ID;
         idTipoUsuario = usuario.IDTipoUsuario;
     }
+
+    var incidenciasUser = new List<Infraestructure.Models.ReporteIncidencias>();
+    if (idTipoUsuario == 1)
+    {
+        incidenciasUser = Model.ToList();
+    }
+    else
+    {
+        if (idTipoUsuario == 2)
+        {
+            foreach (var item in Model.ToList())
+            {
+                if (item.IDUsuario == id)
+                {
+                    incidenciasUser.Add(item);
+                }
+
+            }
+        }
+    }
+    incidenciasUser.Reverse();
 }
 
-@if (idTipoUsuario == 1)
-{
-    <div data-aos="fade-up">
+
+
+
+<div data-aos="fade-up">
+    @if (idTipoUsuario == 1)
+    {
         <h2 class="text-center">@ViewBag.Title</h2>
-        <div>
-            <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
-                <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte
-            </a>
-        </div>
-        <hr />
-        <table class="table table-hover">
-            <tr class="text-center">
-                <th>
-                    @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
-                </th>
+
+    }
+    else
+    {
+        if (idTipoUsuario == 2)
+        {
+            <h2 class="text-center">@ViewBag.Title hechas por @nombre</h2>
+        }
+    }
+    <hr />
+    <div>
+        <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte
+        </a>
+    </div>
+
+
+    <table class="table table-hover">
+        <tr class="text-center">
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
+            </th>
+            @if (idTipoUsuario == 1)
+            {
                 <th>
                     @Html.DisplayNameFor(model => model.Usuarios.nombre)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.descripcion)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            @if (idTipoUsuario == 1)
             {
-                <tr class="text-center">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
-                    </td>
+                <th></th>
+            }
+        </tr>
+
+        @foreach (var item in incidenciasUser)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+                </td>
+                @if (idTipoUsuario == 1)
+                {
                     <td>
                         @Html.DisplayFor(modelItem => item.Usuarios.nombre)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.descripcion)
-                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>
+                @if (idTipoUsuario == 1)
+                {
                     <td>
                         @if (item.IDEstado == 1)
                         {
-                            <form method="post" action="@Url.Action("Actualizar","ReporteIncidencias")">
+                            <form method="post" action="@Url.Action("Actualizar", "ReporteIncidencias")">
                                 <input type="hidden" name="idIncidencia" value=@item.IDIncidencia />
                                 <button class="btn btn-primary">Actualizar Incidencia</button>
                             </form>
                         }
                         @if (item.IDEstado == 2)
                         {
-                            <form method="post" action="@Url.Action("Actualizar","ReporteIncidencias")">
+                            <form method="post" action="@Url.Action("Actualizar", "ReporteIncidencias")">
                                 <input type="hidden" name="idIncidencia" value=@item.IDIncidencia />
                                 <button class="btn btn-primary">Resolver Incidencia</button>
                             </form>
                         }
-
-                        @*<div class="text-center">
-                                <a href="@Url.Action("Actualizar","ReporteIncidenciasController", new { id = item.IDIncidencia })" class="btn btn-primary">Actualizar Estado</a>
-                            </div>*@
                     </td>
-                </tr>
-            }
-        </table>
-    </div>
-}
-
-@if (idTipoUsuario == 2)
-{
-    var incidenciasUser = new List<Infraestructure.Models.ReporteIncidencias>();
-
-    foreach (var item in Model.ToList())
-    {
-        if (item.IDUsuario == id)
-        {
-            incidenciasUser.Add(item);
-        }
-
-    }
-
-    <div data-aos="fade-up">
-        <h2 class="text-center">@ViewBag.Title hechas por @nombre</h2>
-        <div>
-            <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
-                <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte
-            </a>
-        </div>
-        <hr />
-        <table class="table table-hover">
-            <tr class="text-center">
-                <th>
-                    @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.descripcion)
-                </th>
+                }
             </tr>
-
-            @foreach (var item in incidenciasUser)
-            {
-                <tr class="text-center">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.descripcion)
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
-}
-
-@*
-    @section Scripts{
-        <script type="text/javascript">
-
-            $("#btnActualizar").click(function () {
-                var id = $(this).data("id");
-                $.ajax({
-                    method: 'POST',
-                    url: '/ReporteIncidencias/Actualizar',
-                    data: { idIncidencia: id },
-                    success: function (response) {
-                        $('#resultado').html('');
-                        $('#resultado').html(response);
-                    }, error: function (xhr, status, error) {
-                        console.log('Error' + error + ',No Error' + xhr.status);
-                    }
-                })
-            })
-        </script>
-    }*@
+        }
+    </table>
+</div>

@@ -14,6 +14,7 @@ namespace LuminCondo.Controllers
 {
     public class GestionPlanCobrosController : Controller
     {
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: GestionPlanCobros
         public ActionResult Index()
         {
@@ -59,7 +60,7 @@ namespace LuminCondo.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
-
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: GestionPlanCobros/Details/5
         public ActionResult Details(int? id)
         {
@@ -95,7 +96,7 @@ namespace LuminCondo.Controllers
             }
 
         }
-
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionPlanCobros/Create
         public ActionResult Create()
         {
@@ -155,7 +156,7 @@ namespace LuminCondo.Controllers
         }
 
         /*****************************************************************************************************************************************/
-
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionPlanCobros/Edit/5
         public ActionResult Edit(int? id)
         {

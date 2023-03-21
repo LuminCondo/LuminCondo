@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - LuminCondo</title>
     <link rel="shortcut icon" href="~/Assets/favicon.ico">
-    @Styles.Render("~/Content/Mybootstrap.min.css")
-    @Styles.Render("~/Content/StylesLuminCondo.css")
+    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -38,7 +37,7 @@
     <script>
         AOS.init();
     </script>
-
+    @Scripts.Render("~/bundles/sweetalert")
 
     @RenderSection("scripts", required: false)
 

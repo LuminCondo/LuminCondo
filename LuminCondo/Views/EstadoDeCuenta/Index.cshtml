@@ -2,6 +2,43 @@
 
 @{
     ViewBag.Title = "Estados de Cuenta";
+
+}
+
+@{
+    String nombre = "";
+    int id = 0;
+    int idTipoUsuario = 0;
+
+    if (Session["User"] != null)
+    {
+        Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+        usuario = (Infraestructure.Models.Usuarios)Session["User"];
+        nombre = $"{usuario.nombre}";
+        id = usuario.ID;
+        idTipoUsuario = usuario.IDTipoUsuario;
+    }
+
+    var ResidenciasUser = new List<Infraestructure.Models.GestionResidencias>();
+    if (idTipoUsuario==1)
+    {
+        ResidenciasUser = Model.ToList();
+    }
+    else
+    {
+        if (idTipoUsuario == 2)
+        {
+            foreach (var item in Model.ToList())
+            {
+                if (item.IDUsuario == id)
+                {
+                    ResidenciasUser.Add(item);
+                }
+
+            }
+        }
+    }
+
 }
 
 <div data-aos="fade-up">
@@ -19,7 +56,7 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in ResidenciasUser)
         {
             <tr class="text-center">
                 <td>

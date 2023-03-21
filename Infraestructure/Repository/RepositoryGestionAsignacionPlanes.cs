@@ -106,26 +106,39 @@ namespace Infraestructure.Repository
         public GestionAsignacionPlanes Guardar(GestionAsignacionPlanes gestionAsignacionPlanes)
         {
             int retorno = 0;
+            int flag = 0;
             GestionAsignacionPlanes oGestionAsignacionPlanes = null;
 
             using (MyContext ctx = new MyContext())
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
-                oGestionAsignacionPlanes = GetGestionAsignacionPlanesByID((int)gestionAsignacionPlanes.IDAsignacion);
-
-                if (oGestionAsignacionPlanes == null)
+                
+                lista = ctx.GestionAsignacionPlanes.Include("GestionResidencias").
+                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").ToList();
+                foreach (var item in lista)
                 {
-                    ctx.GestionAsignacionPlanes.Add(gestionAsignacionPlanes);
-
-                    retorno = ctx.SaveChanges();
+                    if (item.fechaAsignacion.Month== gestionAsignacionPlanes.fechaAsignacion.Month&& item.fechaAsignacion.Year == gestionAsignacionPlanes.fechaAsignacion.Year&&item.IDResidencia== gestionAsignacionPlanes.IDResidencia)
+                    {
+                        flag++;
+                    }
                 }
-                else
+                if (flag==0)
                 {
-                    ctx.GestionAsignacionPlanes.Add(gestionAsignacionPlanes);
+                    oGestionAsignacionPlanes = GetGestionAsignacionPlanesByID((int)gestionAsignacionPlanes.IDAsignacion);
+                    if (oGestionAsignacionPlanes == null)
+                    {
+                        ctx.GestionAsignacionPlanes.Add(gestionAsignacionPlanes);
 
-                    ctx.Entry(gestionAsignacionPlanes).State = EntityState.Modified;
+                        retorno = ctx.SaveChanges();
+                    }
+                    else
+                    {
+                        ctx.GestionAsignacionPlanes.Add(gestionAsignacionPlanes);
 
-                    retorno = ctx.SaveChanges();
+                        ctx.Entry(gestionAsignacionPlanes).State = EntityState.Modified;
+
+                        retorno = ctx.SaveChanges();
+                    }
                 }
             }
 

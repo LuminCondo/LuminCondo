@@ -8,11 +8,14 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 
 namespace Web.Controllers
 {
     public class ListaResidenciasController : Controller
     {
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
+
         // GET: ListaResidencias
         public ActionResult Index()
         {
@@ -34,6 +37,7 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
 
         // GET: ListaResidencias/Details/5
         public ActionResult Details(int? id)
@@ -70,70 +74,17 @@ namespace Web.Controllers
 
         }
 
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: ListaResidencias/Create
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: ListaResidencias/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: ListaResidencias/Edit/5
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int id)
         {
             return View();
-        }
-
-        // POST: ListaResidencias/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ListaResidencias/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ListaResidencias/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
