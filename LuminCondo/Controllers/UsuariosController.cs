@@ -8,13 +8,14 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Web.Security;
+using Web.Utils;
 
 namespace Web.Controllers
 {
     public class UsuariosController : Controller
     {
         // GET: Usuarios
-        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
+        [CustomAuthorize((int)Roles.Administrador)]
 
         // GET: ListaResidencias
         public ActionResult Index()
@@ -38,74 +39,98 @@ namespace Web.Controllers
         }
 
         // GET: Usuarios/Details/5
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Usuarios/Create
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
+            ViewBag.IDTipodeUsuarios = listaTiposUsuarios();
             return View();
         }
 
-        // POST: Usuarios/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        private SelectList listaTiposUsuarios(int idTipoUsuario = 0)
         {
+            IServiceTiposUsuarios _ServiceTiposUsuarios = new ServiceTiposUsuarios();
+            IEnumerable<TiposUsuarios> lista = _ServiceTiposUsuarios.GetTiposUsuarios();
+            return new SelectList(lista, "ID", "tipoUsuario", idTipoUsuario);
+        }
+
+        [CustomAuthorize((int)Roles.Administrador)]
+        // GET: GestionRubrosCobros/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            ServiceUsuario _ServiceUsuarios = new ServiceUsuario();
+            Usuarios usuarios = null;
+
             try
             {
-                // TODO: Add insert logic here
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                usuarios = _ServiceUsuarios.GetUsuarioByID(Convert.ToInt32(id));
+
+                if (usuarios == null)
+                {
+                    TempData["Message"] = "No existe el usuario solicitado";
+                    TempData["Redirect"] = "Usuarios";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+
+                ViewBag.IDTipodeUsuarios = listaTiposUsuarios(usuarios.IDTipoUsuario);
+                return View(usuarios);
+
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        public ActionResult Guardar(Usuarios usuarios)
+        {
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Usuarios oUsuarios = _ServiceUsuario.Guardar(usuarios);
+                }
+                else
+                {
+                    // Valida Errores si Javascript está deshabilitado
+                    Utils.Util.ValidateErrors(this);
+                    ViewBag.IDTipodeUsuarios = listaTiposUsuarios(usuarios.IDTipoUsuario);
+
+                    return View("Create", usuarios);
+                }
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
-            }
-        }
-
-        // GET: Usuarios/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Usuarios/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Usuarios/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Usuarios/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Usuarios";
+                TempData["Redirect-Action"] = "Create";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
             }
         }
     }

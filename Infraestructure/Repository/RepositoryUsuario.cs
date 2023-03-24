@@ -65,7 +65,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        public Usuarios Save(Usuarios usuario)
+        public Usuarios Guardar(Usuarios usuario)
         {
             int retorno = 0;
             Usuarios oUsuario = null;

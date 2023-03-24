@@ -52,6 +52,7 @@
     <Compile Include="Services\IServiceGestionRubrosCobros.cs" />
     <Compile Include="Services\IServiceInformacion.cs" />
     <Compile Include="Services\IServiceReporteIncidencias.cs" />
+    <Compile Include="Services\IServiceTiposUsuarios.cs" />
     <Compile Include="Services\IServiceTipoInformacion.cs" />
     <Compile Include="Services\IServiceUsuario.cs" />
     <Compile Include="Services\ServiceEstadoResidencia.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Services\ServiceGestionRubrosCobros.cs" />
     <Compile Include="Services\ServiceInformacion.cs" />
     <Compile Include="Services\ServiceReporteIncidencias.cs" />
+    <Compile Include="Services\ServiceTiposUsuarios.cs" />
     <Compile Include="Services\ServiceTipoInformacion.cs" />
     <Compile Include="Services\ServiceUsuario.cs" />
     <Compile Include="Utils\Cryptography.cs" />

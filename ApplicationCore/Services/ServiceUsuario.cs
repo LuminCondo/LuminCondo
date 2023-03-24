@@ -32,13 +32,13 @@ namespace ApplicationCore.Services
             return repository.GetUsuario(email, cryptPassword);
         }
 
-        public Usuarios Save(Usuarios usuario)
+        public Usuarios Guardar(Usuarios usuario)
         {
             IRepositoryUsuario repository = new RepositoryUsuario();
             // Encriptar el password para guardarlo
             usuario.contrasenna = Cryptography.EncrypthAES(usuario.contrasenna);
 
-            return repository.Save(usuario);
+            return repository.Guardar(usuario);
         }
 
 

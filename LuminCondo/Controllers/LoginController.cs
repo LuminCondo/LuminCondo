@@ -44,7 +44,7 @@ namespace Web.Controllers
                     }
                     else
                     {
-                        if (oUsuario.estado == false)
+                        if (oUsuario != null&&oUsuario.estado == false)
                         {
                             Log.Warn($"Intento de inicio: {usuario.email}");
                             ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Login",

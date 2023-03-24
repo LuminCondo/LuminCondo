@@ -1,54 +1,60 @@
 ﻿@model IEnumerable<Infraestructure.Models.Usuarios>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Mantenimiento de Usuarios";
 }
 
-<h2>Index</h2>
+<div data-aos="fade-up">
+    <h2 class="text-center">@ViewBag.Title</h2>
+    <div>
+        <a href="@Url.Action("Create","Usuarios")" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Crear Nuevo Rubro de Cobro
+        </a>
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IDTipoUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th></th>
+        </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IDTipoUsuario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TiposUsuarios.tipoUsuario)
+                </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TiposUsuarios.tipoUsuario)
-        </td>
+                <td>
+                    @if (item.estado == true)
+                    {
+                        <p>Activo</p>
+                    }
+                    else
+                    {
+                        <p>Inactivo</p>
+                    }
+                </td>
 
-        <td>
-            @if (item.estado == true)
-            {
-                <p>Activo</p>
-            }
-            else
-            {
-                <p>Inactivo</p>
-            }
-        </td>
+                <td>
+                    <div class="text-center">
+                        <a href="@Url.Action("Edit","Usuarios", new { id = item.ID })" class="btn btn-primary">
+                            Modificar Usuario
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+    </table>
+</div>

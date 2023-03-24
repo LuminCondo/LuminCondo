@@ -55,7 +55,7 @@ namespace Web.Controllers
         {
             IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
             IEnumerable<GestionRubrosCobros> lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
-            return new SelectList(lista);
+            return new SelectList(lista/*, "IDTipoInfo", "tipoInfo", idRubro*/);
         }
         /*****************************************************************************************************************************************/
 
