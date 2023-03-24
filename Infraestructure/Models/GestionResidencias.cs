@@ -21,7 +21,7 @@ namespace Infraestructure.Models
         {
             this.Carros = new HashSet<Carros>();
             this.GestionAsignacionPlanes = new HashSet<GestionAsignacionPlanes>();
-            this.PersonasResidentes = new HashSet<PersonasResidentes>();
+            this.Personas = new HashSet<Personas>();
         }
     
         public int IDResidencia { get; set; }
@@ -38,6 +38,6 @@ namespace Infraestructure.Models
         public virtual ICollection<GestionAsignacionPlanes> GestionAsignacionPlanes { get; set; }
         public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonasResidentes> PersonasResidentes { get; set; }
+        public virtual ICollection<Personas> Personas { get; set; }
     }
 }

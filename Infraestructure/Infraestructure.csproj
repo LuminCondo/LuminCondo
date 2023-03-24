@@ -219,13 +219,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\PersonasResidentes.cs">
+    <Compile Include="Models\Personas.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReporteIncidencias.cs">
-      <DependentUpon>MyModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoInformacion.cs">
@@ -267,13 +264,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ASPNetSpellInclude\core\default.ashx" />
+    <None Include="ASPNetSpellInclude\debugging-test-scripts\Test-Instalation.ashx" />
+    <None Include="ASPNetSpellInclude\dictionaries\English %28International%29.dic" />
     <EntityDeploy Include="Models\MyModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MyModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ASPNetSpellInclude\core\default.ashx" />
-    <None Include="ASPNetSpellInclude\debugging-test-scripts\Test-Instalation.ashx" />
-    <None Include="ASPNetSpellInclude\dictionaries\English %28International%29.dic" />
     <None Include="Models\MyModel.edmx.diagram">
       <DependentUpon>MyModel.edmx</DependentUpon>
     </None>

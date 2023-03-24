@@ -32,7 +32,8 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     oUsuario = _ServiceUsuario.GetUsuario(usuario.email, usuario.contrasenna);
-                    if (oUsuario != null)
+                    
+                    if (oUsuario != null && oUsuario.estado == true)
                     {
                         Session["User"] = oUsuario;
                         Log.Info($"Inicio sesion: {usuario.email}");
@@ -43,10 +44,21 @@ namespace Web.Controllers
                     }
                     else
                     {
-                        Log.Warn($"Intento de inicio: {usuario.email}");
-                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Login",
-                            "Usuario no válido", Utils.SweetAlertMessageType.error
-                            );
+                        if (oUsuario.estado == false)
+                        {
+                            Log.Warn($"Intento de inicio: {usuario.email}");
+                            ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Login",
+                                "El usuario se encuentra inactivo", Utils.SweetAlertMessageType.error
+                                );
+                        }
+                        else
+                        {
+                            Log.Warn($"Intento de inicio: {usuario.email}");
+                            ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Login",
+                                "Usuario no válido", Utils.SweetAlertMessageType.error
+                                );
+                        }
+                        
                     }
                 }
             }

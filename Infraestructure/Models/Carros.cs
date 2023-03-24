@@ -19,6 +19,7 @@ namespace Infraestructure.Models
         public string IDPlaca { get; set; }
         public int IDResidencia { get; set; }
         public string modelo { get; set; }
+        public bool tipo { get; set; }
     
         public virtual GestionResidencias GestionResidencias { get; set; }
     }

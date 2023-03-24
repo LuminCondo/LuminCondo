@@ -11,13 +11,16 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class sysdiagrams
+    using System.ComponentModel.DataAnnotations;
+    [MetadataType(typeof(PersonasMetadata))]
+
+    public partial class Personas
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int IDCedula { get; set; }
+        public int IDResidencia { get; set; }
+        public string nombre { get; set; }
+        public bool tipo { get; set; }
+    
+        public virtual GestionResidencias GestionResidencias { get; set; }
     }
 }

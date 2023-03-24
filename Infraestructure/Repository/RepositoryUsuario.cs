@@ -21,7 +21,7 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
 
-                    lista = ctx.Usuarios.ToList<Usuarios>();
+                    lista = ctx.Usuarios.Include("TiposUsuarios").ToList();
                 }
                 return lista;
             }

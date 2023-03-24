@@ -184,9 +184,12 @@ namespace Infraestructure.Models
         [StringLength(100, MinimumLength = 4, ErrorMessage = "El modelo debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string modelo { get; set; }
+        [Display(Name = "Tipo de Carro")]
+        [Required(ErrorMessage = "{0} es un dato requerido")]
+        public bool tipo { get; set; }
     }
 
-    internal partial class PersonasResidentesMetadata
+    internal partial class PersonasMetadata
     {
         
         public int IDCedula { get; set; }
@@ -198,6 +201,9 @@ namespace Infraestructure.Models
         [StringLength(100, MinimumLength = 4, ErrorMessage = "El nombre debe tener al menos 4 caracteres.")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public string nombre { get; set;}
+        [Display(Name = "Tipo de Persona")]
+        [Required(ErrorMessage = "{0} es un dato requerido")]
+        public bool tipo { get; set; }
     }
 
     internal partial class GestionPlanCobrosMetadata

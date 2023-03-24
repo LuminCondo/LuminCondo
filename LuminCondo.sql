@@ -50,6 +50,7 @@ CREATE TABLE Usuarios (
 						email VARCHAR(50) NOT NULL, 
 						estado BIT NOT NULL, 
 						telefono INT NOT NULL,
+
 						PRIMARY KEY (ID),
 						CONSTRAINT FK_Usuarios_IDTipoUsuario FOREIGN KEY (IDTipoUsuario) REFERENCES TiposUsuarios(ID)
 						);/*#7*/
@@ -105,14 +106,16 @@ CREATE TABLE Carros (
 						IDPlaca VARCHAR(10) NOT NULL,/*PK*/
 						IDResidencia INT NOT NULL, /*FK*/
 						modelo VARCHAR(50) NOT NULL,
+						tipo bit not null,
 						PRIMARY KEY (IDPlaca),
 						CONSTRAINT FK_Carros_IDResidencia FOREIGN KEY (IDResidencia) REFERENCES GestionResidencias(IDResidencia)
 						);
 
-CREATE TABLE PersonasResidentes (
+CREATE TABLE Personas (
 									IDCedula INT NOT NULL, /*PK*/
 									IDResidencia INT NOT NULL, /*FK*/
 									nombre VARCHAR(50) NOT NULL,
+									tipo bit not null,
 									PRIMARY KEY (IDCedula),
 									CONSTRAINT FK_PersonasResidentes_IDResidencia FOREIGN KEY (IDResidencia) REFERENCES GestionResidencias(IDResidencia)
 									);
@@ -208,17 +211,17 @@ insert into dbo.GestionResidencias values
 (3,6,2,2006,1)
 
 insert into dbo.Carros values
-('LDA-249',1,'BMW Serie3 2022'),
-('XYZ-777',2,'RAV4 2023'),
-('ABC-111',2,'Kia Sportage'),
-('JCV-031',3,'Camaro')
+('LDA-249',1,'BMW Serie3 2022',1),
+('XYZ-777',2,'RAV4 2023',1),
+('ABC-111',2,'Kia Sportage',0),
+('JCV-031',3,'Camaro',1)
 
-insert into PersonasResidentes values
-(117960190,1,'Israel'),
-(111122223,1,'Maria'),
-(112233445,1,'Marelene'),
-(224455755,2,'Luis'),
-(445577669,3,'Jocelyn')
+insert into Personas values
+(117960190,1,'Israel',1),
+(111122223,1,'Maria',1),
+(112233445,1,'Marelene',1),
+(224455755,2,'Luis',1),
+(445577669,3,'Jocelyn',1)
 
 insert into TipoInformacion values
 ('Noticias'),
