@@ -3,6 +3,7 @@
 @{
     var Carros = new List<Infraestructure.Models.Carros>();
     var Personas = new List<Infraestructure.Models.Personas>();
+    var idResidencias = ViewBag.IdResidencia;
     Carros = ViewBag.CarrosResidentes;
     Personas = ViewBag.PersonasResidentes;
     ViewBag.Title = "Administración de la Residencia #" + ViewBag.IdResidencia;
@@ -14,57 +15,24 @@
     <h2 class="text-center">@ViewBag.Title</h2>
 
     <div class="col-lg-6 col-sm-12">
-
         <h3 class="text-center">Carros</h3>
-
-        @*<div>
-                <a href="@Url.Action("CreateCarro","ListaResidencias")" class="btn btn-primary">
-
-                </a>
-            </div>*@
-
-        <button class="btn btn-primary" onclick="CrearCarro()"><i class="fa-solid fa-plus"></i> Añadir Nuevo Carro</button>
-
+        <span class="glyphicons glyphicons-hand-left"></span>
         <div id="tablacarros">
-            <table class="table table-hover">
-                <tr>
-                    <th>Placa</th>
-                    <th>Modelo</th>
-                    <th>Tipo de Permiso</th>
-                    <th></th>
-                </tr>
+            @if (Carros.Count() > 0)
+            {
+                @Html.Partial("_PartialViewListaCarros", (List<Infraestructure.Models.Carros>)Carros)
+            }
+            else
+            {
+                <button class="btn btn-primary" onclick="CrearCarro()"><i class="fa-solid fa-plus"></i> Añadir Nuevo Carro</button>
+                <div class="alert alert-warning align-items-center">
+                    La Residencia no tiene carros
+                </div>
+            }
+        </div>
 
-
-                @foreach (var item in Carros)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IDPlaca)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.modelo)
-                        </td>
-                        <td>
-                            @if (item.tipo == true)
-                            {
-                                <p>Residente</p>
-                            }
-                            else
-                            {
-                                <p>Invitado</p>
-                            }
-                        </td>
-                        <td>
-                            <div class="text-center">
-                                <a href="@Url.Action("EditCarro","ListaResidencias", new { id = item.IDPlaca })" class="btn btn-primary">
-                                    Modificar
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-
-            </table>
+        <div id="">
+            
         </div>
     </div>
 
@@ -158,6 +126,27 @@
                     console.log('Error' + error + ',No Error' + xhr.status);
                 }
             })
+        }
+
+        function GuardarCarro() {
+            event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
+            var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+            $.ajax({
+                url: '@Url.Action("GuardarCarro", "ListaResidencias")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablacarros').html(result);
+                    $('#myModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
         }
 
     </script>

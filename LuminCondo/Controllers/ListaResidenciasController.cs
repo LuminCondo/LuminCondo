@@ -98,6 +98,11 @@ namespace Web.Controllers
             return View();
         }
 
+        public ActionResult _PartialViewListaCarros()
+        {
+            return PartialView("_PartialViewListaCarros");
+        }
+
         [CustomAuthorize((int)Roles.Administrador)]
         // GET: ListaResidencias/Create
         public ActionResult Administrar(int idResidencia)
@@ -114,7 +119,7 @@ namespace Web.Controllers
 
                 ViewBag.IdResidencia = idResidencia;
                 ViewBag.CarrosResidentes = listacarros;
-                ViewBag.PersonasResidentes = listapersonas;   
+                ViewBag.PersonasResidentes = listapersonas;
 
 
                 return View();
@@ -223,23 +228,25 @@ namespace Web.Controllers
         public ActionResult GuardarCarro(Carros carro)
         {
             IServiceCarros _ServiceCarros = new ServiceCarros();
-
+            IEnumerable<Carros> lista = null;
             try
             {
                 if (ModelState.IsValid)
                 {
+                    
                     Carros oCarro = _ServiceCarros.Guardar(carro);
                     IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
                     GestionResidencias gestionResidencias = null;
                     gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(oCarro.IDResidencia));
                     gestionResidencias.cantCarros++;
                     GestionResidencias oGestionResidencias = _ServiceGestionResidencias.Guardar(gestionResidencias);
+                    lista = _ServiceCarros.GetCarrosxIDResidencia(oCarro.IDResidencia);
                 }
                 else
                 {
                     return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+                return PartialView("_PartialViewListaCarros", lista);
             }
             catch (Exception ex)
             {

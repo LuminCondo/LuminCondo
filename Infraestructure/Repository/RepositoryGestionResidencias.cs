@@ -93,7 +93,6 @@ namespace Infraestructure.Repository
                 }
                 else
                 {
-                    ctx.GestionResidencias.Add(gestionResidencias);
                     ctx.Entry(gestionResidencias).State = EntityState.Modified;
 
                     retorno = ctx.SaveChanges();
