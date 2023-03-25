@@ -240,6 +240,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Repository\IRepositoryCarros.cs" />
     <Compile Include="Repository\IRepositoryEstadoIncidencia.cs" />
     <Compile Include="Repository\IRepositoryEstadoResidencia.cs" />
     <Compile Include="Repository\IRepositoryGestionAsignacionPlanes.cs" />
@@ -247,10 +248,12 @@
     <Compile Include="Repository\IRepositoryGestionResidencias.cs" />
     <Compile Include="Repository\IRepositoryGestionRubrosCobros.cs" />
     <Compile Include="Repository\IRepositoryInformacion.cs" />
+    <Compile Include="Repository\IRepositoryPersonas.cs" />
     <Compile Include="Repository\IRepositoryReporteIncidencias.cs" />
     <Compile Include="Repository\IRepositoryTipoInformacion.cs" />
     <Compile Include="Repository\IRepositoryTiposUsuarios.cs" />
     <Compile Include="Repository\IRepositoryUsuario.cs" />
+    <Compile Include="Repository\RepositoryCarros.cs" />
     <Compile Include="Repository\RepositoryEstadoResidencia.cs" />
     <Compile Include="Repository\RepositoryGestionAsignacionPlanes.cs" />
     <Compile Include="Repository\RepositoryGestionPlanCobros.cs" />
@@ -258,6 +261,7 @@
     <Compile Include="Repository\RepositoryGestionRubrosCobros.cs" />
     <Compile Include="Repository\RepositoryEstadoIncidencia.cs" />
     <Compile Include="Repository\RepositoryInformacion.cs" />
+    <Compile Include="Repository\RepositoryPersonas.cs" />
     <Compile Include="Repository\RepositoryReporteIncidencias.cs" />
     <Compile Include="Repository\RepositoryTiposUsuarios.cs" />
     <Compile Include="Repository\RepositoryTipoInformacion.cs" />

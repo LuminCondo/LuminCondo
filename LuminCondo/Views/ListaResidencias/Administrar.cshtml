@@ -1,0 +1,164 @@
+﻿
+
+@{
+    var Carros = new List<Infraestructure.Models.Carros>();
+    var Personas = new List<Infraestructure.Models.Personas>();
+    Carros = ViewBag.CarrosResidentes;
+    Personas = ViewBag.PersonasResidentes;
+    ViewBag.Title = "Administración de la Residencia #" + ViewBag.IdResidencia;
+
+
+}
+
+<div data-aos="fade-up" class="row">
+    <h2 class="text-center">@ViewBag.Title</h2>
+
+    <div class="col-lg-6 col-sm-12">
+
+        <h3 class="text-center">Carros</h3>
+
+        @*<div>
+                <a href="@Url.Action("CreateCarro","ListaResidencias")" class="btn btn-primary">
+
+                </a>
+            </div>*@
+
+        <button class="btn btn-primary" onclick="CrearCarro()"><i class="fa-solid fa-plus"></i> Añadir Nuevo Carro</button>
+
+        <div id="tablacarros">
+            <table class="table table-hover">
+                <tr>
+                    <th>Placa</th>
+                    <th>Modelo</th>
+                    <th>Tipo de Permiso</th>
+                    <th></th>
+                </tr>
+
+
+                @foreach (var item in Carros)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IDPlaca)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.modelo)
+                        </td>
+                        <td>
+                            @if (item.tipo == true)
+                            {
+                                <p>Residente</p>
+                            }
+                            else
+                            {
+                                <p>Invitado</p>
+                            }
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <a href="@Url.Action("EditCarro","ListaResidencias", new { id = item.IDPlaca })" class="btn btn-primary">
+                                    Modificar
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+
+        <h3 class="text-center">Personas</h3>
+
+        <div>
+            <a href="@Url.Action("CreatePersona","ListaResidencias")" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Añadir Nueva Persona
+            </a>
+        </div>
+
+        <div id="tablacarros">
+            <table class="table table-hover">
+                <tr>
+                    <th>Placa</th>
+                    <th>Modelo</th>
+                    <th>Tipo de Permiso</th>
+                    <th></th>
+                </tr>
+
+
+                @foreach (var item in Personas)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IDCedula)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nombre)
+                        </td>
+                        <td>
+                            @if (item.tipo == true)
+                            {
+                                <p>Residente</p>
+                            }
+                            else
+                            {
+                                <p>Invitado</p>
+                            }
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <a href="@Url.Action("EditCarro","ListaResidencias", new { id = item.IDCedula })" class="btn btn-primary">
+                                    Modificar
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Información Libro</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+@* Modal *@
+
+@section Scripts{
+    <script type="text/javascript">
+
+        function CrearCarro() {
+            var idResidenciaCarro = @ViewBag.IdResidencia
+            $.ajax({
+                method: 'POST',
+                url: '/ListaResidencias/AjaxCrearCarro',
+                data: { 'id': idResidenciaCarro },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+    </script>
+}

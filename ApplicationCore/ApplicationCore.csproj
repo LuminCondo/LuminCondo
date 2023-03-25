@@ -45,22 +45,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IServiceCarros.cs" />
     <Compile Include="Services\IServiceEstadoResidencia.cs" />
     <Compile Include="Services\IServiceGestionAsignacionPlanes.cs" />
     <Compile Include="Services\IServiceGestionPlanCobros.cs" />
     <Compile Include="Services\IServiceGestionResidencias.cs" />
     <Compile Include="Services\IServiceGestionRubrosCobros.cs" />
     <Compile Include="Services\IServiceInformacion.cs" />
+    <Compile Include="Services\IServicePersonas.cs" />
     <Compile Include="Services\IServiceReporteIncidencias.cs" />
     <Compile Include="Services\IServiceTiposUsuarios.cs" />
     <Compile Include="Services\IServiceTipoInformacion.cs" />
     <Compile Include="Services\IServiceUsuario.cs" />
+    <Compile Include="Services\ServiceCarros.cs" />
     <Compile Include="Services\ServiceEstadoResidencia.cs" />
     <Compile Include="Services\ServiceGestionAsignacionPlanes.cs" />
     <Compile Include="Services\ServiceGestionPlanCobros.cs" />
     <Compile Include="Services\ServiceGestionResidencias.cs" />
     <Compile Include="Services\ServiceGestionRubrosCobros.cs" />
     <Compile Include="Services\ServiceInformacion.cs" />
+    <Compile Include="Services\ServicePersonas.cs" />
     <Compile Include="Services\ServiceReporteIncidencias.cs" />
     <Compile Include="Services\ServiceTiposUsuarios.cs" />
     <Compile Include="Services\ServiceTipoInformacion.cs" />

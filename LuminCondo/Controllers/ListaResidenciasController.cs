@@ -3,6 +3,7 @@ using Infraestructure.Models;
 using Infraestructure.Repository;
 using Infraestructure.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using Web.Security;
 using Web.Utils;
+using Web.Models;
 
 namespace Web.Controllers
 {
@@ -95,6 +97,39 @@ namespace Web.Controllers
             ViewBag.IDEstadoResidencias = listaEstadosResidencia();
             return View();
         }
+
+        [CustomAuthorize((int)Roles.Administrador)]
+        // GET: ListaResidencias/Create
+        public ActionResult Administrar(int idResidencia)
+        {
+            IEnumerable<Carros> listacarros = null;
+            IEnumerable<Personas> listapersonas = null;
+
+            try
+            {
+                IServicePersonas _ServicePersonas = new ServicePersonas();
+                listapersonas = _ServicePersonas.GetPersonasxIDResidencia(idResidencia);
+                IServiceCarros _ServiceCarros = new ServiceCarros();
+                listacarros = _ServiceCarros.GetCarrosxIDResidencia(idResidencia);
+
+                ViewBag.IdResidencia = idResidencia;
+                ViewBag.CarrosResidentes = listacarros;
+                ViewBag.PersonasResidentes = listapersonas;   
+
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+            return View();
+        }
+
         // GET: ListaResidencias/Edit/5
         [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int? id)
@@ -177,5 +212,47 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
+
+        public ActionResult AjaxCrearCarro(int id)
+        {
+            Carros carro = new Carros();
+            carro.IDResidencia = id;
+            return PartialView("_PartialViewCrearCarro", carro);
+        }
+
+        public ActionResult GuardarCarro(Carros carro)
+        {
+            IServiceCarros _ServiceCarros = new ServiceCarros();
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Carros oCarro = _ServiceCarros.Guardar(carro);
+                    IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
+                    GestionResidencias gestionResidencias = null;
+                    gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(oCarro.IDResidencia));
+                    gestionResidencias.cantCarros++;
+                    GestionResidencias oGestionResidencias = _ServiceGestionResidencias.Guardar(gestionResidencias);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "ListaResidencias";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+
     }
 }
