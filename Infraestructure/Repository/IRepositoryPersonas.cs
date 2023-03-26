@@ -10,5 +10,7 @@ namespace Infraestructure.Repository
     public interface IRepositoryPersonas
     {
         IEnumerable<Personas> GetPersonasxIDResidencia(int id);
+
+        Personas Guardar(Personas personas);
     }
 }

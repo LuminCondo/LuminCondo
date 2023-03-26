@@ -10,5 +10,7 @@ namespace ApplicationCore.Services
     public interface IServicePersonas
     {
         IEnumerable<Personas> GetPersonasxIDResidencia(int id);
+
+        Personas Guardar(Personas personas);
     }
 }

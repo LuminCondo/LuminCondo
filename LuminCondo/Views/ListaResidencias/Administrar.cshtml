@@ -30,64 +30,32 @@
                 </div>
             }
         </div>
-
-        <div id="">
-            
-        </div>
     </div>
 
     <div class="col-lg-6 col-sm-12">
-
         <h3 class="text-center">Personas</h3>
-
-        <div>
-            <a href="@Url.Action("CreatePersona","ListaResidencias")" class="btn btn-primary">
-                <i class="fa-solid fa-plus"></i> Añadir Nueva Persona
-            </a>
-        </div>
-
-        <div id="tablacarros">
-            <table class="table table-hover">
-                <tr>
-                    <th>Placa</th>
-                    <th>Modelo</th>
-                    <th>Tipo de Permiso</th>
-                    <th></th>
-                </tr>
-
-
-                @foreach (var item in Personas)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IDCedula)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nombre)
-                        </td>
-                        <td>
-                            @if (item.tipo == true)
-                            {
-                                <p>Residente</p>
-                            }
-                            else
-                            {
-                                <p>Invitado</p>
-                            }
-                        </td>
-                        <td>
-                            <div class="text-center">
-                                <a href="@Url.Action("EditCarro","ListaResidencias", new { id = item.IDCedula })" class="btn btn-primary">
-                                    Modificar
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-
-            </table>
+        <span class="glyphicons glyphicons-hand-left"></span>
+        <div id="tablapersonas">
+            @if (Carros.Count() > 0)
+            {
+                @Html.Partial("_PartialViewListaPersonas", (List<Infraestructure.Models.Personas>)Personas)
+            }
+            else
+            {
+                <button class="btn btn-primary" onclick="CrearPersona()"><i class="fa-solid fa-plus"></i> Añadir Nueva Persona</button>
+                <div class="alert alert-warning align-items-center">
+                    La Residencia no tiene personas
+                </div>
+            }
         </div>
     </div>
+
+    <div class="text-center">
+        <a href="@Url.Action("Index","ListaResidencias")" class="btn btn-primary">
+            Regresar al listado
+        </a>
+    </div>
+    
 </div>
 
 
@@ -128,6 +96,38 @@
             })
         }
 
+        function ActualizarCarro(idPlaca) {
+            var id = idPlaca;
+            $.ajax({
+                method: 'POST',
+                url: '/ListaResidencias/AjaxModificarCarro',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function CrearPersona() {
+            var idResidenciaPersona = @ViewBag.IdResidencia
+            $.ajax({
+                method: 'POST',
+                url: '/ListaResidencias/AjaxCrearPersona',
+                data: { 'id': idResidenciaPersona },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
         function GuardarCarro() {
             event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
             var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
@@ -140,6 +140,27 @@
                 success: function (result) {
                     // procesar la respuesta del servidor
                     $('#tablacarros').html(result);
+                    $('#myModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
+
+        function GuardarPersona() {
+            event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
+            var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+            $.ajax({
+                url: '@Url.Action("GuardarPersona", "ListaResidencias")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablapersonas').html(result);
                     $('#myModal').modal('hide');
                 },
                 error: function (xhr, status, error) {

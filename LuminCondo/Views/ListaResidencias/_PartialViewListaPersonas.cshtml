@@ -1,12 +1,11 @@
-﻿@model IEnumerable<Infraestructure.Models.Carros>
+﻿@model IEnumerable<Infraestructure.Models.Personas>
 
-
-<button class="btn btn-primary" onclick="CrearCarro()"><i class="fa-solid fa-plus"></i> Añadir Nuevo Carro</button>
+<button class="btn btn-primary" onclick="CrearPersona()"><i class="fa-solid fa-plus"></i> Añadir Nueva Persona</button>
 
 <table class="table table-hover">
     <tr>
-        <th>Placa</th>
-        <th>Modelo</th>
+        <th>Cédula</th>
+        <th>Nombre</th>
         <th>Tipo de Permiso</th>
         <th></th>
     </tr>
@@ -16,10 +15,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IDPlaca)
+                @Html.DisplayFor(modelItem => item.IDCedula)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.modelo)
+                @Html.DisplayFor(modelItem => item.nombre)
             </td>
             <td>
                 @if (item.tipo == true)
@@ -33,7 +32,9 @@
             </td>
             <td>
                 <div class="text-center">
-                    <button class="btn btn-primary" onclick="ActualizarCarro(@item.IDPlaca)"><i class="fa-solid fa-plus"></i> Modificar</button>
+                    <a href="@Url.Action("EditCarro","ListaResidencias", new { id = item.IDCedula })" class="btn btn-primary">
+                        Modificar
+                    </a>
                 </div>
             </td>
         </tr>

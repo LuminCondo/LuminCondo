@@ -11,6 +11,7 @@ namespace ApplicationCore.Services
     {
         IEnumerable<Carros> GetCarrosxIDResidencia(int id);
 
-        Carros Guardar(Carros carro);  
+        Carros Guardar(Carros carro);
+        Carros GetCarrosByID(string IDPlaca);
     }
 }

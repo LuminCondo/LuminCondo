@@ -587,6 +587,9 @@
     <Content Include="Views\ListaResidencias\Administrar.cshtml" />
     <Content Include="Views\ListaResidencias\_PartialViewCrearCarro.cshtml" />
     <Content Include="Views\ListaResidencias\_PartialViewListaCarros.cshtml" />
+    <Content Include="Views\ListaResidencias\_PartialViewListaPersonas.cshtml" />
+    <Content Include="Views\ListaResidencias\_PartialViewCrearPersona.cshtml" />
+    <Content Include="Views\ListaResidencias\_PartialViewModificarCarro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

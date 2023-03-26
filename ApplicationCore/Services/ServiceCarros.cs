@@ -10,6 +10,12 @@ namespace ApplicationCore.Services
 {
     public class ServiceCarros:IServiceCarros
     {
+        public Carros GetCarrosByID(string IDPlaca)
+        {
+            IRepositoryCarros repository = new RepositoryCarros();
+            return repository.GetCarrosByID(IDPlaca);
+        }
+
         public IEnumerable<Carros> GetCarrosxIDResidencia(int id)
         {
             IRepositoryCarros repository = new RepositoryCarros();

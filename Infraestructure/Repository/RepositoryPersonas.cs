@@ -2,6 +2,7 @@
 using Infraestructure.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -65,6 +66,37 @@ namespace Infraestructure.Repository
                 Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw;
             }
+        }
+
+        public Personas Guardar(Personas personas)
+        {
+            int retorno = 0;
+            Personas oPersonas = null;
+
+            using (MyContext ctx = new MyContext())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false;
+                oPersonas = GetPersonasByID(personas.IDCedula);
+
+                if (oPersonas == null)
+                {
+                    ctx.Personas.Add(personas);
+
+                    retorno = ctx.SaveChanges();
+                }
+                else
+                {
+
+                    ctx.Entry(personas).State = EntityState.Modified;
+
+                    retorno = ctx.SaveChanges();
+                }
+            }
+
+            if (retorno >= 0)
+                oPersonas = GetPersonasByID(personas.IDCedula);
+
+            return oPersonas;
         }
     }
 }

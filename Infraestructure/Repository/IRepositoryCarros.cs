@@ -10,6 +10,7 @@ namespace Infraestructure.Repository
     public interface IRepositoryCarros
     {
         IEnumerable<Carros> GetCarrosxIDResidencia(int id);
+        Carros GetCarrosByID(string IDPlaca);
         Carros Guardar(Carros carro);  
     }
 }

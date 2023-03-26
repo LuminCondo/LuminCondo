@@ -103,6 +103,11 @@ namespace Web.Controllers
             return PartialView("_PartialViewListaCarros");
         }
 
+        public ActionResult _PartialViewListaPersonas()
+        {
+            return PartialView("_PartialViewListaPersonas");
+        }
+
         [CustomAuthorize((int)Roles.Administrador)]
         // GET: ListaResidencias/Create
         public ActionResult Administrar(int idResidencia)
@@ -132,7 +137,6 @@ namespace Web.Controllers
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
-            return View();
         }
 
         // GET: ListaResidencias/Edit/5
@@ -204,7 +208,7 @@ namespace Web.Controllers
                         return View("Create", gestionResidencias);
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Administrar", new { idResidencia = gestionResidencias.IDResidencia });
             }
             catch (Exception ex)
             {
@@ -225,6 +229,14 @@ namespace Web.Controllers
             return PartialView("_PartialViewCrearCarro", carro);
         }
 
+        public ActionResult AjaxModificarCarro(string id)
+        {
+            Carros carro = new Carros();
+            IServiceCarros _ServiceCarros = new ServiceCarros();
+            carro = _ServiceCarros.GetCarrosByID(id);
+            return PartialView("_PartialViewModificarCarro", carro);
+        }
+
         public ActionResult GuardarCarro(Carros carro)
         {
             IServiceCarros _ServiceCarros = new ServiceCarros();
@@ -233,14 +245,17 @@ namespace Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
+                    Carros oCarros = _ServiceCarros.GetCarrosByID(carro.IDPlaca);
                     Carros oCarro = _ServiceCarros.Guardar(carro);
-                    IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
-                    GestionResidencias gestionResidencias = null;
-                    gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(oCarro.IDResidencia));
-                    gestionResidencias.cantCarros++;
-                    GestionResidencias oGestionResidencias = _ServiceGestionResidencias.Guardar(gestionResidencias);
                     lista = _ServiceCarros.GetCarrosxIDResidencia(oCarro.IDResidencia);
+                    if (oCarros==null)
+                    {
+                        IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
+                        GestionResidencias gestionResidencias = null;
+                        gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(oCarro.IDResidencia));
+                        gestionResidencias.cantCarros++;
+                        GestionResidencias oGestionResidencias = _ServiceGestionResidencias.Guardar(gestionResidencias);
+                    }
                 }
                 else
                 {
@@ -260,6 +275,46 @@ namespace Web.Controllers
             }
         }
 
+        public ActionResult AjaxCrearPersona(int id)
+        {
+            Personas personas = new Personas();
+            personas.IDResidencia = id;
+            return PartialView("_PartialViewCrearPersona", personas);
+        }
 
+        public ActionResult GuardarPersona(Personas personas)
+        {
+            IServicePersonas _ServicePersonas = new ServicePersonas();
+            IEnumerable<Personas> lista = null;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    Personas oPersonas = _ServicePersonas.Guardar(personas);
+                    IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
+                    GestionResidencias gestionResidencias = null;
+                    gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(oPersonas.IDResidencia));
+                    gestionResidencias.cantPersonas++;
+                    GestionResidencias oGestionResidencias = _ServiceGestionResidencias.Guardar(gestionResidencias);
+                    lista = _ServicePersonas.GetPersonasxIDResidencia(oPersonas.IDResidencia);
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+                return PartialView("_PartialViewListaPersonas", lista);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "ListaResidencias";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
     }
 }
