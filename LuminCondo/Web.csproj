@@ -590,6 +590,7 @@
     <Content Include="Views\ListaResidencias\_PartialViewListaPersonas.cshtml" />
     <Content Include="Views\ListaResidencias\_PartialViewCrearPersona.cshtml" />
     <Content Include="Views\ListaResidencias\_PartialViewModificarCarro.cshtml" />
+    <Content Include="Views\ListaResidencias\_PartialViewModificarPersona.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

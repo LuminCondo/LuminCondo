@@ -282,6 +282,14 @@ namespace Web.Controllers
             return PartialView("_PartialViewCrearPersona", personas);
         }
 
+        public ActionResult AjaxModificarPersona(int id)
+        {
+            Personas personas = new Personas();
+            IServicePersonas _ServicePersonas = new ServicePersonas();
+            personas = _ServicePersonas.GetPersonasByID(id);
+            return PartialView("_PartialViewModificarPersona", personas);
+        }
+
         public ActionResult GuardarPersona(Personas personas)
         {
             IServicePersonas _ServicePersonas = new ServicePersonas();

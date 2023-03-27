@@ -128,6 +128,22 @@
             })
         }
 
+        function ActualizarPersona(idPlaca) {
+            var id = idPlaca;
+            $.ajax({
+                method: 'POST',
+                url: '/ListaResidencias/AjaxModificarPersona',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
         function GuardarCarro() {
             event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
             var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData

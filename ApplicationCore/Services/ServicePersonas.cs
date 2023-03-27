@@ -21,5 +21,11 @@ namespace ApplicationCore.Services
             IRepositoryPersonas repository = new RepositoryPersonas();
             return repository.Guardar(personas);
         }
+
+        public Personas GetPersonasByID(int id)
+        {
+            IRepositoryPersonas repository = new RepositoryPersonas();
+            return repository.GetPersonasByID(id);
+        }
     }
 }

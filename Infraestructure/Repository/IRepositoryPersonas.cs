@@ -12,5 +12,6 @@ namespace Infraestructure.Repository
         IEnumerable<Personas> GetPersonasxIDResidencia(int id);
 
         Personas Guardar(Personas personas);
+        Personas GetPersonasByID(int id);
     }
 }
