@@ -94,13 +94,31 @@
                             </a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           @*Accion, Controlador*@
-                           href="@Url.Action("Index", "GestionAsignacionPlanes")">
-                            <i class="fa-regular fa-rectangle-list"></i>
-                            Asignación de Planes
-                        </a>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-gears"></i>Gestión Administrativa</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="@Url.Action("Index","GestionAsignacionPlanes")">
+                                <i class="fa-regular fa-rectangle-list"></i>
+                                Asignación de Planes
+                            </a>
+                            <a class="dropdown-item"
+                               href="@Url.Action("Index","ListaResidencias")">
+                                <i class="fa-regular fa-rectangle-list"></i>
+                                Gestión de Residencias
+                            </a>
+                            <a class="dropdown-item"
+                               href="@Url.Action("IndexDeudas","HistorialYDeuda")">
+                                <i class="fa-solid fa-gears"></i>
+                                Gestión de Deudas
+                            </a>
+                            <a class="dropdown-item"
+                               href="@Url.Action("IndexHistorial","HistorialYDeuda")">
+                                <i class="fa-solid fa-gears"></i>
+                                Historial de Pagos
+                            </a>
+                        </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa-regular fa-file-lines"></i> Reportes</a>

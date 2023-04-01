@@ -108,7 +108,7 @@ namespace Web.Controllers
             return PartialView("_PartialViewListaPersonas");
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: ListaResidencias/Create
         public ActionResult Administrar(int idResidencia)
         {

@@ -25,7 +25,6 @@ namespace LuminCondo.Controllers
             {
                 IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
                 lista = _ServiceGestionResidencias.GetGestionResidencias();
-                ViewBag.title = "Listado de Residencias";
 
                 return View(lista);
             }

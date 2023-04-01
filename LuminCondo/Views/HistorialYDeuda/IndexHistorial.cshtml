@@ -1,15 +1,13 @@
 ﻿@model Infraestructure.Models.GestionAsignacionPlanes
 
 @{
-    var ListaAsignaciones = new List<Infraestructure.Models.GestionAsignacionPlanes>();
-    ListaAsignaciones = ViewBag.listaHistorial;
-    ViewBag.Title = "Listado de Asignaciones";
+    var Historial = new List<Infraestructure.Models.GestionAsignacionPlanes>();
+    Historial = ViewBag.listaHistorial;
+    ViewBag.Title = "Historial de pagos";
 }
 
 <div data-aos="fade-up">
-
-    <h2 class="text-center">@ViewBag.Title</h2>
-    <h4 class="text-center">Filtros de Búsqueda</h4>
+    <h2 class="text-center">Filtros de Búsqueda</h2>
 
 
     <div class="row text-center">
@@ -51,15 +49,11 @@
     </div>
 
     <div>
-        <div>
-            <a href="@Url.Action("Create","GestionAsignacionPlanes")" class="btn btn-primary">
-                <i class="fa-solid fa-plus"></i> Crear una nueva asignación de plan
-            </a>
-        </div>
+        <h3 class="text-center">Historial de pagos</h3>
         <span class="glyphicons glyphicons-hand-left"></span>
-        <div id="tablaAsignaciones">
+        <div id="tablaHistorial">
 
-            @Html.Partial("_PartialViewListaAsignaciones", ListaAsignaciones)
+            @Html.Partial("_PartialViewListaHistorial", Historial)
 
         </div>
     </div>
@@ -86,24 +80,26 @@
 @section Scripts{
     <script type="text/javascript">
 
-
+        
 
         function BuscarHistorial() {
             var idResidencia = $("#idResidenciaAjax").val();
             var mesSeleccionado = $("#mesAjax").val();
             var annoSeleccionado = $("#annoAjax").val();
+            var estadopago = true;
             $.ajax({
-                url: '@Url.Action("BuscarHistorialGeneral", "GestionAsignacionPlanes")', // especificar la acción del controlador que manejará la solicitud
+                url: '@Url.Action("BuscarHistorial", "HistorialYDeuda")', // especificar la acción del controlador que manejará la solicitud
                 type: 'POST',
                 data: {
                     mes: mesSeleccionado,
                     anno: annoSeleccionado,
                     idResidencia: idResidencia,
+                    estado: estadopago
                 },
                 success: function (result) {
-                    $('#tablaAsignaciones').html('');
+                    $('#tablaHistorial').html('');
                     // procesar la respuesta del servidor
-                    $('#tablaAsignaciones').html(result);
+                    $('#tablaHistorial').html(result);
                 },
                 error: function (xhr, status, error) {
                     // manejar errores

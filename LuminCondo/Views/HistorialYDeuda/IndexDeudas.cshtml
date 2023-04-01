@@ -1,15 +1,13 @@
 ﻿@model Infraestructure.Models.GestionAsignacionPlanes
 
 @{
-    var ListaAsignaciones = new List<Infraestructure.Models.GestionAsignacionPlanes>();
-    ListaAsignaciones = ViewBag.listaHistorial;
-    ViewBag.Title = "Listado de Asignaciones";
+    var Historial = new List<Infraestructure.Models.GestionAsignacionPlanes>();
+    Historial = ViewBag.listaHistorial;
+    ViewBag.Title = "Historial de Deudas";
 }
 
 <div data-aos="fade-up">
-
-    <h2 class="text-center">@ViewBag.Title</h2>
-    <h4 class="text-center">Filtros de Búsqueda</h4>
+    <h2 class="text-center">Filtros de Búsqueda</h2>
 
 
     <div class="row text-center">
@@ -51,15 +49,11 @@
     </div>
 
     <div>
-        <div>
-            <a href="@Url.Action("Create","GestionAsignacionPlanes")" class="btn btn-primary">
-                <i class="fa-solid fa-plus"></i> Crear una nueva asignación de plan
-            </a>
-        </div>
+        <h3 class="text-center">Historial de pagos</h3>
         <span class="glyphicons glyphicons-hand-left"></span>
-        <div id="tablaAsignaciones">
+        <div id="tablaDeudas">
 
-            @Html.Partial("_PartialViewListaAsignaciones", ListaAsignaciones)
+            @Html.Partial("_PartialViewListaDeudas", Historial)
 
         </div>
     </div>
@@ -92,18 +86,20 @@
             var idResidencia = $("#idResidenciaAjax").val();
             var mesSeleccionado = $("#mesAjax").val();
             var annoSeleccionado = $("#annoAjax").val();
+            var estadopago = false;
             $.ajax({
-                url: '@Url.Action("BuscarHistorialGeneral", "GestionAsignacionPlanes")', // especificar la acción del controlador que manejará la solicitud
+                url: '@Url.Action("BuscarHistorial", "HistorialYDeuda")', // especificar la acción del controlador que manejará la solicitud
                 type: 'POST',
                 data: {
                     mes: mesSeleccionado,
                     anno: annoSeleccionado,
                     idResidencia: idResidencia,
+                    estado: estadopago
                 },
                 success: function (result) {
-                    $('#tablaAsignaciones').html('');
+                    $('#tablaDeudas').html('');
                     // procesar la respuesta del servidor
-                    $('#tablaAsignaciones').html(result);
+                    $('#tablaDeudas').html(result);
                 },
                 error: function (xhr, status, error) {
                     // manejar errores
@@ -122,6 +118,30 @@
                     $('.modal-body').html('');
                     $('.modal-body').html(response);
                     $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function PagarPlan(idAsignacion) {
+            var idResidencia = $("#idResidenciaAjax").val();
+            var mesSeleccionado = $("#mesAjax").val();
+            var annoSeleccionado = $("#annoAjax").val();
+            var id = idAsignacion;
+            $.ajax({
+                method: 'POST',
+                url: '/HistorialYDeuda/PagarPlan',
+                data: {
+                    idAsignacion: id,
+                    mes: mesSeleccionado,
+                    anno: annoSeleccionado,
+                    idResidencia: idResidencia
+                },
+                success: function (response) {
+                    $('#tablaDeudas').html('');
+                    // procesar la respuesta del servidor
+                    $('#tablaDeudas').html(response);
                 }, error: function (xhr, status, error) {
                     console.log('Error' + error + ',No Error' + xhr.status);
                 }

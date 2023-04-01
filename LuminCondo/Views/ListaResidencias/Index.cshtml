@@ -85,9 +85,13 @@
                         <a href="@Url.Action("Details","ListaResidencias", new { id = item.IDResidencia })" class="btn btn-primary">
                             Detalles
                         </a>
-                        <a href="@Url.Action("Edit","ListaResidencias", new { id = item.IDResidencia })" class="btn btn-secondary">
-                            Modificar
-                        </a>
+                        @if (idTipoUsuario == 1)
+                        {
+                            <a href="@Url.Action("Edit","ListaResidencias", new { id = item.IDResidencia })" class="btn btn-secondary">
+                                Modificar
+                            </a>
+                        }
+
                         <form method="post" action="@Url.Action("Administrar", "ListaResidencias")">
                             <input type="hidden" name="idResidencia" value=@item.IDResidencia />
                             <button class="btn btn-primary">Administrar la residencia</button>

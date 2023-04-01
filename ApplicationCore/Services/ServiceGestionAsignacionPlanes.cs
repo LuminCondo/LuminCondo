@@ -29,6 +29,19 @@ namespace ApplicationCore.Services
             return repository.GetGestionAsignacionPlanesByID(id);
         }
 
+        public IEnumerable<GestionAsignacionPlanes> GetHistorial(int? mes, int? anno, int? idResidencia, bool estado)
+        {
+            IRepositoryGestionAsignacionPlanes repository = new RepositoryGestionAsignacionPlanes();
+            return repository.GetHistorial(mes, anno, idResidencia, estado);
+        }
+
+        public IEnumerable<GestionAsignacionPlanes> GetHistorialGeneral(int? mes, int? anno, int? idResidencia)
+        {
+            IRepositoryGestionAsignacionPlanes repository = new RepositoryGestionAsignacionPlanes();
+            return repository.GetHistorialGeneral(mes, anno, idResidencia);
+        }
+
+
         public GestionAsignacionPlanes Guardar(GestionAsignacionPlanes gestionAsignacionPlanes)
         {
             IRepositoryGestionAsignacionPlanes repository = new RepositoryGestionAsignacionPlanes();

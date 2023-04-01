@@ -21,11 +21,15 @@ namespace LuminCondo
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
-            bundles.Add(new ScriptBundle("~/bundles/sweetalert").Include("~/Scripts/sweetalert.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/sweetalert").Include(
+                      "~/Scripts/sweetalert.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/fontAwesome").Include(
+                      "~/Scripts/FontAwesome/all.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/Mybootstrap.min.css",
                       "~/Content/StylesLuminCondo.css",
+                      "~/Content/FontAwesome/all.min.css",
                       "~/Content/sweetalert.css"));
         }
     }

@@ -4,6 +4,7 @@ using Infraestructure.Repository;
 using Infraestructure.Utils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -18,19 +19,25 @@ namespace Web.Controllers
         // GET: GestionAsignacionPlanes
         public ActionResult Index()
         {
-            IEnumerable<GestionAsignacionPlanes> lista = null;
+            IEnumerable<GestionAsignacionPlanes> listaHistorial = null;
 
             try
             {
                 IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
-                lista = _ServiceGestionAsignacionPlanes.GetGestionAsignacionPlanes();
-                ViewBag.title = "Listado de Planes Asignados";
+                listaHistorial = _ServiceGestionAsignacionPlanes.GetHistorialGeneral(DateTime.Now.Month, DateTime.Now.Year, null);
 
-                return View(lista);
+
+                ViewBag.IDResidencias = listaResidencias();
+                ViewBag.listameses = listaMeses(DateTime.Now.Month);
+                ViewBag.listaannos = listaannos(DateTime.Now.Year);
+                ViewBag.listaHistorial = listaHistorial;
+
+
+                return View();
             }
             catch (Exception ex)
             {
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
 
                 // Redireccion a la captura del Error
@@ -87,6 +94,19 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
+
+        public ActionResult _PartialViewListaAsignaciones()
+        {
+            return PartialView("_PartialViewListaAsignaciones");
+        }
+
+        public ActionResult _PartialViewDetails(int? id)
+        {
+            IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
+            GestionPlanCobros planCobros = null;
+            planCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
+            return PartialView("_PartialViewDetails", planCobros);
+        }
         [CustomAuthorize((int)Roles.Administrador)]
         // GET: GestionAsignacionPlanes/Details/5
         public ActionResult Details(int? id)
@@ -139,6 +159,30 @@ namespace Web.Controllers
             return new SelectList(lista, "IDResidencia", "IDResidencia", idResidencia);
         }
 
+        private SelectList listaMeses(int mesActual)
+        {
+            List<SelectListItem> lista = new List<SelectListItem>();
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+
+            for (int i = 1; i <= 12; i++)
+            {
+                lista.Add(new SelectListItem { Text = ti.ToTitleCase(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)), Value = i.ToString() });
+            }
+            return new SelectList(lista, "Value", "Text", mesActual);
+        }
+
+        private SelectList listaannos(int mesActual)
+        {
+            List<SelectListItem> lista = new List<SelectListItem>();
+
+
+            for (int i = 2019; i <= DateTime.Now.Year; i++)
+            {
+                lista.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+            }
+            return new SelectList(lista, "Value", "Text", mesActual);
+        }
+
         private SelectList listaPlanes(int idPlan = 0)
         {
             IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
@@ -188,6 +232,30 @@ namespace Web.Controllers
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
                 TempData["Redirect"] = "Libro";
                 TempData["Redirect-Action"] = "IndexAdmin";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        public ActionResult BuscarHistorialGeneral(int? mes, int? anno, int? idResidencia)
+        {
+
+            try
+            {
+                IEnumerable<GestionAsignacionPlanes> lista = null;
+                IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
+                lista = _ServiceGestionAsignacionPlanes.GetHistorialGeneral(mes, anno, idResidencia);
+                
+                    return PartialView("_PartialViewListaAsignaciones", lista);
+
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "ListaResidencias";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }

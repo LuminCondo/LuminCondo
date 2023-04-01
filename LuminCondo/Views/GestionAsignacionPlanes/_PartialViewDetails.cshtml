@@ -1,0 +1,23 @@
+﻿@model Infraestructure.Models.GestionPlanCobros
+
+@{
+    ViewBag.Title = "Detalles del plan";
+}
+
+<div data-aos="fade-up">
+    <h2 class="text-center">Plan @Html.DisplayFor(model => model.IDPlan)</h2>
+    <h4 class="text-center">@Html.DisplayFor(model => model.descripcion)</h4>
+
+    <div class="blueback text-center">
+        <i class="fa-solid fa-bookmark"></i> <b>Rubros a cobrar dentro del plan:</b>
+            @{
+                decimal total = 0;
+            }
+            @foreach (var c in Model.GestionRubrosCobros)
+            {
+                <p>@c.descripcion: <i class="fa-solid fa-colon-sign"></i>@c.monto</p>
+                total += c.monto;
+            }
+        <b>Total: <i class="fa-solid fa-colon-sign"></i>@total.ToString("N2")</b>
+    </div>
+</div>
