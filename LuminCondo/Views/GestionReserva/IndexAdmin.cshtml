@@ -1,44 +1,112 @@
 ﻿@model IEnumerable<Infraestructure.Models.GestionReservas>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Reservas";
 }
 
-<h2>Listado de Reservas</h2>
+<div data-aos="fade-up">
 
-<p>
-    @Html.ActionLink("Crear nueva reserva", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IDReserva)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuarios.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Espacios.descripcion)
-        </th>
-        <th></th>
-    </tr>
+    <h2 class="text-center">@ViewBag.Title</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IDReserva)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuarios.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Espacios.descripcion)
-        </td>
+    <button class="btn btn-primary" onclick="CrearReserva()"><i class="fa-solid fa-plus"></i> Añadir Nueva Reserva</button>
+    
+    <div>
+        <span class="glyphicons glyphicons-hand-left"></span>
+        <div id="tablaReservas">
 
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.IDReserva })
-        </td>
-    </tr>
+            @Html.Partial("_PartialViewListaReserva", Model)
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        function CrearReserva() {
+            $.ajax({
+                method: 'POST',
+                url: '/GestionReserva/AjaxCrearReserva',
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function GuardarReserva() {
+            event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
+            var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+            $.ajax({
+                url: '@Url.Action("Guardar", "GestionReserva")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablaReservas').html(result);
+                    $('#myModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
+
+        function DetalleReserva(idReserva) {
+            var id = idReserva;
+            $.ajax({
+                method: 'POST',
+                url: '/GestionReserva/_PartialViewDetalleReserva',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function ActualizarReserva(idReserva) {
+            var id = idReserva;
+            $.ajax({
+                method: 'POST',
+                url: '/GestionReserva/AjaxModificarReserva',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+    </script>
 }
-
-</table>

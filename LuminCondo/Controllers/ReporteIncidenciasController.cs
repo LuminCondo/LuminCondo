@@ -59,17 +59,11 @@ namespace Web.Controllers
 
         public ActionResult Guardar(ReporteIncidencias reporteIncidencias)
         {
-                if (Session["User"] != null)
-                {
-                    Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
-                    usuario = (Infraestructure.Models.Usuarios)Session["User"];
-                    reporteIncidencias.IDUsuario = usuario.ID;
-            }
-            else
-            {
-                reporteIncidencias.IDUsuario = 1;
-            }
-            reporteIncidencias.IDEstado = 1;
+                
+            Usuarios usuario = new Usuarios();
+            usuario = (Usuarios)Session["User"];
+            reporteIncidencias.IDUsuario = usuario.ID;
+            
 
             IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
 

@@ -629,6 +629,10 @@
     <Content Include="Views\ListaResidencias\_PartialViewCrearResidencia.cshtml" />
     <Content Include="Views\ListaResidencias\_PartialViewDetalleResidencia.cshtml" />
     <Content Include="Views\ListaResidencias\_PartialViewModificarResidencia.cshtml" />
+    <Content Include="Views\GestionReserva\_PartialViewCrearReserva.cshtml" />
+    <Content Include="Views\GestionReserva\_PartialViewListaReserva.cshtml" />
+    <Content Include="Views\GestionReserva\_PartialViewDetalleReserva.cshtml" />
+    <Content Include="Views\GestionReserva\_PartialViewModificarReserva.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

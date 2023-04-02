@@ -73,7 +73,6 @@ namespace Infraestructure.Models
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime fecha { get; set; }
         [Display(Name = "Estado de la reserva")]
-        [Required(ErrorMessage = "{0} es un dato requerido")]
         public bool estado { get; set; }
     }
 

@@ -74,26 +74,56 @@ namespace Web.Controllers
         }
 
         // GET: GestionReserva/Create
-        public ActionResult Create()
+        public ActionResult AjaxCrearReserva()
         {
-            return View();
+            ViewBag.IDEspacios = listaEspacios();
+            return PartialView("_PartialViewCrearReserva");
         }
 
-        // POST: GestionReserva/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult AjaxModificarReserva(int? id)
         {
+            IServiceGestionReservas _ServiceGestionReservas = new ServiceGestionReservas();
+            GestionReservas gestionReservas = null;
+
             try
             {
-                // TODO: Add insert logic here
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                gestionReservas = _ServiceGestionReservas.GetReservaByID(Convert.ToInt32(id));
+
+                if (gestionReservas == null)
+                {
+                    TempData["Message"] = "No existe el libro solicitado";
+                    TempData["Redirect"] = "ListaResidencias";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+
+                ViewBag.IDEspacios = listaEspacios(gestionReservas.IDEspacio);
+                return PartialView("_PartialViewModificarReserva", gestionReservas);
+
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                // Salvar el error en un archivo 
+                Infraestructure.Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "ListaResidencias";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
             }
+            
         }
+
+
+
+        // POST: GestionReserva/Create
+
 
         private SelectList listaEspacios(int id = 0)
         {
@@ -142,42 +172,47 @@ namespace Web.Controllers
             }
         }
 
-        // POST: GestionReserva/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult _PartialViewListaReserva()
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return PartialView("_PartialViewListaReserva");
         }
 
-        // GET: GestionReserva/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult _PartialViewDetalleReserva(int? id)
         {
-            return View();
-        }
 
-        // POST: GestionReserva/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
+            IServiceGestionReservas _ServiceGestionReservas = new ServiceGestionReservas();
+            GestionReservas gestionReservas = null;
             try
             {
-                // TODO: Add delete logic here
+                if (id == null)
+                {
+                    return RedirectToAction("IndexAdmin");
+                }
+                gestionReservas = _ServiceGestionReservas.GetReservaByID((int)id);
 
-                return RedirectToAction("Index");
+                if (gestionReservas == null)
+                {
+                    {
+                        TempData["Message"] = "No existe el Plan solicitado";
+                        TempData["Redirect"] = "GestionPlanCobros";
+                        TempData["Redirect-Action"] = "Index";
+                        // Redireccion a la captura del Error
+                        return RedirectToAction("Default", "Error");
+                    }
+                }
+                return PartialView("_PartialViewDetalleReserva", gestionReservas);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                // Salvar el error en un archivo 
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "GestionPlanCobros";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
             }
+            
         }
     }
 }
