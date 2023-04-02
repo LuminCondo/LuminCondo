@@ -81,9 +81,7 @@
                         <button class="btn btn-primary" onclick="DetalleResidencia('@item.IDResidencia')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
                         @if (idTipoUsuario == 1)
                         {
-                            <a href="@Url.Action("Edit","ListaResidencias", new { id = item.IDResidencia })" class="btn btn-secondary">
-                                Modificar
-                            </a>
+                            <button class="btn btn-secondary" onclick="ActualizarResidencia('@item.IDResidencia')">Modificar</button>
                         }
 
                         <form method="post" action="@Url.Action("Administrar", "ListaResidencias")">
@@ -133,10 +131,10 @@
         }
 
         function DetalleResidencia(idResidencia) {
-            var id = idPlan;
+            var id = idResidencia;
             $.ajax({
                 method: 'POST',
-                url: '/GestionAsignacionPlanes/_PartialViewDetalleResidencia',
+                url: '/ListaResidencias/_PartialViewDetalleResidencia',
                 data: { 'id': id },
                 success: function (response) {
                     $('.modal-body').html('');
@@ -148,11 +146,11 @@
             })
         }
 
-        function ActualizarCarro(idPlaca) {
-            var id = idPlaca;
+        function ActualizarResidencia(idResidencia) {
+            var id = idResidencia;
             $.ajax({
                 method: 'POST',
-                url: '/ListaResidencias/AjaxModificarCarro',
+                url: '/ListaResidencias/AjaxModificarResidencia',
                 data: { 'id': id },
                 success: function (response) {
                     $('.modal-body').html('');

@@ -69,7 +69,7 @@ namespace Infraestructure.Models
         public int IDEspacio { get; set; }
         [Display(Name = "Fecha de la Reserva")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime fecha { get; set; }
         [Display(Name = "Estado de la reserva")]

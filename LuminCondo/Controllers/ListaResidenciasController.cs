@@ -108,6 +108,14 @@ namespace Web.Controllers
             return PartialView("_PartialViewListaPersonas");
         }
 
+        public ActionResult _PartialViewDetalleResidencia(int? id)
+        {
+            IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
+            GestionResidencias gestionResidencias = null;
+            gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(id));
+            return PartialView("_PartialViewDetalleResidencia", gestionResidencias);
+        }
+
         [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: ListaResidencias/Create
         public ActionResult Administrar(int idResidencia)
@@ -234,6 +242,15 @@ namespace Web.Controllers
             ViewBag.IDUsuarios = listaUsuarios();
             ViewBag.IDEstadoResidencias = listaEstadosResidencia();
             return PartialView("_PartialViewCrearResidencia");
+        }
+        public ActionResult AjaxModificarResidencia(int id)
+        {
+            GestionResidencias gestionResidencias = new GestionResidencias();
+            IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
+            gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(id);
+            ViewBag.IDUsuarios = listaUsuarios(gestionResidencias.IDUsuario);
+            ViewBag.IDEstadoResidencias = listaEstadosResidencia(gestionResidencias.IDEstadoResidencia);
+            return PartialView("_PartialViewModificarResidencia", gestionResidencias);
         }
 
         public ActionResult AjaxModificarCarro(string id)
