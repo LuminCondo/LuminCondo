@@ -74,3 +74,4 @@ C:\Users\Isra1\Desktop\LuminCondo\ApplicationCore\obj\Debug\ApplicationCore.cspr
 C:\Users\Isra1\Desktop\LuminCondo\ApplicationCore\obj\Debug\ApplicationCore.csproj.CopyComplete
 C:\Users\Isra1\Desktop\LuminCondo\ApplicationCore\obj\Debug\ApplicationCore.dll
 C:\Users\Isra1\Desktop\LuminCondo\ApplicationCore\obj\Debug\ApplicationCore.pdb
+C:\Users\Luis Solera\source\repos\LuminCondo\ApplicationCore\bin\Debug\ASPNetSpell.dll

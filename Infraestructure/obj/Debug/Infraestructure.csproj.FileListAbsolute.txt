@@ -459,3 +459,4 @@ C:\Users\Isra1\Desktop\LuminCondo\Infraestructure\obj\Debug\Infraestructure.cspr
 C:\Users\Isra1\Desktop\LuminCondo\Infraestructure\obj\Debug\Infraestructure.csproj.CopyComplete
 C:\Users\Isra1\Desktop\LuminCondo\Infraestructure\obj\Debug\Infraestructure.dll
 C:\Users\Isra1\Desktop\LuminCondo\Infraestructure\obj\Debug\Infraestructure.pdb
+C:\Users\Luis Solera\source\repos\LuminCondo\Infraestructure\bin\Debug\ASPNetSpell.dll

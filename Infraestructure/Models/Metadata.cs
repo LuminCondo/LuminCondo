@@ -56,7 +56,8 @@ namespace Infraestructure.Models
     }
     internal partial class GestionReservasMetadata
     {
-        
+
+        [Display(Name = "ID de la Reserva")]
         public int IDReserva { get; set; }
         [Display(Name = "Identificación de Usuario")]
         [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
@@ -66,7 +67,7 @@ namespace Infraestructure.Models
         [RegularExpression(@"^\d+$", ErrorMessage = "{0} solo acepta números")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDEspacio { get; set; }
-        [Display(Name = "Numero de Reserva")]
+        [Display(Name = "Fecha de la Reserva")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         [Required(ErrorMessage = "{0} es un dato requerido")]

@@ -241,10 +241,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Repository\IRepositoryCarros.cs" />
+    <Compile Include="Repository\IRepositoryEspacios.cs" />
     <Compile Include="Repository\IRepositoryEstadoIncidencia.cs" />
     <Compile Include="Repository\IRepositoryEstadoResidencia.cs" />
     <Compile Include="Repository\IRepositoryGestionAsignacionPlanes.cs" />
     <Compile Include="Repository\IRepositoryGestionPlanCobros.cs" />
+    <Compile Include="Repository\IRepositoryGestionReservas.cs" />
     <Compile Include="Repository\IRepositoryGestionResidencias.cs" />
     <Compile Include="Repository\IRepositoryGestionRubrosCobros.cs" />
     <Compile Include="Repository\IRepositoryInformacion.cs" />
@@ -254,9 +256,11 @@
     <Compile Include="Repository\IRepositoryTiposUsuarios.cs" />
     <Compile Include="Repository\IRepositoryUsuario.cs" />
     <Compile Include="Repository\RepositoryCarros.cs" />
+    <Compile Include="Repository\RepositoryEspacios.cs" />
     <Compile Include="Repository\RepositoryEstadoResidencia.cs" />
     <Compile Include="Repository\RepositoryGestionAsignacionPlanes.cs" />
     <Compile Include="Repository\RepositoryGestionPlanCobros.cs" />
+    <Compile Include="Repository\RepositoryGestionReservas.cs" />
     <Compile Include="Repository\RepositoryGestionResidencias.cs" />
     <Compile Include="Repository\RepositoryGestionRubrosCobros.cs" />
     <Compile Include="Repository\RepositoryEstadoIncidencia.cs" />
