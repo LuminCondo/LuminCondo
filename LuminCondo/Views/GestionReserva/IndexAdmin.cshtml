@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Infraestructure.Models.GestionReservas>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Listado de Reservas</h2>
+
+<p>
+    @Html.ActionLink("Crear nueva reserva", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDReserva)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuarios.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Espacios.descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDReserva)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuarios.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Espacios.descripcion)
+        </td>
+
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.IDReserva })
+        </td>
+    </tr>
+}
+
+</table>

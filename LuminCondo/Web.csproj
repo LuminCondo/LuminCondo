@@ -251,6 +251,7 @@
     <Compile Include="Controllers\EstadoDeCuentaController.cs" />
     <Compile Include="Controllers\GestionAsignacionPlanesController.cs" />
     <Compile Include="Controllers\GestionPlanCobrosController.cs" />
+    <Compile Include="Controllers\GestionReservaController.cs" />
     <Compile Include="Controllers\GestionRubrosCobrosController.cs" />
     <Compile Include="Controllers\HistorialYDeudaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -622,6 +623,9 @@
     <Content Include="Views\HistorialYDeuda\_PartialViewListaDeudas.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\Index.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\_PartialViewListaAsignaciones.cshtml" />
+    <Content Include="Views\GestionReserva\IndexAdmin.cshtml" />
+    <Content Include="Views\GestionReserva\Details.cshtml" />
+    <Content Include="Views\GestionReserva\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
