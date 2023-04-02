@@ -229,6 +229,13 @@ namespace Web.Controllers
             return PartialView("_PartialViewCrearCarro", carro);
         }
 
+        public ActionResult AjaxCrearResidencia()
+        {
+            ViewBag.IDUsuarios = listaUsuarios();
+            ViewBag.IDEstadoResidencias = listaEstadosResidencia();
+            return PartialView("_PartialViewCrearResidencia");
+        }
+
         public ActionResult AjaxModificarCarro(string id)
         {
             Carros carro = new Carros();

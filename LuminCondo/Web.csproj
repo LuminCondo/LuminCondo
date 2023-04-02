@@ -622,6 +622,7 @@
     <Content Include="Views\HistorialYDeuda\_PartialViewListaDeudas.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\Index.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\_PartialViewListaAsignaciones.cshtml" />
+    <Content Include="Views\ListaResidencias\_PartialViewCrearResidencia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -46,11 +46,7 @@
 
     @if (idTipoUsuario == 1)
     {
-        <div>
-            <a href="@Url.Action("Create","ListaResidencias")" class="btn btn-primary">
-                <i class="fa-solid fa-plus"></i> Crear Nueva Residencia
-            </a>
-        </div>
+        <button class="btn btn-primary" onclick="CrearResidencia()"><i class="fa-solid fa-plus"></i> Añadir Nueva Residencia</button>
     }
 
     <hr />
@@ -82,9 +78,7 @@
                 </td>
                 <td>
                     <div class="btn-group" role="group">
-                        <a href="@Url.Action("Details","ListaResidencias", new { id = item.IDResidencia })" class="btn btn-primary">
-                            Detalles
-                        </a>
+                        <button class="btn btn-primary" onclick="DetalleResidencia('@item.IDResidencia')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
                         @if (idTipoUsuario == 1)
                         {
                             <a href="@Url.Action("Edit","ListaResidencias", new { id = item.IDResidencia })" class="btn btn-secondary">
@@ -103,3 +97,146 @@
     </table>
 </div>
 
+<div class="modal" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        function CrearResidencia() {
+            $.ajax({
+                method: 'POST',
+                url: '/ListaResidencias/AjaxCrearResidencia',
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function DetalleResidencia(idResidencia) {
+            var id = idPlan;
+            $.ajax({
+                method: 'POST',
+                url: '/GestionAsignacionPlanes/_PartialViewDetalleResidencia',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function ActualizarCarro(idPlaca) {
+            var id = idPlaca;
+            $.ajax({
+                method: 'POST',
+                url: '/ListaResidencias/AjaxModificarCarro',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function CrearPersona() {
+            var idResidenciaPersona = @ViewBag.IdResidencia
+            $.ajax({
+                method: 'POST',
+                url: '/ListaResidencias/AjaxCrearPersona',
+                data: { 'id': idResidenciaPersona },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function ActualizarPersona(idPlaca) {
+            var id = idPlaca;
+            $.ajax({
+                method: 'POST',
+                url: '/ListaResidencias/AjaxModificarPersona',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function GuardarCarro() {
+            event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
+            var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+            $.ajax({
+                url: '@Url.Action("GuardarCarro", "ListaResidencias")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablacarros').html(result);
+                    $('#myModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
+
+        function GuardarPersona() {
+            event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
+            var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+            $.ajax({
+                url: '@Url.Action("GuardarPersona", "ListaResidencias")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablapersonas').html(result);
+                    $('#myModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
+
+    </script>
+}
