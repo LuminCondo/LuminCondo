@@ -587,7 +587,6 @@
     <Content Include="Views\EstadoDeCuenta\Index.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Details.cshtml" />
     <Content Include="Views\ReporteIncidencias\Index.cshtml" />
-    <Content Include="Views\ReporteIncidencias\Create.cshtml" />
     <Content Include="Views\GestionPlanCobros\Create.cshtml" />
     <Content Include="Views\GestionPlanCobros\Edit.cshtml" />
     <Content Include="Views\GestionPlanCobros\IndexAdmin.cshtml" />
@@ -631,6 +630,8 @@
     <Content Include="Views\Informacion\_PartialViewModificarInformacion.cshtml" />
     <Content Include="Views\Informacion\_PartialViewCrearInformacion.cshtml" />
     <Content Include="Views\Informacion\_PartialViewListaInformacion.cshtml" />
+    <Content Include="Views\ReporteIncidencias\_PartialViewListaIncidencias.cshtml" />
+    <Content Include="Views\ReporteIncidencias\_PartialViewCrearIncidencia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

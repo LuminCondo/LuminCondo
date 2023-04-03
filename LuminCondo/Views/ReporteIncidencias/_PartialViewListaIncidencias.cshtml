@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Infraestructure.Models.ReporteIncidencias>
+
+@{
+    int id = 0;
+    int idTipoUsuario = 0;
+
+    if (Session["User"] != null)
+    {
+        Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+        usuario = (Infraestructure.Models.Usuarios)Session["User"];
+        id = usuario.ID;
+        idTipoUsuario = usuario.IDTipoUsuario;
+    }
+
+    var incidenciasUser = new List<Infraestructure.Models.ReporteIncidencias>();
+    if (idTipoUsuario == 1)
+    {
+        incidenciasUser = Model.ToList();
+    }
+    else
+    {
+        if (idTipoUsuario == 2)
+        {
+            foreach (var item in Model.ToList())
+            {
+                if (item.IDUsuario == id)
+                {
+                    incidenciasUser.Add(item);
+                }
+
+            }
+        }
+    }
+    incidenciasUser.Reverse();
+}
+
+<div data-aos="fade-up">
+    <table class="table table-hover">
+        <tr class="text-center">
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
+            </th>
+            @if (idTipoUsuario == 1)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Usuarios.nombre)
+                </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            @if (idTipoUsuario == 1)
+            {
+                <th></th>
+            }
+        </tr>
+
+        @foreach (var item in incidenciasUser)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+                </td>
+                @if (idTipoUsuario == 1)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usuarios.nombre)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>
+                @if (idTipoUsuario == 1)
+                {
+                    <td>
+                        @if (item.IDEstado == 1)
+                        {
+                            <button class="btn btn-primary" onclick="ActualizarIncidencia('@item.IDIncidencia')"><i class="fa-solid fa-plus"></i> Actualizar Incidencia</button>
+                        }
+                        @if (item.IDEstado == 2)
+                        {
+                            <button class="btn btn-primary" onclick="ActualizarIncidencia('@item.IDIncidencia')"><i class="fa-solid fa-plus"></i> Resolver Incidencia</button>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+
+@if (ViewBag.NotificationMessage != null)
+{
+    <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+    </script>
+}

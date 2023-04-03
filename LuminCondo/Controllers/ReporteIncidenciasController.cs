@@ -1,15 +1,15 @@
 ﻿using ApplicationCore.Services;
 using Infraestructure.Models;
-using Infraestructure.Utils;
+using Infraestructure.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Web.Security;
-
+using Web.Utils;
 namespace Web.Controllers
 {
     public class ReporteIncidenciasController : Controller
@@ -41,20 +41,8 @@ namespace Web.Controllers
 
 
 
-        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
-        // GET: ReporteIncidencias/Create
-        public ActionResult Create()
-        {
-            ViewBag.IDReporteIncidencias = listaReporteIncidencias();
-            return View();
-        }
 
-        private SelectList listaReporteIncidencias(int idRepInc = 0)
-        {
-            IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
-            IEnumerable<ReporteIncidencias> lista = _ServiceReporteIncidencias.GetReporteIncidencias();
-            return new SelectList(lista);
-        }
+        
         /*****************************************************************************************************************************************/
 
         public ActionResult Guardar(ReporteIncidencias reporteIncidencias)
@@ -63,8 +51,8 @@ namespace Web.Controllers
             Usuarios usuario = new Usuarios();
             usuario = (Usuarios)Session["User"];
             reporteIncidencias.IDUsuario = usuario.ID;
-            
 
+            IEnumerable<ReporteIncidencias> lista = null;
             IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
 
             try
@@ -74,14 +62,18 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
+                    lista = _ServiceReporteIncidencias.GetReporteIncidencias();
+                    ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Reporte Creado",
+                               "La incidencia se atenderá a la brevedad", Utils.SweetAlertMessageType.success
+                               );
+                    return PartialView("_PartialViewListaIncidencias",lista);
+                    
                 }
                 else
                 {
-                    ViewBag.IDReporteIncidencias = listaReporteIncidencias(reporteIncidencias.IDIncidencia);
-
-                    return View("Create", reporteIncidencias);
+                    lista = _ServiceReporteIncidencias.GetReporteIncidencias();
+                    return PartialView("_PartialViewListaIncidencias",lista);
                 }
-                return RedirectToAction("Index");
                 
               
                 
@@ -98,10 +90,10 @@ namespace Web.Controllers
             }
         }
 
-        public ActionResult Actualizar(int idIncidencia)
+        public ActionResult Actualizar(int id)
         {
             IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
-            ReporteIncidencias reporteIncidencias = _ServiceReporteIncidencias.GetReporteIncidenciasByID(idIncidencia);
+            ReporteIncidencias reporteIncidencias = _ServiceReporteIncidencias.GetReporteIncidenciasByID(id);
             if (reporteIncidencias.IDEstado == 1)
             {
                 reporteIncidencias.IDEstado = 2;
@@ -113,21 +105,23 @@ namespace Web.Controllers
                     reporteIncidencias.IDEstado = 3;
                 }
             }
-            
+            IEnumerable<ReporteIncidencias> lista = null;
             try
             {
+
                 if (ModelState.IsValid)
                 {
                     ReporteIncidencias oReporteIncidencias = _ServiceReporteIncidencias.Guardar(reporteIncidencias);
+                    lista = _ServiceReporteIncidencias.GetReporteIncidencias();
+                    return PartialView("_PartialViewListaIncidencias", lista);
                 }
                 else
                 {
-                    ViewBag.IDReporteIncidencias = listaReporteIncidencias(reporteIncidencias.IDIncidencia);
 
-                    return View("Create", reporteIncidencias);
+                    lista = _ServiceReporteIncidencias.GetReporteIncidencias();
+                    return PartialView("_PartialViewListaIncidencias", lista);
                 }
 
-                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -141,46 +135,16 @@ namespace Web.Controllers
             }
         }
 
-        /*****************************************************************************************************************************************/
+       
 
-        // GET: ReporteIncidencias/Edit/5
-        [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult Edit(int? id)
+        public ActionResult _PartialViewListaIncidencias()
         {
-            ServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
-            ReporteIncidencias reporteIncidencias;
+            return PartialView("_PartialViewListaIncidencias");
+        }
 
-            try
-            {
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-
-                reporteIncidencias = _ServiceReporteIncidencias.GetReporteIncidenciasByID(Convert.ToInt32(id));
-
-                if (reporteIncidencias == null)
-                {
-                    TempData["Message"] = "No existe el libro solicitado";
-                    TempData["Redirect"] = "Libro";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
-                }
-
-                ViewBag.IDReporteIncidencias = listaReporteIncidencias(reporteIncidencias.IDIncidencia);
-                return View(reporteIncidencias);
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
+        public ActionResult AjaxCrearIncidencia()
+        {
+            return PartialView("_PartialViewCrearIncidencia");
         }
     }
 }

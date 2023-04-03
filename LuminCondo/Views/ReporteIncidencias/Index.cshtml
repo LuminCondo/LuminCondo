@@ -17,27 +17,6 @@
         id = usuario.ID;
         idTipoUsuario = usuario.IDTipoUsuario;
     }
-
-    var incidenciasUser = new List<Infraestructure.Models.ReporteIncidencias>();
-    if (idTipoUsuario == 1)
-    {
-        incidenciasUser = Model.ToList();
-    }
-    else
-    {
-        if (idTipoUsuario == 2)
-        {
-            foreach (var item in Model.ToList())
-            {
-                if (item.IDUsuario == id)
-                {
-                    incidenciasUser.Add(item);
-                }
-
-            }
-        }
-    }
-    incidenciasUser.Reverse();
 }
 
 
@@ -58,67 +37,89 @@
     }
     <hr />
     <div>
-        <a href="@Url.Action("Create","ReporteIncidencias")" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Crear Nuevo Reporte
-        </a>
+        <button class="btn btn-primary" onclick="CrearIncidencia()"><i class="fa-solid fa-plus"></i> Añadir Nueva Incidencia</button>
     </div>
 
+    <div>
+        <span class="glyphicons glyphicons-hand-left"></span>
+        <div id="tablaIncidencias">
 
-    <table class="table table-hover">
-        <tr class="text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
-            </th>
-            @if (idTipoUsuario == 1)
-            {
-                <th>
-                    @Html.DisplayNameFor(model => model.Usuarios.nombre)
-                </th>
-            }
-            <th>
-                @Html.DisplayNameFor(model => model.descripcion)
-            </th>
-            @if (idTipoUsuario == 1)
-            {
-                <th></th>
-            }
-        </tr>
+            @Html.Partial("_PartialViewListaIncidencias", Model)
 
-        @foreach (var item in incidenciasUser)
-        {
-            <tr class="text-center">
-                <td>
-                    @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
-                </td>
-                @if (idTipoUsuario == 1)
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Usuarios.nombre)
-                    </td>
-                }
-                <td>
-                    @Html.DisplayFor(modelItem => item.descripcion)
-                </td>
-                @if (idTipoUsuario == 1)
-                {
-                    <td>
-                        @if (item.IDEstado == 1)
-                        {
-                            <form method="post" action="@Url.Action("Actualizar", "ReporteIncidencias")">
-                                <input type="hidden" name="idIncidencia" value=@item.IDIncidencia />
-                                <button class="btn btn-primary">Actualizar Incidencia</button>
-                            </form>
-                        }
-                        @if (item.IDEstado == 2)
-                        {
-                            <form method="post" action="@Url.Action("Actualizar", "ReporteIncidencias")">
-                                <input type="hidden" name="idIncidencia" value=@item.IDIncidencia />
-                                <button class="btn btn-primary">Resolver Incidencia</button>
-                            </form>
-                        }
-                    </td>
-                }
-            </tr>
-        }
-    </table>
+        </div>
+    </div>
 </div>
+
+<div class="modal" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        function CrearIncidencia() {
+            $.ajax({
+                method: 'POST',
+                url: '/ReporteIncidencias/AjaxCrearIncidencia',
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function GuardarIncidencia() {
+            event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
+            var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+            $.ajax({
+                url: '@Url.Action("Guardar", "ReporteIncidencias")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablaIncidencias').html(result);
+                    $('#myModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
+
+        function ActualizarIncidencia(idIncidencia) {
+            var id = idIncidencia;
+            $.ajax({
+                method: 'POST',
+                url: '/ReporteIncidencias/Actualizar',
+                data: { 'id': id },
+                success: function (result) {
+                    $('#tablaIncidencias').html('');
+                    $('#tablaIncidencias').html(result);
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+    </script>
+}
