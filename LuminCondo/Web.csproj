@@ -583,7 +583,6 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\GestionPlanCobros\Details.cshtml" />
     <Content Include="Views\ListaResidencias\Index.cshtml" />
-    <Content Include="Views\ListaResidencias\Details.cshtml" />
     <Content Include="Views\Informacion\Index.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Index.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Details.cshtml" />
@@ -604,11 +603,7 @@
     <Content Include="Views\GestionAsignacionPlanes\Create.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\Details.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\Edit.cshtml" />
-    <Content Include="Views\ListaResidencias\Create.cshtml" />
-    <Content Include="Views\ListaResidencias\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
-    <Content Include="Views\Usuarios\Create.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\ListaResidencias\Administrar.cshtml" />
     <Content Include="Views\ListaResidencias\_PartialViewCrearCarro.cshtml" />
     <Content Include="Views\ListaResidencias\_PartialViewListaCarros.cshtml" />
@@ -633,6 +628,9 @@
     <Content Include="Views\GestionReserva\_PartialViewListaReserva.cshtml" />
     <Content Include="Views\GestionReserva\_PartialViewDetalleReserva.cshtml" />
     <Content Include="Views\GestionReserva\_PartialViewModificarReserva.cshtml" />
+    <Content Include="Views\Usuarios\_PartialViewCrearUsuario.cshtml" />
+    <Content Include="Views\Usuarios\_PartialViewModificarUsuario.cshtml" />
+    <Content Include="Views\Usuarios\_PartialViewListaUsuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

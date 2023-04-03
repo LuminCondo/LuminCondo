@@ -104,6 +104,7 @@ namespace LuminCondo.Controllers
             return View();
         }
 
+        
         private MultiSelectList listaRubrosCobros(ICollection<GestionRubrosCobros> gestionRubrosCobros = null)
         {
             IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();

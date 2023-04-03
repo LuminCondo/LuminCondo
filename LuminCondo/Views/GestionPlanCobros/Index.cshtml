@@ -25,7 +25,7 @@
                         </div>
                         <h6 class="card-title" style="font-size: 28px; font-weight: 50; color: #0CB0BB;">Plan @Html.DisplayFor(modelItem => item.descripcion)</h6>
                         <div class="text-center">
-                            <a href="@Url.Action("Details","GestionPlanCobros", new { id = item.IDPlan })" class="btn btn-primary">Detalles del plan</a>
+                            <button class="btn btn-primary" onclick="DetallePlan('@item.IDPlan')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
                         </div>
 
                     </div>
@@ -34,5 +34,50 @@
         }
     </div>
 </div>
+
+<div class="modal" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        
+
+        function DetallePlan(idPlan) {
+            var id = idPlan;
+            $.ajax({
+                method: 'POST',
+                url: '/GestionAsignacionPlanes/_PartialViewDetails',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        
+
+    </script>
+}
 
 

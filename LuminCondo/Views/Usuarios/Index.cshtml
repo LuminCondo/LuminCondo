@@ -6,55 +6,92 @@
 
 <div data-aos="fade-up">
     <h2 class="text-center">@ViewBag.Title</h2>
+    <button class="btn btn-primary" onclick="CrearUsuario()"><i class="fa-solid fa-plus"></i> Añadir Nuevo Usuario</button>
+    <hr />
+
     <div>
-        <a href="@Url.Action("Create","Usuarios")" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Crear Nuevo Rubro de Cobro
-        </a>
+        <span class="glyphicons glyphicons-hand-left"></span>
+        <div id="tablaUsuarios">
+
+            @Html.Partial("_PartialViewListaUsuarios", Model)
+
+        </div>
     </div>
-    <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IDTipoUsuario)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.estado)
-            </th>
-            <th></th>
-        </tr>
+    
+</div>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TiposUsuarios.tipoUsuario)
-                </td>
+<div class="modal" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
 
-                <td>
-                    @if (item.estado == true)
-                    {
-                        <p>Activo</p>
-                    }
-                    else
-                    {
-                        <p>Inactivo</p>
-                    }
-                </td>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 
-                <td>
-                    <div class="text-center">
-                        <a href="@Url.Action("Edit","Usuarios", new { id = item.ID })" class="btn btn-primary">
-                            Modificar Usuario
-                        </a>
-                    </div>
-                </td>
-            </tr>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        function CrearUsuario() {
+            $.ajax({
+                method: 'POST',
+                url: '/Usuarios/AjaxCrearUsuario',
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
         }
 
-    </table>
-</div>
+        function ActualizarUsuario(idUsuario) {
+            var id = idUsuario;
+            $.ajax({
+                method: 'POST',
+                url: '/Usuarios/AjaxModificarUsuario',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function GuardarUsuario() {
+            event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
+            var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+            $.ajax({
+                url: '@Url.Action("Guardar", "Usuarios")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablaUsuarios').html(result);
+                    $('#myModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
+
+
+
+    </script>
+}

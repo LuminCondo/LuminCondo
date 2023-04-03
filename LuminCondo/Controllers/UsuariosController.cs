@@ -2,6 +2,7 @@
 using Infraestructure.Models;
 using Infraestructure.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -38,21 +39,6 @@ namespace Web.Controllers
             }
         }
 
-        // GET: Usuarios/Details/5
-        [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Usuarios/Create
-        [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult Create()
-        {
-            ViewBag.IDTipodeUsuarios = listaTiposUsuarios();
-            return View();
-        }
-
         private SelectList listaTiposUsuarios(int idTipoUsuario = 0)
         {
             IServiceTiposUsuarios _ServiceTiposUsuarios = new ServiceTiposUsuarios();
@@ -60,9 +46,53 @@ namespace Web.Controllers
             return new SelectList(lista, "ID", "tipoUsuario", idTipoUsuario);
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
-        // GET: GestionRubrosCobros/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Guardar(Usuarios usuarios)
+        {
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+
+            try
+            {
+                IEnumerable<Usuarios> lista = null;
+                if (ModelState.IsValid)
+                {
+                    Usuarios oUsuarios = _ServiceUsuario.Guardar(usuarios);
+                    lista = _ServiceUsuario.GetUsuarios();
+                    ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Usuario Guardado",
+                               "El usuario " + oUsuarios.nombre+ " se ha guardado correctamente", Utils.SweetAlertMessageType.success
+                               );
+                }
+                else
+                {
+                    // Valida Errores si Javascript está deshabilitado
+                    Utils.Util.ValidateErrors(this);
+                    ViewBag.IDTipodeUsuarios = listaTiposUsuarios(usuarios.IDTipoUsuario);
+
+                    return View("Create", usuarios);
+                }
+
+                return PartialView("_PartialViewListaUsuarios", lista);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Usuarios";
+                TempData["Redirect-Action"] = "Create";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        public ActionResult AjaxCrearUsuario()
+        {
+            Usuarios usuarios = new Usuarios();
+            usuarios.estado = true;
+            ViewBag.IDTipodeUsuarios = listaTiposUsuarios();
+            return PartialView("_PartialViewCrearUsuario", usuarios);
+        }
+
+        public ActionResult AjaxModificarUsuario(int? id)
         {
             ServiceUsuario _ServiceUsuarios = new ServiceUsuario();
             Usuarios usuarios = null;
@@ -76,6 +106,7 @@ namespace Web.Controllers
 
                 usuarios = _ServiceUsuarios.GetUsuarioByID(Convert.ToInt32(id));
 
+
                 if (usuarios == null)
                 {
                     TempData["Message"] = "No existe el usuario solicitado";
@@ -86,7 +117,7 @@ namespace Web.Controllers
                 }
 
                 ViewBag.IDTipodeUsuarios = listaTiposUsuarios(usuarios.IDTipoUsuario);
-                return View(usuarios);
+                return PartialView("_PartialViewModificarUsuario", usuarios);
 
             }
             catch (Exception ex)
@@ -101,37 +132,9 @@ namespace Web.Controllers
             }
         }
 
-        public ActionResult Guardar(Usuarios usuarios)
+        public ActionResult _PartialViewListaUsuarios()
         {
-            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
-
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    Usuarios oUsuarios = _ServiceUsuario.Guardar(usuarios);
-                }
-                else
-                {
-                    // Valida Errores si Javascript está deshabilitado
-                    Utils.Util.ValidateErrors(this);
-                    ViewBag.IDTipodeUsuarios = listaTiposUsuarios(usuarios.IDTipoUsuario);
-
-                    return View("Create", usuarios);
-                }
-
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Usuarios";
-                TempData["Redirect-Action"] = "Create";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
+            return PartialView("_PartialViewListaUsuarios");
         }
     }
 }

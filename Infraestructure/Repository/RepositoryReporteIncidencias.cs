@@ -106,6 +106,7 @@ namespace Infraestructure.Repository
 
                 if (oReporteIncidencias == null)
                 {
+                    reporteIncidencias.IDEstado = 1;
                     ctx.ReporteIncidencias.Add(reporteIncidencias);
 
                     retorno = ctx.SaveChanges();

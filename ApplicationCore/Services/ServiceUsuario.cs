@@ -19,7 +19,10 @@ namespace ApplicationCore.Services
         public Usuarios GetUsuarioByID(int id)
         {
             IRepositoryUsuario repository = new RepositoryUsuario();
-            return repository.GetUsuarioByID(id);
+            Usuarios usuario = new Usuarios();
+            usuario = repository.GetUsuarioByID(id);
+            usuario.contrasenna=Cryptography.DecrypthAES(usuario.contrasenna);
+            return usuario;
         }
 
         public Usuarios GetUsuario(string email, string contrasenna)

@@ -243,15 +243,7 @@ namespace Web.Controllers
             ViewBag.IDEstadoResidencias = listaEstadosResidencia();
             return PartialView("_PartialViewCrearResidencia");
         }
-        public ActionResult AjaxModificarResidencia(int id)
-        {
-            GestionResidencias gestionResidencias = new GestionResidencias();
-            IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
-            gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(id);
-            ViewBag.IDUsuarios = listaUsuarios(gestionResidencias.IDUsuario);
-            ViewBag.IDEstadoResidencias = listaEstadosResidencia(gestionResidencias.IDEstadoResidencia);
-            return PartialView("_PartialViewModificarResidencia", gestionResidencias);
-        }
+            
 
         public ActionResult AjaxModificarCarro(string id)
         {
