@@ -3,50 +3,98 @@
 @{
     ViewBag.Title = "Noticias";
 }
+
+
 <div data-aos="fade-up">
     <h2 class="text-center">@ViewBag.Title</h2>
+    <button class="btn btn-primary" onclick="CrearNoticia()"><i class="fa-solid fa-plus"></i> Añadir Nueva Noticia</button>
+    <hr />
 
     <div>
-        <a href="@Url.Action("Create","Informacion")" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Crear Nueva Noticia
-        </a>
-    </div>
-    <hr />
-    <table class="table table-hover">
-        <tr class="text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.TipoInformacion.tipoInfo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechaPublicacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.titulo)
-            </th>
-            <th></th>
-        </tr>
+        <span class="glyphicons glyphicons-hand-left"></span>
+        <div id="tablaNoticias">
 
-        @foreach (var item in Model)
-        {
-            <tr class="text-center">
-                <td>
-                    @Html.DisplayFor(modelItem => item.TipoInformacion.tipoInfo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fechaPublicacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.titulo)
-                </td>
-                <td>
-                    <div class="text-center">
-                        <a href="@Url.Action("Edit","Informacion", new { id = item.IDInformacion })" class="btn btn-primary">
-                            Modificar Noticia
-                        </a>
-                    </div>
-                </td>
-            </tr>
+            @Html.Partial("_PartialViewListaInformacion", Model)
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal" tabindex="-1" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        function CrearNoticia() {
+            $.ajax({
+                method: 'POST',
+                url: '/Informacion/AjaxCrearNoticia',
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
         }
 
-    </table>
-</div>
+        function ActualizarNoticia(idNoticia) {
+            var id = idNoticia;
+            $.ajax({
+                method: 'POST',
+                url: '/Informacion/AjaxModificarNoticia',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function GuardarNoticia() {
+            event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
+            var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+            $.ajax({
+                url: '@Url.Action("Guardar", "Informacion")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablaNoticias').html(result);
+                    $('#myModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
+
+
+
+    </script>
+}

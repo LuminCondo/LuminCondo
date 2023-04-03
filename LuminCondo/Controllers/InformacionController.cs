@@ -3,6 +3,7 @@ using Infraestructure.Models;
 using Infraestructure.Repository;
 using Infraestructure.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,50 +40,6 @@ namespace Web.Controllers
             }
         }
 
-        // GET: Informacion/Details/5
-        [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult Details(int? id)
-        {
-            IServiceInformacion _ServiceInformacion = new ServiceInformacion();
-            Informacion informacion = null;
-            try
-            {
-                // Si va null
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                informacion = _ServiceInformacion.GetInformacionByID(Convert.ToInt32(id));
-                if (informacion == null)
-                {
-                    TempData["Message"] = "No existe el Plan solicitado";
-                    TempData["Redirect"] = "Informacion";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
-                }
-                return View(informacion);
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "GestionPlanCobros";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-
-        }
-        [CustomAuthorize((int)Roles.Administrador)]
-        // GET: Informacion/Create
-        public ActionResult Create()
-        {
-            ViewBag.IDTipoInformacion = listaTipoInformacion();
-            return View();
-        }
-
         private SelectList listaTipoInformacion(int idTipoInfo = 0)
         {
             IServiceTipoInformacion _ServiceTipoInformacion = new ServiceTipoInformacion();
@@ -97,12 +54,18 @@ namespace Web.Controllers
             informacion.fechaPublicacion = DateTime.Now;
             try
             {
+                IEnumerable<Informacion> lista = null;
                 ModelState.Remove("fechapublicacion");
                 ModelState.Remove("IDInformacion");
                 ModelState.Remove("IDTipoInfo");
                 if (ModelState.IsValid)
                 {
                     Informacion oInformacion = _ServiceInformacion.Guardar(informacion);
+                    lista = _ServiceInformacion.GetInformacion();
+                    lista.Reverse();
+                    ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Información Guardada",
+                               "La Información " + oInformacion.titulo + " de tipo " + oInformacion.TipoInformacion.tipoInfo + " se ha guardado correctamente", Utils.SweetAlertMessageType.success
+                               );
                 }
                 else
                 {
@@ -110,15 +73,25 @@ namespace Web.Controllers
                     ViewBag.IDTipoInformacion = listaTipoInformacion(informacion.IDTipoInfo);
                     if (informacion.IDTipoInfo > 0)
                     {
-                        return (ActionResult)View("Edit", informacion);
+                        lista = _ServiceInformacion.GetInformacion();
+                        lista.Reverse();
+                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Fallo al Guardar",
+                                   "La Información " + informacion.titulo + " de tipo " + informacion.TipoInformacion.tipoInfo + " se ha guardado correctamente", Utils.SweetAlertMessageType.error
+                                   );
+                        return PartialView("_PartialViewListaInformacion", lista);
                     }
                     else
                     {
-                        return View("Create", informacion);
+                        lista = _ServiceInformacion.GetInformacion();
+                        lista.Reverse();
+                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Fallo al Guardar",
+                                   "La Información " + informacion.titulo + " de tipo " + informacion.TipoInformacion.tipoInfo + " se ha guardado correctamente", Utils.SweetAlertMessageType.error
+                                   );
+                        return PartialView("_PartialViewListaInformacion", lista);
                     };
                 }
 
-                return RedirectToAction("Index");
+                return PartialView("_PartialViewListaInformacion", lista);
             }
             catch (Exception ex)
             {
@@ -134,9 +107,20 @@ namespace Web.Controllers
 
         /*****************************************************************************************************************************************/
 
-        // GET: Informacion/Edit/5
-        [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult Edit(int? id)
+        
+
+        public ActionResult _PartialViewListaInformacion()
+        {
+            return PartialView("_PartialViewListaInformacion");
+        }
+
+        public ActionResult AjaxCrearNoticia()
+        {
+            ViewBag.IDTipoInformacion = listaTipoInformacion();
+            return PartialView("_PartialViewCrearInformacion");
+        }
+
+        public ActionResult AjaxModificarNoticia(int? id)
         {
             ServiceInformacion _ServiceInformacion = new ServiceInformacion();
             Informacion informacion = null;
@@ -151,23 +135,23 @@ namespace Web.Controllers
                 informacion = _ServiceInformacion.GetInformacionByID(Convert.ToInt32(id));
                 if (informacion == null)
                 {
-                    TempData["Message"] = "No existe el libro solicitado";
-                    TempData["Redirect"] = "Libro";
+                    TempData["Message"] = "No existe la información solicitada";
+                    TempData["Redirect"] = "Informacion";
                     TempData["Redirect-Action"] = "Index";
                     // Redireccion a la captura del Error
                     return RedirectToAction("Default", "Error");
                 }
 
                 ViewBag.IdTipoInformacion = listaTipoInformacion(informacion.IDTipoInfo);
-                return View(informacion);
+                return PartialView("_PartialViewModificarInformacion", informacion);
             }
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
                 Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData["Redirect"] = "Informacion";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }

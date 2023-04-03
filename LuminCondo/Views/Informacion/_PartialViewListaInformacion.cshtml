@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Infraestructure.Models.Informacion>
+@{ 
+    var listareciente = new List<Infraestructure.Models.Informacion>();
+
+    foreach (var item in Model)
+    {
+        listareciente.Add(item);
+    }
+    listareciente.Reverse();
+}
+<div data-aos="fade-up">
+    <table class="table table-hover">
+        <tr class="text-center">
+            <th>
+                @Html.DisplayNameFor(model => model.TipoInformacion.tipoInfo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaPublicacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.titulo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in listareciente)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoInformacion.tipoInfo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaPublicacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titulo)
+                </td>
+                <td>
+                    <div class="text-center">
+                        <button class="btn btn-primary" onclick="ActualizarNoticia('@item.IDInformacion')"><i class="fa-solid fa-plus"></i> Modificar</button>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@if (ViewBag.NotificationMessage != null)
+{
+    <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+    </script>
+}
