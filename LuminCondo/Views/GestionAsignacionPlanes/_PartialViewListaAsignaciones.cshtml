@@ -51,9 +51,7 @@
                 </td>
                 <td>
                     <div class="btn-group" role="group">
-                        <a href="@Url.Action("Edit","GestionAsignacionPlanes", new { id = item.IDAsignacion })" class="btn btn-primary">
-                            Actualizar
-                        </a>
+                        <button class="btn btn-primary" onclick="ActualizarAsignacion('@item.IDAsignacion')"><i class="fa-solid fa-plus"></i> Actualizar</button>
 
                         <button class="btn btn-secondary" onclick="DetallePlan('@item.IDPlan')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
                     </div>

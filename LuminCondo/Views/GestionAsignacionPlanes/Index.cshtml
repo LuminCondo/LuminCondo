@@ -52,9 +52,7 @@
 
     <div>
         <div>
-            <a href="@Url.Action("Create","GestionAsignacionPlanes")" class="btn btn-primary">
-                <i class="fa-solid fa-plus"></i> Crear una nueva asignación de plan
-            </a>
+            <button class="btn btn-primary" onclick="CrearAsignacion()"><i class="fa-solid fa-plus"></i> Añadir Nueva Asignación</button>
         </div>
         <span class="glyphicons glyphicons-hand-left"></span>
         <div id="tablaAsignaciones">
@@ -126,6 +124,57 @@
                     console.log('Error' + error + ',No Error' + xhr.status);
                 }
             })
+        }
+
+        function CrearAsignacion() {
+            $.ajax({
+                method: 'POST',
+                url: '/GestionAsignacionPlanes/AjaxCrearAsignacion',
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function ActualizarAsignacion(idAsignacion) {
+            var id = idAsignacion;
+            $.ajax({
+                method: 'POST',
+                url: '/GestionAsignacionPlanes/AjaxModificarAsignacion',
+                data: { 'id': id },
+                success: function (response) {
+                    $('.modal-body').html('');
+                    $('.modal-body').html(response);
+                    $('#myModal').modal('show');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+
+        function GuardarAsignacion() {
+            event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
+            var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+            $.ajax({
+                url: '@Url.Action("Guardar", "GestionAsignacionPlanes")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablaAsignaciones').html(result);
+                    $('#myModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
         }
 
     </script>

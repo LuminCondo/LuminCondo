@@ -3,6 +3,7 @@ using Infraestructure.Models;
 using Infraestructure.Repository;
 using Infraestructure.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -53,6 +54,7 @@ namespace Web.Controllers
 
             try
             {
+                IEnumerable<GestionAsignacionPlanes> lista = null;
                 if (ModelState.IsValid)
                 {
                     GestionAsignacionPlanes oGestionAsignacionPlanes = _ServiceGestionAsignacionPlanes.Guardar(gestionAsignacionPlanes);
@@ -61,27 +63,15 @@ namespace Web.Controllers
                         ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Fallo al guardar la asignación",
                             "Ya esta residencia posee una asignación establecida para este mes", Utils.SweetAlertMessageType.error
                             );
-                        ViewBag.IDResidencias = listaResidencias(gestionAsignacionPlanes.IDResidencia);
-                        ViewBag.IDPlanes = listaPlanes(gestionAsignacionPlanes.IDPlan);
-                        return View("Create");
+                        return View("Index");
 
                     }
+                    lista = _ServiceGestionAsignacionPlanes.GetHistorialGeneral(DateTime.Now.Month, DateTime.Now.Year, oGestionAsignacionPlanes.IDResidencia);
+                    ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Asignación Creada",
+                               "La asignación ya fue creada para el mes de "+DateTime.Now.Month +" del año "+ DateTime.Now.Year, Utils.SweetAlertMessageType.success
+                               );
                 }
-                else
-                {
-                    
-                    ViewBag.IDResidencias = listaResidencias(gestionAsignacionPlanes.IDResidencia);
-                    ViewBag.IDPlanes = listaPlanes(gestionAsignacionPlanes.IDPlan);
-                    if (gestionAsignacionPlanes.IDPlan > 0)
-                    {
-                        return (ActionResult)View("Edit", gestionAsignacionPlanes);
-                    }
-                    else
-                    {
-                        return View("Create", gestionAsignacionPlanes);
-                    }
-                }
-                return RedirectToAction("Index");
+                return PartialView("_PartialViewListaAsignaciones", lista);
             }
             catch (Exception ex)
             {
@@ -256,6 +246,55 @@ namespace Web.Controllers
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
                 TempData["Redirect"] = "ListaResidencias";
                 TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        public ActionResult AjaxCrearAsignacion()
+        {
+            ViewBag.IDResidencias = listaResidencias();
+            ViewBag.IDPlanes = listaPlanes();
+            return PartialView("_PartialViewCrearAsignacion");
+        }
+
+        public ActionResult AjaxModificarAsignacion(int? id)
+        {
+            ViewBag.IDResidencias = listaResidencias();
+            ViewBag.IDPlanes = listaPlanes();
+            IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
+            GestionAsignacionPlanes gestionAsignacionPlanes = null;
+
+            try
+            {
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                gestionAsignacionPlanes = _ServiceGestionAsignacionPlanes.GetGestionAsignacionPlanesByID(Convert.ToInt32(id));
+
+                if (gestionAsignacionPlanes == null)
+                {
+                    TempData["Message"] = "No existe la asignacion solicitada";
+                    TempData["Redirect"] = "GestionAsignacionPlanes";
+                    TempData["Redirect-Action"] = "Index";
+                    // Redireccion a la captura del Error
+                    return RedirectToAction("Default", "Error");
+                }
+
+                ViewBag.IDResidencias = listaResidencias(gestionAsignacionPlanes.IDResidencia);
+                ViewBag.IDPlanes = listaPlanes(gestionAsignacionPlanes.IDPlan);
+                return PartialView("_PartialViewModificarAsignacion", gestionAsignacionPlanes);
+
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "Libro";
+                TempData["Redirect-Action"] = "IndexAdmin";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }

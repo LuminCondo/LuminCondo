@@ -632,6 +632,8 @@
     <Content Include="Views\Informacion\_PartialViewListaInformacion.cshtml" />
     <Content Include="Views\ReporteIncidencias\_PartialViewListaIncidencias.cshtml" />
     <Content Include="Views\ReporteIncidencias\_PartialViewCrearIncidencia.cshtml" />
+    <Content Include="Views\GestionAsignacionPlanes\_PartialViewCrearAsignacion.cshtml" />
+    <Content Include="Views\GestionAsignacionPlanes\_PartialViewModificarAsignacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
