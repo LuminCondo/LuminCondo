@@ -596,9 +596,6 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\UnAuthorized.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
-    <Content Include="Views\GestionAsignacionPlanes\Create.cshtml" />
-    <Content Include="Views\GestionAsignacionPlanes\Details.cshtml" />
-    <Content Include="Views\GestionAsignacionPlanes\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\ListaResidencias\Administrar.cshtml" />
     <Content Include="Views\ListaResidencias\_PartialViewCrearCarro.cshtml" />
