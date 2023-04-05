@@ -587,8 +587,6 @@
     <Content Include="Views\EstadoDeCuenta\Details.cshtml" />
     <Content Include="Views\ReporteIncidencias\Index.cshtml" />
     <Content Include="Views\GestionPlanCobros\IndexAdmin.cshtml" />
-    <Content Include="Views\GestionRubrosCobros\Create.cshtml" />
-    <Content Include="Views\GestionRubrosCobros\Edit.cshtml" />
     <Content Include="Views\GestionRubrosCobros\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\UnAuthorized.cshtml" />
@@ -631,6 +629,9 @@
     <Content Include="Views\GestionPlanCobros\_PartialViewListaPlanes.cshtml" />
     <Content Include="Views\GestionPlanCobros\_PartialViewModificarPlan.cshtml" />
     <Content Include="Views\GestionPlanCobros\_PartialViewCrearPlan.cshtml" />
+    <Content Include="Views\GestionRubrosCobros\_PartialViewListaRubros.cshtml" />
+    <Content Include="Views\GestionRubrosCobros\_PartialViewCrearRubro.cshtml" />
+    <Content Include="Views\GestionRubrosCobros\_PartialViewModificarRubro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

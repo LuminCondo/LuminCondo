@@ -3,6 +3,7 @@ using Infraestructure.Models;
 using Infraestructure.Repository;
 using Infraestructure.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Web.Security;
+using Web.Utils;
 
 namespace Web.Controllers
 {
@@ -24,31 +26,17 @@ namespace Web.Controllers
             {
                 IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
                 lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
-                ViewBag.title = "Lista de Rubros";
 
                 return View(lista);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
 
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
-        }
-        [CustomAuthorize((int)Roles.Administrador)]
-        // GET: GestionRubrosCobros/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-        [CustomAuthorize((int)Roles.Administrador)]
-        // GET: GestionRubrosCobros/Create
-        public ActionResult Create()
-        {
-            ViewBag.IDRubroCobro = listaRubrosCobros();
-            return View();
         }
 
         private SelectList listaRubrosCobros(int idRubro = 0)
@@ -62,40 +50,49 @@ namespace Web.Controllers
         public ActionResult Guardar(GestionRubrosCobros gestionRubrosCobros)
         {
             IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
-
+            IEnumerable<GestionRubrosCobros> lista = null;
             try
             {
                 if (ModelState.IsValid)
                 {
                     GestionRubrosCobros oGestionRubrosCobros = _ServiceGestionRubrosCobros.Guardar(gestionRubrosCobros);
+                    ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Rubro Guardado",
+                               "El rubro se ha guardado correctamente", Utils.SweetAlertMessageType.success
+                               );
                 }
                 else
                 {
-                    // Valida Errores si Javascript está deshabilitado
-                    Utils.Util.ValidateErrors(this);
-                    ViewBag.IDRubroCobro = listaRubrosCobros(gestionRubrosCobros.IDRubro);
+                    Util.ValidateErrors(this);
+                    ViewBag.NotificationMessage = SweetAlertHelper.Mensaje("Rubro no Guardado",
+                               "El rubro se no se ha guardado correctamente, por favor volverlo a intentar", SweetAlertMessageType.error
+                    );
 
-                    return View("Create", gestionRubrosCobros);
                 }
+                lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
+                return PartialView("_PartialViewListaRubros", lista);
 
-                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
                 TempData["Redirect"] = "GestionRubrosCobros";
-                TempData["Redirect-Action"] = "Create";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
         }
 
-        /*****************************************************************************************************************************************/
-        [CustomAuthorize((int)Roles.Administrador)]
-        // GET: GestionRubrosCobros/Edit/5
-        public ActionResult Edit(int? id)
+       
+
+        public ActionResult AjaxCrearRubro()
+        {
+            ViewBag.IDRubroCobro = listaRubrosCobros();
+            return PartialView("_PartialViewCrearRubro");
+        }
+
+        public ActionResult AjaxModificarRubro(int? id)
         {
             ServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
             GestionRubrosCobros gestionRubrosCobros = null;
@@ -119,19 +116,24 @@ namespace Web.Controllers
                 }
 
                 ViewBag.IDRubroCobro = listaRubrosCobros(gestionRubrosCobros.IDRubro);
-                return View(gestionRubrosCobros);
+                return PartialView("_PartialViewModificarRubro", gestionRubrosCobros);
 
             }
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                Web.Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData["Redirect"] = "GestionRubrosCobros";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
+        }
+
+        public ActionResult _PartialViewListaRubros()
+        {
+            return PartialView("_PartialViewListaRubros");
         }
     }
 }

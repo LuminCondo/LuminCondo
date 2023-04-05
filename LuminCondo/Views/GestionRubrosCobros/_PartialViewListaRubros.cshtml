@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Infraestructure.Models.GestionRubrosCobros>
+
+
+<div data-aos="fade-up">
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.monto)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>
+                <td>
+                    <i class="fa-solid fa-colon-sign"></i> @Html.DisplayFor(modelItem => item.monto)
+                </td>
+                <td>
+                    <div class="text-center">
+                        <button class="btn btn-primary" onclick="ActualizarRubro('@item.IDRubro')"><i class="fa-solid fa-plus"></i> Modificar</button>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@if (ViewBag.NotificationMessage != null)
+{
+    <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+    </script>
+}

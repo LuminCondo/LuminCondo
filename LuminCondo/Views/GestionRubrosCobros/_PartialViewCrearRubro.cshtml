@@ -1,7 +1,7 @@
 ﻿@model Infraestructure.Models.GestionRubrosCobros
 
 @{
-    ViewBag.Title = "Editar Rubro";
+    ViewBag.Title = "Gestión de los Rubros de Cobro";
 }
 
 <div data-aos="fade-up">
@@ -12,25 +12,19 @@
     {
         @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Gestión de los Rubros de Cobro</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.IDRubro)
-    <div class="row">
-        <div class="col">
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
                     @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
-        <div class="col">
             <div class="form-group">
-                @Html.LabelFor(model => model.monto, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.monto, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
                     <div class="input-group mb-3">
                         <span class="input-group-text">&cent;</span>
                         @Html.EditorFor(model => model.monto, new { htmlAttributes = new { @class = "form-control" } })
@@ -38,20 +32,16 @@
                     @Html.ValidationMessageFor(model => model.monto, "", new { @class = "text-danger" })
                 </div>
             </div>
+            <hr />
+            <div class="form-group">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary" onclick="GuardarRubro()"><i class="fa-solid fa-plus"></i> Añadir Nuevo Rubro</button>
+                </div>
+            </div>
         </div>
-    </div>
-    <hr />
-    <div class="form-group">
-        <div class="btn-group" role="group">
-            <input type="submit" value="Actualizar" class="btn btn-success" />
-            <a href="@Url.Action("Index", "GestionRubrosCobros")" class="btn btn-primary">
-                Regresar al listado
-            </a>
-        </div>
-    </div>
-</div>
     }
 </div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
