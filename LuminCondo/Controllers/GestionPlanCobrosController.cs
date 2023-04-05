@@ -2,6 +2,7 @@
 using Infraestructure.Models;
 using Infraestructure.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -62,48 +63,6 @@ namespace LuminCondo.Controllers
         }
         [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: GestionPlanCobros/Details/5
-        public ActionResult Details(int? id)
-        {
-            IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
-            GestionPlanCobros planCobros = null;
-            try
-            {
-                // Si va null
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                planCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
-                if (planCobros == null)
-                {
-                    TempData["Message"] = "No existe el Plan solicitado";
-                    TempData["Redirect"] = "GestionPlanCobros";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
-                }
-                return View(planCobros);
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "GestionPlanCobros";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-
-        }
-        [CustomAuthorize((int)Roles.Administrador)]
-        // GET: GestionPlanCobros/Create
-        public ActionResult Create()
-        {
-            ViewBag.IDRubrosCobros = listaRubrosCobros();
-            return View();
-        }
-
         
         private MultiSelectList listaRubrosCobros(ICollection<GestionRubrosCobros> gestionRubrosCobros = null)
         {
@@ -121,6 +80,7 @@ namespace LuminCondo.Controllers
 
         public ActionResult Guardar(GestionPlanCobros gestionPlanCobros, string[] selectedRubrosCobros)
         {
+            IEnumerable<GestionPlanCobros> lista = null;
             IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
 
             try
@@ -128,21 +88,20 @@ namespace LuminCondo.Controllers
                 if (ModelState.IsValid)
                 {
                     GestionPlanCobros oGestionPlanCobros = _ServiceGestionPlanCobros.Guardar(gestionPlanCobros, selectedRubrosCobros);
+                    ViewBag.NotificationMessage = SweetAlertHelper.Mensaje("Plan Guardado",
+                               "El plan se ha guardado correctamente", SweetAlertMessageType.success
+                               );
                 }
                 else
                 {
                     Util.ValidateErrors(this);
-                    ViewBag.IDRubrosCobros = listaRubrosCobros(gestionPlanCobros.GestionRubrosCobros);
-                    if (gestionPlanCobros.IDPlan > 0)
-                    {
-                        return (ActionResult)View("Edit", gestionPlanCobros);
-                    }
-                    else
-                    {
-                        return View("Create", gestionPlanCobros);
-                    }
+                    ViewBag.NotificationMessage = SweetAlertHelper.Mensaje("Plan no Guardado",
+                               "El plan se no se ha guardado correctamente, por favor volverlo a intentar", SweetAlertMessageType.error
+                               );
+
                 }
-                return RedirectToAction("IndexAdmin");
+                lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
+                return PartialView("_PartialViewListaPlanes", lista);
             }
             catch (Exception ex)
             {
@@ -156,10 +115,13 @@ namespace LuminCondo.Controllers
             }
         }
 
-        /*****************************************************************************************************************************************/
-        [CustomAuthorize((int)Roles.Administrador)]
-        // GET: GestionPlanCobros/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult AjaxCrearPlan()
+        {
+            ViewBag.IDRubrosCobros = listaRubrosCobros();
+            return PartialView("_PartialViewCrearPlan");
+        }
+
+        public ActionResult AjaxModificarPlan(int? id)
         {
             ServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
             GestionPlanCobros gestionPlanCobros = null;
@@ -168,7 +130,7 @@ namespace LuminCondo.Controllers
             {
                 if (id == null)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("IndexAdmin");
                 }
 
                 gestionPlanCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
@@ -182,7 +144,7 @@ namespace LuminCondo.Controllers
                 }
 
                 ViewBag.IDRubrosCobros = listaRubrosCobros(gestionPlanCobros.GestionRubrosCobros);
-                return View(gestionPlanCobros);
+                return PartialView("_PartialViewModificarPlan", gestionPlanCobros);
 
             }
             catch (Exception ex)
@@ -190,11 +152,17 @@ namespace LuminCondo.Controllers
                 // Salvar el error en un archivo 
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
+                TempData["Redirect"] = "GestionPlanCobros";
                 TempData["Redirect-Action"] = "IndexAdmin";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
         }
+
+        public ActionResult _PartialViewListaPlanes()
+        {
+            return PartialView("_PartialViewListaPlanes");
+        }
+
     }
 }

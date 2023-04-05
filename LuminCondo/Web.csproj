@@ -581,14 +581,11 @@
     <Content Include="Views\GestionPlanCobros\Index.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\GestionPlanCobros\Details.cshtml" />
     <Content Include="Views\ListaResidencias\Index.cshtml" />
     <Content Include="Views\Informacion\Index.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Index.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Details.cshtml" />
     <Content Include="Views\ReporteIncidencias\Index.cshtml" />
-    <Content Include="Views\GestionPlanCobros\Create.cshtml" />
-    <Content Include="Views\GestionPlanCobros\Edit.cshtml" />
     <Content Include="Views\GestionPlanCobros\IndexAdmin.cshtml" />
     <Content Include="Views\GestionRubrosCobros\Create.cshtml" />
     <Content Include="Views\GestionRubrosCobros\Edit.cshtml" />
@@ -631,6 +628,9 @@
     <Content Include="Views\ReporteIncidencias\_PartialViewCrearIncidencia.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\_PartialViewCrearAsignacion.cshtml" />
     <Content Include="Views\GestionAsignacionPlanes\_PartialViewModificarAsignacion.cshtml" />
+    <Content Include="Views\GestionPlanCobros\_PartialViewListaPlanes.cshtml" />
+    <Content Include="Views\GestionPlanCobros\_PartialViewModificarPlan.cshtml" />
+    <Content Include="Views\GestionPlanCobros\_PartialViewCrearPlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
