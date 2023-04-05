@@ -28,9 +28,11 @@ namespace LuminCondo
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/Mybootstrap.min.css",
-                      "~/Content/StylesLuminCondo.css",
                       "~/Content/FontAwesome/all.min.css",
-                      "~/Content/sweetalert.css"));
+                      "~/Content/sweetalert.css",
+                      "~/Content/StylesLuminCondo.css"));
+            bundles.Add(new StyleBundle("~/Content/Login").Include(
+                      "~/Content/StyleLogin.css"));
         }
     }
 }

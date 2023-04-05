@@ -7,43 +7,63 @@
 
 
 <div data-aos="fade-up">
-    <h2 class="text-center">@ViewBag.Title</h2>
-
-
-    @using (Html.BeginForm("Login", "Login"))
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>Usuario</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group mb-3">
-                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+    <div class="container h-auto contenedorbajo">
+        <div class="d-flex justify-content-center h-100">
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <div class="brand_logo_container">
+                        <img src="~/Assets/Logo Circulo.png" class="brand_logo" alt="Logo">
+                    </div>
                 </div>
-            </div>
+                <div class="d-flex justify-content-center form_container">
+                    @using (Html.BeginForm("Login", "Login"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group mb-2 rounded">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            @Html.EditorFor(model => model.contrasenna, new { htmlAttributes = new { @class = "form-control", type = "password", id = "contrasenna", placeholder = "Contraseña" } })
+                            <button class="btn btn-primary " onclick="togglePassword()"><i id="toggleIcon" class="fa-solid fa-eye"></i></button>
+                            @Html.ValidationMessageFor(model => model.contrasenna, "", new { @class = "text-danger" })
+                        </div>
 
-            <div class="form-group mb-3">
-                @Html.LabelFor(model => model.contrasenna, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(model => model.contrasenna, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.contrasenna, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group mb-3">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Login" class="btn btn-primary" />
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <input type="submit" value="Iniciar Sesión" class="btn btn-primary" />
+                        </div>
+                    }
                 </div>
             </div>
         </div>
-    }
+    </div>
 </div>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
+
+
+
+
+
+<script>
+    function togglePassword() {
+        event.preventDefault();
+        var input = document.getElementById("contrasenna");
+        var icon = document.getElementById("toggleIcon");
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            input.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
     }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 

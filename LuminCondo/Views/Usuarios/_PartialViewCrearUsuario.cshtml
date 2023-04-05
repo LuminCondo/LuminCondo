@@ -24,13 +24,10 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.contrasenna, htmlAttributes: new { @class = "control-label col-md-12" })
-        <div class="row" style="width: 83%;">
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.contrasenna, new { htmlAttributes = new { @class = "form-control", type = "password", id = "contrasenna" } })
-
-                @Html.ValidationMessageFor(model => model.contrasenna, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-2"><button class="btn btn-primary " onclick="togglePassword()">Mostrar/Ocultar</button></div>
+        <div class="input-group mb-2 rounded">
+            @Html.EditorFor(model => model.contrasenna, new { htmlAttributes = new { @class = "form-control", type = "password", id = "contrasenna", placeholder = "Contraseña" } })
+            <button class="btn btn-primary " onclick="togglePassword()"><i id="toggleIcon" class="fa-solid fa-eye"></i></button>
+            @Html.ValidationMessageFor(model => model.contrasenna, "", new { @class = "text-danger" })
         </div>
 
 
@@ -94,10 +91,15 @@
     function togglePassword() {
         event.preventDefault();
         var input = document.getElementById("contrasenna");
+        var icon = document.getElementById("toggleIcon");
         if (input.type === "password") {
             input.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
         } else {
             input.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
         }
     }
 </script>

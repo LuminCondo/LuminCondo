@@ -371,6 +371,7 @@
     <Content Include="Assets\condominio2.jpg" />
     <Content Include="Assets\condominio3.jpg" />
     <Content Include="Assets\ICAZA_1.jpg" />
+    <Content Include="Assets\Logo Circulo.png" />
     <Content Include="Assets\Logo LuminCondo.jpg" />
     <Content Include="Assets\shutterstock_352308875.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -408,6 +409,7 @@
     <Content Include="Content\FontAwesome\v5-font-face.css" />
     <Content Include="Content\FontAwesome\v5-font-face.min.css" />
     <Content Include="Content\Mybootstrap.min.css" />
+    <Content Include="Content\StyleLogin.css" />
     <Content Include="Content\sweetalert.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
