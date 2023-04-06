@@ -1,16 +1,24 @@
 ﻿/* Modo claro */
 body, td, th {
+    /* Estilos para el modo claro */
     background-color: #CCC;
     color: #222222;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transición suave al cambiar los colores */
 }
 
+.dark-mode {
+    /* Estilos para el modo oscuro */
+    background-color: #222222;
+    color: #fff;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transición suave al cambiar los colores */
+}
 
-/* Modo oscuro */
-    body.dark-mode {
-        background-color: #222222;
-        color: #fff;
+    .dark-mode td, .dark-mode th {
+        color: #fff; /* Cambiar el color del texto a blanco */
+        transition: color 0.5s ease; /* Transición suave al cambiar los colores */
     }
 
-.dark-mode td, .dark-mode th {
-    color: #fff; /* Cambiar el color del texto a blanco */
-}
+    .dark-mode .brand_logo_container {
+        background-color: #222222;
+        transition: background-color 0.8s ease; /* Transición suave al cambiar los colores */
+    }

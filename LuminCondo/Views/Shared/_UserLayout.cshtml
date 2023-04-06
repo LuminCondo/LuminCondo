@@ -9,6 +9,40 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/Login")
     @Scripts.Render("~/bundles/modernizr")
+
+    <script>
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obtenemos el valor almacenado en localStorage o sessionStorage
+            var darkMode = localStorage.getItem('dark-mode') || sessionStorage.getItem('dark-mode');
+
+            // Si el valor es "true", aplicamos el modo oscuro
+            if (darkMode === 'true' || !darkMode) {
+                document.querySelector("body").classList.add("dark-mode");
+                document.querySelector("#dark-mode-toggle").checked = true;
+            }
+        });
+
+        function toggleDarkMode() {
+            // Obtenemos el valor actual del interruptor
+            var darkMode = document.querySelector('#dark-mode-toggle').checked;
+
+            // Creamos la cookie con el valor del interruptor
+            localStorage.setItem('dark-mode', darkMode);
+
+            // Agregamos o eliminamos la clase "dark-mode" del body según corresponda
+            if (darkMode) {
+                document.querySelector("body").classList.add("dark-mode");
+                document.querySelector("#dark-mode-toggle").checked = true;
+
+            } else {
+                document.querySelector("body").classList.remove("dark-mode");
+                document.querySelector("#dark-mode-toggle").checked = false;
+            }
+
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -76,6 +110,9 @@
                         </div>
                     </li>
                 </ul>
+                <div class="form-check form-switch">
+                    <input id="dark-mode-toggle" class="form-check-input" type="checkbox" onchange="toggleDarkMode()" />
+                </div>
             </div>
         </div>
     </nav>
