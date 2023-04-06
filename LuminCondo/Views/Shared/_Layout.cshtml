@@ -8,6 +8,20 @@
     <title>@ViewBag.Title - LuminCondo</title>
     <link rel="shortcut icon" href="~/Assets/favicon.ico">
     @Styles.Render("~/Content/css")
+        <style>
+            body {
+                position: relative;
+                padding-bottom: 4em;
+                min-height: 100vh
+            }
+
+            .piepagina {
+                background-color: #0cb0bb;
+                width: 100vw;
+                position: absolute;
+                bottom: 0;
+            }
+        </style>
     @Scripts.Render("~/bundles/modernizr")
     <!-- Aquí agregamos el código para leer y escribir la cookie -->
     <script>
@@ -54,16 +68,14 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <div class="container-fluid bg-4 text-center">
-            <credit>&copy;Derechos Reservados</credit>
-            <credit id="date"></credit>
-            <script>document.getElementById("date").innerHTML = new Date().getFullYear()</script>
-            <br>
-            <credit> LuminCondo</credit>
-        </div>
     </div>
-
+    <div class="container-fluid bg-4 text-center piepagina">
+        <credit>&copy;Derechos Reservados</credit>
+        <credit id="date"></credit>
+        <script>document.getElementById("date").innerHTML = new Date().getFullYear()</script>
+        <br>
+        <credit> LuminCondo</credit>
+    </div>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 

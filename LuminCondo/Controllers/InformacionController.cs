@@ -57,7 +57,6 @@ namespace Web.Controllers
                 IEnumerable<Informacion> lista = null;
                 ModelState.Remove("fechapublicacion");
                 ModelState.Remove("IDInformacion");
-                ModelState.Remove("IDTipoInfo");
                 if (ModelState.IsValid)
                 {
                     Informacion oInformacion = _ServiceInformacion.Guardar(informacion);
@@ -85,7 +84,7 @@ namespace Web.Controllers
                         lista = _ServiceInformacion.GetInformacion();
                         lista.Reverse();
                         ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Fallo al Guardar",
-                                   "La Información " + informacion.titulo + " de tipo " + informacion.TipoInformacion.tipoInfo + " se ha guardado correctamente", Utils.SweetAlertMessageType.error
+                                   "La Información no se ha guardado correctamente", Utils.SweetAlertMessageType.error
                                    );
                         return PartialView("_PartialViewListaInformacion", lista);
                     };

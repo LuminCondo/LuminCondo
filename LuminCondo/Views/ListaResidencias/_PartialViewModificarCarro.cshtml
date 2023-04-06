@@ -1,43 +1,48 @@
 ﻿@model Infraestructure.Models.Carros
 
+<div data-aos="fade-up">
+    @using (Html.BeginForm("GuardarCarro", "ListaResidencias", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm("GuardarCarro", "ListaResidencias", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4 class="text-center">Modificar Nuevo Carro</h4>
+            <hr />
+            @Html.HiddenFor(model => model.IDResidencia)
+            @Html.HiddenFor(model => model.IDPlaca)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<div class="form-horizontal">
-    <h4 class="text-center">Modificar Nuevo Carro</h4>
-    <hr />
-    @Html.HiddenFor(model => model.IDResidencia)
-    @Html.HiddenFor(model => model.IDPlaca)
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.modelo, htmlAttributes: new { @class = "control-label col-md-10" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.modelo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.modelo, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.modelo, htmlAttributes: new { @class = "control-label col-md-10" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.modelo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.modelo, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.tipo, htmlAttributes: new { @class = "control-label col-md-10" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.tipo)
-                @Html.ValidationMessageFor(model => model.tipo, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.tipo, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="@Html.Raw((Model.tipo == true) ? "active" : "")">
+                            @Html.RadioButtonFor(model => model.tipo, true) Residente |
+                        </label>
+                        <label class="@Html.Raw((Model.tipo == false) ? "active" : "")">
+                            | @Html.RadioButtonFor(model => model.tipo, false) Invitado
+                        </label>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.tipo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="btn-group" role="group">
+                    <button class="btn btn-primary" onclick="GuardarCarro()"><i class="fa-solid fa-plus"></i> Modificar Carro</button>
+                </div>
             </div>
         </div>
-    </div>
-    <hr />
-    <div class="form-group">
-        <div class="btn-group" role="group">
-            <button class="btn btn-primary" onclick="GuardarCarro()"><i class="fa-solid fa-plus"></i> Modificar Carro</button>
-        </div>
-    </div>
+    }
 </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

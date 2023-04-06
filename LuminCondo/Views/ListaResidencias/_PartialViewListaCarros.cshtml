@@ -1,42 +1,50 @@
 ﻿@model IEnumerable<Infraestructure.Models.Carros>
 
+<div data-aos="fade-up">
+    <button class="btn btn-primary" onclick="CrearCarro()"><i class="fa-solid fa-plus"></i> Añadir Nuevo Carro</button>
 
-<button class="btn btn-primary" onclick="CrearCarro()"><i class="fa-solid fa-plus"></i> Añadir Nuevo Carro</button>
-
-<table class="table table-hover">
-    <tr>
-        <th>Placa</th>
-        <th>Modelo</th>
-        <th>Tipo de Permiso</th>
-        <th></th>
-    </tr>
-
-
-    @foreach (var item in Model)
-    {
+    <table class="table table-hover">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDPlaca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.modelo)
-            </td>
-            <td>
-                @if (item.tipo == true)
-                {
-                    <p>Residente</p>
-                }
-                else
-                {
-                    <p>Invitado</p>
-                }
-            </td>
-            <td>
-                <div class="text-center">
-                    <button class="btn btn-primary" onclick="ActualizarCarro('@item.IDPlaca')"><i class="fa-solid fa-plus"></i> Modificar</button>
-                </div>
-            </td>
+            <th>Placa</th>
+            <th>Modelo</th>
+            <th>Tipo de Permiso</th>
+            <th></th>
         </tr>
-    }
 
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDPlaca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.modelo)
+                </td>
+                <td>
+                    @if (item.tipo == true)
+                    {
+                        <p>Residente</p>
+                    }
+                    else
+                    {
+                        <p>Invitado</p>
+                    }
+                </td>
+                <td>
+                    <div class="text-center">
+                        <button class="btn btn-primary" onclick="ActualizarCarro('@item.IDPlaca')"><i class="fa-solid fa-plus"></i> Modificar</button>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@if (ViewBag.NotificationMessage != null)
+{
+    <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+    </script>
+}

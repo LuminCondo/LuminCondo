@@ -6,6 +6,7 @@ body, td, th {
     transition: background-color 0.5s ease, color 0.5s ease; /* Transición suave al cambiar los colores */
 }
 
+
 .dark-mode {
     /* Estilos para el modo oscuro */
     background-color: #222222;
@@ -13,7 +14,7 @@ body, td, th {
     transition: background-color 0.5s ease, color 0.5s ease; /* Transición suave al cambiar los colores */
 }
 
-    .dark-mode td, .dark-mode th {
+    .dark-mode td, .dark-mode th, .dark-mode .modal-content {
         color: #fff; /* Cambiar el color del texto a blanco */
         transition: color 0.5s ease; /* Transición suave al cambiar los colores */
     }

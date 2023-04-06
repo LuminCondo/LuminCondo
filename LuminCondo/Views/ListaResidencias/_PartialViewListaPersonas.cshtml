@@ -1,41 +1,50 @@
 ﻿@model IEnumerable<Infraestructure.Models.Personas>
 
-<button class="btn btn-primary" onclick="CrearPersona()"><i class="fa-solid fa-plus"></i> Añadir Nueva Persona</button>
+<div data-aos="fade-up">
 
-<table class="table table-hover">
-    <tr>
-        <th>Cédula</th>
-        <th>Nombre</th>
-        <th>Tipo de Permiso</th>
-        <th></th>
-    </tr>
+    <button class="btn btn-primary" onclick="CrearPersona()"><i class="fa-solid fa-plus"></i> Añadir Nueva Persona</button>
 
-
-    @foreach (var item in Model)
-    {
+    <table class="table table-hover">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDCedula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @if (item.tipo == true)
-                {
-                    <p>Residente</p>
-                }
-                else
-                {
-                    <p>Invitado</p>
-                }
-            </td>
-            <td>
-                <div class="text-center">
-                    <button class="btn btn-primary" onclick="ActualizarPersona('@item.IDCedula')"><i class="fa-solid fa-plus"></i> Modificar</button>
-                </div>
-            </td>
+            <th>Cédula</th>
+            <th>Nombre</th>
+            <th>Tipo de Permiso</th>
+            <th></th>
         </tr>
-    }
 
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDCedula)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @if (item.tipo == true)
+                    {
+                        <p>Residente</p>
+                    }
+                    else
+                    {
+                        <p>Invitado</p>
+                    }
+                </td>
+                <td>
+                    <div class="text-center">
+                        <button class="btn btn-primary" onclick="ActualizarPersona('@item.IDCedula')"><i class="fa-solid fa-plus"></i> Modificar</button>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+@if (ViewBag.NotificationMessage != null)
+{
+    <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+    </script>
+}

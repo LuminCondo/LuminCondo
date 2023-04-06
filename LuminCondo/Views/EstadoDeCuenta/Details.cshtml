@@ -39,7 +39,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.fechaAsignacion)
             </th>
-            <th></th>
+            @*<th></th>*@
         </tr>
 
         @foreach (var item in deudasPendientes)
@@ -57,20 +57,20 @@
 
                         total += c.monto;
                     }
-                    <i class="fa-solid fa-colon-sign"></i>@total
+                    <i class="fa-solid fa-colon-sign"></i>@total.ToString("N2")
 
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.fechaAsignacion)
                 </td>
                 <td>
-                    <div class="text-center">
+                    @*<div class="text-center">
                         <a href="@Url.Action("Details","EstadoDeCuenta", new { id = item.IDResidencia })" class="btn btn-primary">
                             <i class="fa-solid fa-cart-shopping"></i> Pagar
                         </a>
-                    </div>
-                </td>
-            </tr>
+                      </div>*@
+            </td>
+        </tr>
 
         }
 
@@ -109,7 +109,7 @@
 
                         total += c.monto;
                     }
-                    <i class="fa-solid fa-colon-sign"></i>@total
+                    <i class="fa-solid fa-colon-sign"></i>@total.ToString("N2")
 
                 </td>
                 <td>
