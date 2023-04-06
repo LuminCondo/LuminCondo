@@ -1,0 +1,16 @@
+﻿/* Modo claro */
+body, td, th {
+    background-color: #CCC;
+    color: #222222;
+}
+
+
+/* Modo oscuro */
+    body.dark-mode {
+        background-color: #222222;
+        color: #fff;
+    }
+
+.dark-mode td, .dark-mode th {
+    color: #fff; /* Cambiar el color del texto a blanco */
+}

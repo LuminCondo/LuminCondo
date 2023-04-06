@@ -3,7 +3,7 @@
         <a class="navbar-brand"
            @*Accion, Controlador*@
            href="@Url.Action("Index","Home")">
-            <img src="~/Assets/Logo LuminCondo.jpg" width="50" height="50" class="d-inline-block align-top mr-2" style="border-radius:10px"alt="LuminCondo">
+            <img src="~/Assets/Logo LuminCondo.jpg" width="50" height="50" class="d-inline-block align-top mr-2" style="border-radius:10px" alt="LuminCondo">
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -187,5 +187,19 @@
                 </li>
             </ul>
         </div>
+        @*<label class="switch" id="dark-mode-btn">
+            <input type="checkbox">
+            <span class="slider round"></span>
+        </label>*@
+
+
+        @*<div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="switchMode" checked>
+        </div>*@
+
+        <div class="form-check form-switch">
+            <input id="dark-mode-toggle" class="form-check-input" type="checkbox" onchange="toggleDarkMode()" />
+        </div>
     </div>
-</nav>
+        </nav>
+

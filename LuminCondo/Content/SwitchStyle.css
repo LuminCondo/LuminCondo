@@ -1,0 +1,40 @@
+﻿.navbar .form-check {
+    margin: 0;
+}
+
+.navbar .form-check-input {
+    margin-top: 0.3rem;
+}
+
+.navbar .form-check-label {
+    margin-left: 0.5rem;
+}
+
+.form-switch .form-check-input {
+    height: 1.5rem;
+    width: 2.5rem;
+
+}
+    .form-switch .form-check-input:checked {
+        background-color: #222222;
+        border-color: #fff;
+    }
+
+    .form-switch .form-check-input:focus {
+        box-shadow: none;
+    }
+
+    .form-switch .form-check-input:checked:before {
+        transform: translateX(1rem);
+    }
+
+.form-switch .form-check-label {
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .navbar .form-switch .form-check-input {
+        margin-left: 0.5rem;
+    }
+}
+

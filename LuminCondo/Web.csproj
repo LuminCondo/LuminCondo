@@ -408,9 +408,11 @@
     <Content Include="Content\FontAwesome\v4-shims.min.css" />
     <Content Include="Content\FontAwesome\v5-font-face.css" />
     <Content Include="Content\FontAwesome\v5-font-face.min.css" />
+    <Content Include="Content\LightDarkStyle.css" />
     <Content Include="Content\Mybootstrap.min.css" />
     <Content Include="Content\StyleLogin.css" />
     <Content Include="Content\sweetalert.css" />
+    <Content Include="Content\SwitchStyle.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Assets\favicon.ico">

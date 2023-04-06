@@ -9,7 +9,39 @@
     <link rel="shortcut icon" href="~/Assets/favicon.ico">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+    <!-- Aquí agregamos el código para leer y escribir la cookie -->
+    <script>
+
+
+        // Leemos la cookie "dark-mode"
+        var darkModeCookie = document.cookie.replace(/(?:(?:^|.*;\s*)dark-mode\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+        // Si la cookie existe y tiene valor "true", aplicamos la clase "dark-mode" al body
+        if (darkModeCookie === "true") {
+            document.querySelector("body").classList.add("dark-mode");
+        }
+
+        function toggleDarkMode() {
+            // Obtenemos el valor actual del interruptor
+            var darkMode = document.querySelector('#dark-mode-toggle').checked;
+
+            // Creamos la cookie con el valor del interruptor
+            document.cookie = "dark-mode=" + darkMode + "; path=/";
+
+            // Agregamos o eliminamos la clase "dark-mode" del body según corresponda
+            if (darkMode) {
+                document.querySelector("body").classList.add("dark-mode");
+                document.querySelector("table").classList.add("dark-mode");
+                document.querySelector("#dark-mode-toggle").checked = true;
+
+            } else {
+                document.querySelector("body").classList.remove("dark-mode");
+                document.querySelector("table").classList.remove("dark-mode");
+                document.querySelector("#dark-mode-toggle").checked = false;
+            }
+
+        }
+    </script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     @RenderSection("styles", required: false)
@@ -37,6 +69,7 @@
     <script>
         AOS.init();
     </script>
+
     @Scripts.Render("~/bundles/sweetalert")
     @Scripts.Render("~/bundles/fontAwesome")
 
