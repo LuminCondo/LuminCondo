@@ -26,6 +26,7 @@ namespace Infraestructure.Repository
                         Where(r => r.IDReserva == id).
                         Include("Espacios").
                         Include("Usuarios").
+                        Include("EstadoReserva").
                         FirstOrDefault();
                 }
                 return oGestionReservas;
@@ -88,6 +89,7 @@ namespace Infraestructure.Repository
                     lista = ctx.GestionReservas.
                         Include("Espacios").
                         Include("Usuarios").
+                        Include("EstadoReserva").
                         ToList();
                 }
                 return lista;

@@ -181,6 +181,9 @@
     <Compile Include="Models\EstadoIncidencia.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EstadoReserva.cs">
+      <DependentUpon>MyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EstadoResidencia.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>

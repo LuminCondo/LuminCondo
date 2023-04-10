@@ -20,9 +20,10 @@ namespace Infraestructure.Models
         public int IDUsuario { get; set; }
         public int IDEspacio { get; set; }
         public System.DateTime fecha { get; set; }
-        public bool estado { get; set; }
+        public int IDEstado { get; set; }
     
         public virtual Espacios Espacios { get; set; }
+        public virtual EstadoReserva EstadoReserva { get; set; }
         public virtual Usuarios Usuarios { get; set; }
     }
 }

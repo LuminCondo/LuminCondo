@@ -12,7 +12,7 @@
             @Html.DisplayNameFor(model => model.fecha)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.estado)
+            @Html.DisplayNameFor(model => model.EstadoReserva.descripcion)
         </th>
         <th></th>
     </tr>
@@ -29,14 +29,7 @@
             @Html.DisplayFor(modelItem => item.fecha)
         </td>
         <td>
-            @if (item.estado==true)
-            {
-                <p>Aceptado</p>
-            }
-            else
-            {
-                <p>Rechazado</p>
-            }
+            @Html.DisplayFor(modelItem => item.EstadoReserva.descripcion)
         </td>
         <td>
             <div class="btn-group" role="group">

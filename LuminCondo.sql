@@ -1,9 +1,15 @@
-CREATE DATABASE Lumincondo_DB;
+/*CREATE DATABASE Lumincondo_DB;
 USE Lumincondo_DB;
-/*
+
 USE master;
 DROP DATABASE Lumincondo_DB;
 */
+
+CREATE TABLE EstadoReserva (
+							ID INT IDENTITY(1,1) NOT NULL, /*PK*/
+							descripcion VARCHAR(20) NOT NULL,
+							PRIMARY KEY (ID)
+							);/*#1*/
 
 CREATE TABLE TiposUsuarios (
 							ID INT IDENTITY(1,1) NOT NULL, /*PK*/
@@ -84,10 +90,11 @@ CREATE TABLE GestionReservas (
 								fecha DATE NOT NULL,/*
 								horaInicio TIME NOT NULL,
 								horaFinal TIME NOT NULL,*/
-								estado BIT NOT NULL,
+								IDEstado INT NOT NULL,
 								PRIMARY KEY (IDReserva),
 								CONSTRAINT FK_GestionReservas_IDUsuario FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID),
-								CONSTRAINT FK_GestionReservas_IDEspacio FOREIGN KEY (IDEspacio) REFERENCES Espacios(IDEspacio)
+								CONSTRAINT FK_GestionReservas_IDEspacio FOREIGN KEY (IDEspacio) REFERENCES Espacios(IDEspacio),
+								CONSTRAINT FK_GestionReservas_IDEstado FOREIGN KEY (IDEstado) REFERENCES EstadoReserva(ID)
 								);
 
 CREATE TABLE GestionResidencias (
@@ -151,13 +158,7 @@ ALTER TABLE [dbo].[Rubros_Planes] ADD  CONSTRAINT [PK_Rubros_Planes] PRIMARY KEY
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO		
 
-
-/*CREATE TABLE GestionDeudas (
-								IDDeuda INT NOT NULL, /*PK*/
-								IDAsignacion INT NOT NULL, /*FK*/
-								PRIMARY KEY (IDDeuda),
-								CONSTRAINT FK_GestionDeudas_IDAsignacion FOREIGN KEY (IDAsignacion) REFERENCES GestionAsignacionPlanes(IDAsignacion)
-								);*/
+select * from GestionReservas
 
 /**********************************************Inserts de las tablas**************************************************************/
 insert into dbo.TiposUsuarios values
@@ -165,13 +166,13 @@ insert into dbo.TiposUsuarios values
 ('Residente')
 
 insert into dbo.Usuarios values
-( 'Israel', 'u6QXcpElu3jBzi22FNFdrw==',1,'cmisra2407@gmail.com',1,21211212),
-( 'Luis', 'u6QXcpElu3jBzi22FNFdrw==',1,'lumincondo@gmail.com',1,24242424),
-( 'Jocelyn', 'u6QXcpElu3jBzi22FNFdrw==',2,'luminCondo1@gmail.com',1,89170301)
+('Israel','u6QXcpElu3jBzi22FNFdrw==',1,'cmisra2407@gmail.com',1,21211212),
+('Luis','u6QXcpElu3jBzi22FNFdrw==',1,'lumincondo@gmail.com',1,24242424),
+('Jocelyn','u6QXcpElu3jBzi22FNFdrw==',2,'luminCondo1@gmail.com',1,89170301)
 
 insert into dbo.Espacios values
-( 'Piscina #1'), 
-( 'Piscina #2'),
+('Piscina #1'), 
+('Piscina #2'),
 ('Rancho #1'),
 ('Rancho #2'),
 ('Rancho #3'),
@@ -180,23 +181,28 @@ insert into dbo.Espacios values
 ('Working Space #1'),
 ('Working Space #2'),
 ('Working Space #3'),
-( 'Cancha Multiusos')
-
-insert into dbo.GestionReservas values
-(1,1,CONVERT(date, '19/02/2023', 103),0),
-(1,2,CONVERT(date, '19/02/2023', 103),0),
-(2,3,CONVERT(date, '28/02/2023', 103),0),
-(3,7,CONVERT(date, '24/02/2023', 103),0)
+('Cancha Multiusos')
 
 insert into dbo.EstadoIncidencia values 
 ('Nueva'),
 ('Activa'),
 ('Resuelta')
 
+insert into dbo.EstadoReserva values 
+('Pendiente'),
+('Aprobado'),
+('Rechazado')
+
+insert into dbo.GestionReservas values
+(1,1,CONVERT(date, '19/02/2022', 103),1),
+(1,2,CONVERT(date, '19/03/2023', 103),2),
+(2,3,CONVERT(date, '28/01/2023', 103),3),
+(3,7,CONVERT(date, '09/04/2023', 103),1)
+
 insert into dbo.ReporteIncidencias values
 (1,1,'Fuga de Agua en calle frente mi residencia'),
 (2,2,'Problema Tomacorriente de la cocina'),
-(3,3, 'Caída de Arbol')
+(3,3,'Caída de Arbol')
 
 insert into dbo.EstadoResidencia values
 ('En Construcción'),
@@ -257,9 +263,9 @@ insert into Rubros_Planes values
 
 insert into GestionAsignacionPlanes values
 (1,3,CONVERT(date, '26/02/2023', 103),0),
-(1,3,CONVERT(date, '18/02/2023', 103),1),
-(2,4,CONVERT(date, '18/02/2023', 103),1),
-(3,1,CONVERT(date, '18/02/2023', 103),1)
+(1,3,CONVERT(date, '18/03/2023', 103),1),
+(2,4,CONVERT(date, '18/04/2023', 103),1),
+(3,1,CONVERT(date, '18/12/2022', 103),1)
 
 
 USE Lumincondo_DB;

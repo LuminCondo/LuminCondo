@@ -28,6 +28,7 @@ namespace Infraestructure.Models
         public virtual DbSet<Carros> Carros { get; set; }
         public virtual DbSet<Espacios> Espacios { get; set; }
         public virtual DbSet<EstadoIncidencia> EstadoIncidencia { get; set; }
+        public virtual DbSet<EstadoReserva> EstadoReserva { get; set; }
         public virtual DbSet<EstadoResidencia> EstadoResidencia { get; set; }
         public virtual DbSet<GestionAsignacionPlanes> GestionAsignacionPlanes { get; set; }
         public virtual DbSet<GestionPlanCobros> GestionPlanCobros { get; set; }

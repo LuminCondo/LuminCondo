@@ -193,8 +193,8 @@ namespace Web.Controllers
                 if (gestionReservas == null)
                 {
                     {
-                        TempData["Message"] = "No existe el Plan solicitado";
-                        TempData["Redirect"] = "GestionPlanCobros";
+                        TempData["Message"] = "No existe la reserva solicitada";
+                        TempData["Redirect"] = "GestionReservas";
                         TempData["Redirect-Action"] = "Index";
                         // Redireccion a la captura del Error
                         return RedirectToAction("Default", "Error");

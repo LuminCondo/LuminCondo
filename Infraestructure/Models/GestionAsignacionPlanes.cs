@@ -23,7 +23,7 @@ namespace Infraestructure.Models
         public bool estadoPago { get; set; }
         public int MesSeleccionado { get; set; }
         public int AnnoSeleccionado { get; set; }
-
+    
         public virtual GestionPlanCobros GestionPlanCobros { get; set; }
         public virtual GestionResidencias GestionResidencias { get; set; }
     }

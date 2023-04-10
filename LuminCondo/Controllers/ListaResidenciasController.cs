@@ -147,20 +147,13 @@ namespace Web.Controllers
             }
         }
 
-        // GET: ListaResidencias/Edit/5
-        [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult Edit(int? id)
+        public ActionResult AjaxModificarResidencia(int id)
         {
             IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
             GestionResidencias gestionResidencias = null;
 
             try
             {
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-
                 gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(id));
 
                 if (gestionResidencias == null)
@@ -174,7 +167,7 @@ namespace Web.Controllers
 
                 ViewBag.IDUsuarios = listaUsuarios(gestionResidencias.IDUsuario);
                 ViewBag.IDEstadoResidencias = listaEstadosResidencia(gestionResidencias.IDEstadoResidencia);
-                return View(gestionResidencias);
+                return PartialView("_PartialViewModificarResidencia",gestionResidencias);
 
             }
             catch (Exception ex)

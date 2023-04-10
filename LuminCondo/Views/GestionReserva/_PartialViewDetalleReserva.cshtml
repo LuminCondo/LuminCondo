@@ -33,18 +33,11 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.estado)
+                @Html.DisplayNameFor(model => model.EstadoReserva.descripcion)
             </dt>
 
             <dd>
-                @if (Model.estado == true)
-                {
-                    <p>Aceptado</p>
-                }
-                else
-                {
-                    <p>Rechazado</p>
-                }
+                @Html.DisplayFor(model => model.EstadoReserva.descripcion)
             </dd>
 
         </dl>
