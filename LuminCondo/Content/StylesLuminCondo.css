@@ -73,13 +73,18 @@ imgSetting {
     border-radius: 20px;
 }
 
-.editCard{
-    border-radius:20px;
+.editCard {
+    border-radius: 20px;
+    background-color: #4e4e4e99;
+    height: 375px;
+    margin: 1rem 0;
 }
 
 .custom-size {
     border-radius: 5px;
-    width:100%;
+    width: 100%;
+    color: #fff;
+    padding: 7px
 }
 
 

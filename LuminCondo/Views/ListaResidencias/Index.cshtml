@@ -50,7 +50,7 @@
     }
 
     <hr />
-    <table class="table table-hover">
+    <table class="table">
         <tr class="text-center">
             <th>
                 @Html.DisplayNameFor(model => model.IDResidencia)
@@ -78,14 +78,20 @@
                 </td>
                 <td>
                     <form method="post" action="@Url.Action("Administrar", "ListaResidencias")">
+                        <input type="hidden" name="idResidencia" value=@item.IDResidencia />
                         <div class="btn-group" role="group">
                             <button class="btn btn-primary" onclick="DetalleResidencia('@item.IDResidencia')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
                             @if (idTipoUsuario == 1)
                             {
                                 <button class="btn btn-secondary" onclick="ActualizarResidencia('@item.IDResidencia')">Modificar</button>
+                                <button class="btn btn-primary">Administrar la residencia</button>
                             }
-                            <input type="hidden" name="idResidencia" value=@item.IDResidencia />
-                            <button class="btn btn-primary">Administrar la residencia</button>
+                            else
+                            {
+                                <button class="btn btn-secondary">Administrar la residencia</button>
+                            }
+
+
                         </div>
                     </form>
                 </td>

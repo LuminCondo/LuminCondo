@@ -1,9 +1,23 @@
 ﻿/* Modo claro */
-body, td, th {
+body, tr {
     /* Estilos para el modo claro */
-    background-color: #CCC;
+    background-color: #fff;
     color: #222222;
     transition: background-color 0.5s ease, color 0.5s ease; /* Transición suave al cambiar los colores */
+}
+
+    tr:hover {
+        /* Estilos para el modo claro */
+        background-color: #8a8a8a7a;
+        color: #0CB0BB;
+
+    }
+
+.dark-mode tr:hover {
+    /* Estilos para el modo claro */
+    background-color: #8a8a8a7a;
+    color: #0CB0BB;
+
 }
 
 
@@ -14,12 +28,22 @@ body, td, th {
     transition: background-color 0.5s ease, color 0.5s ease; /* Transición suave al cambiar los colores */
 }
 
-    .dark-mode td, .dark-mode th, .dark-mode .modal-content {
+    .dark-mode tr, .dark-mode .modal-content {
         color: #fff; /* Cambiar el color del texto a blanco */
         transition: color 0.5s ease; /* Transición suave al cambiar los colores */
     }
 
-    .dark-mode .brand_logo_container {
-        background-color: #222222;
-        transition: background-color 0.8s ease; /* Transición suave al cambiar los colores */
+    .dark-mode .card-title {
+        color: #0CB0BB; /* Cambiar el color del texto a blanco */
+        transition: color 0.5s ease; /* Transición suave al cambiar los colores */
     }
+
+.card-title {
+    color: #222222; /* Cambiar el color del texto a blanco */
+    transition: color 0.5s ease; /* Transición suave al cambiar los colores */
+}
+
+.dark-mode .brand_logo_container, .dark-mode tr {
+    background-color: #222222;
+    transition: background-color 0.5s ease; /* Transición suave al cambiar los colores */
+}

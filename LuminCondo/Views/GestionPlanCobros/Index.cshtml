@@ -8,26 +8,18 @@
 </div>
 
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
 <div class="col-lg-12">
-    <div id="resultado" class="row">
+    <div id="resultado" class="row d-flex justify-content-center">
         @foreach (var item in Model)
         {
-            <div class="col-sm-4 text-center editCard" data-aos="fade-up">
-                <div class="card">
-                    <div class="card-body" style="background-color: #515151e9; height: 400px;">
-                        <div class="card-body text-center">
-                            <div class="text-center">
-                                <img src="~/Assets/Logo LuminCondo.jpg" class=" contentImg1" alt="...">
-                            </div>
-                        </div>
-                        <h6 class="card-title" style="font-size: 28px; font-weight: 50; color: #0CB0BB;">Plan @Html.DisplayFor(modelItem => item.descripcion)</h6>
+            <div class="col-sm-4 text-center" data-aos="fade-up">
+                <div class="card editCard">
+                    <div class="card-body text-center">
                         <div class="text-center">
-                            <button class="btn btn-primary" onclick="DetallePlan('@item.IDPlan')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            <img src="~/Assets/Logo LuminCondo.jpg" class="contentImg1" alt="...">
                         </div>
-
+                        <h6 class="card-title" style="font-size: 28px;">Plan @Html.DisplayFor(modelItem => item.descripcion)</h6>
+                        <button class="btn btn-primary" onclick="DetallePlan('@item.IDPlan')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
                     </div>
                 </div>
             </div>
@@ -35,9 +27,12 @@
     </div>
 </div>
 
+
+
+
 <div class="modal" tabindex="-1" id="myModal">
     <div class="modal-dialog">
-        <div class="modal-content"style="color:#fff">
+        <div class="modal-content" style="color:#fff">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -57,7 +52,7 @@
 @section Scripts{
     <script type="text/javascript">
 
-        
+
 
         function DetallePlan(idPlan) {
             var id = idPlan;
@@ -75,7 +70,7 @@
             })
         }
 
-        
+
 
     </script>
 }

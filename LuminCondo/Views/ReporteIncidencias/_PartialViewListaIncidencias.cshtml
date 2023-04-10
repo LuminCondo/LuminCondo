@@ -35,7 +35,7 @@
 }
 
 <div data-aos="fade-up">
-    <table class="table table-hover">
+    <table class="table">
         <tr class="text-center">
             @if (idTipoUsuario == 1)
             {
@@ -76,7 +76,7 @@
                         }
                         @if (item.IDEstado == 3)
                         {
-                            <div class="custom-size" style="background-color: #01b51b; padding: 7px;" >
+                            <div class="custom-size" style="background-color: #01b51b; color:#fff; padding: 7px;" >
                                <i class="fa-solid fa-circle-check"></i> Incidencia @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
                             </div>
                         }
@@ -87,19 +87,19 @@
                     <td style="width:20rem">
                         @if (item.IDEstado == 1)
                         {
-                            <div class="custom-size" style="background-color: #b10000; padding: 7px;">
+                            <div class="custom-size" style="background-color: #b10000;">
                                <i class="fas fa-question-circle"></i> Incidencia @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
                             </div>
                         }
                         @if (item.IDEstado == 2)
                         {
-                            <div class="custom-size" style="background-color: #ffbb00; padding: 7px;">
+                            <div class="custom-size" style="background-color: #ffbb00;">
                                <i class="fas fa-exclamation-circle"></i> Incidencia @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
                             </div>
                         }
                         @if (item.IDEstado == 3)
                         {
-                            <div class="custom-size" style="background-color: #01b51b; padding: 7px;">
+                            <div class="custom-size" style="background-color: #01b51b;">
                                 <i class="fa-solid fa-circle-check"></i> Incidencia @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
                             </div>
                         }

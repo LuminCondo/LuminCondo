@@ -19,12 +19,14 @@
         }
     }
 }
-<h1 class="text-center" data-aos="fade-up"><i class="fa-solid fa-file-invoice"></i> Estado de Cuenta</h1>
-<hr />
-<h5>Nombre del Propietario: @Html.DisplayFor(model => model.FirstOrDefault().GestionResidencias.Usuarios.nombre)</h5>
-<h5>Número de Residencia: @Html.DisplayFor(model => model.FirstOrDefault().IDResidencia)</h5>
-<h5>Fecha del Estado de Cuenta: @DateTime.Now.ToString("dd/MM/yyyy")</h5>
-<hr />
+<div data-aos="fade-up">
+    <h1 class="text-center"><i class="fa-solid fa-file-invoice"></i> Estado de Cuenta</h1>
+    <hr />
+    <h5>Nombre del Propietario: @Html.DisplayFor(model => model.FirstOrDefault().GestionResidencias.Usuarios.nombre)</h5>
+    <h5>Número de Residencia: @Html.DisplayFor(model => model.FirstOrDefault().IDResidencia)</h5>
+    <h5>Fecha del Estado de Cuenta: @DateTime.Now.ToString("dd/MM/yyyy")</h5>
+    <hr />
+</div>
 <div data-aos="fade-up">
     <h2 class="text-center"><i class="fa-solid fa-money-check-dollar"></i> Deudas Pendientes</h2>
 
