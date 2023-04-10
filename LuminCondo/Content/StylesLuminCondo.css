@@ -77,4 +77,9 @@ imgSetting {
     border-radius:20px;
 }
 
+.custom-size {
+    border-radius: 5px;
+    width:100%;
+}
+
 

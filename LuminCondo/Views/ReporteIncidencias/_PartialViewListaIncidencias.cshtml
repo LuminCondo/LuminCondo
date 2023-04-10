@@ -37,9 +37,6 @@
 <div data-aos="fade-up">
     <table class="table table-hover">
         <tr class="text-center">
-            <th>
-                @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
-            </th>
             @if (idTipoUsuario == 1)
             {
                 <th>
@@ -49,18 +46,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.descripcion)
             </th>
-            @if (idTipoUsuario == 1)
-            {
-                <th></th>
-            }
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoIncidencia.TipoEstado)
+            </th>
         </tr>
 
         @foreach (var item in incidenciasUser)
         {
             <tr class="text-center">
-                <td>
-                    @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
-                </td>
                 @if (idTipoUsuario == 1)
                 {
                     <td>
@@ -72,14 +65,43 @@
                 </td>
                 @if (idTipoUsuario == 1)
                 {
-                    <td>
+                    <td style="width:20rem">
                         @if (item.IDEstado == 1)
                         {
-                            <button class="btn btn-primary" onclick="ActualizarIncidencia('@item.IDIncidencia')"><i class="fa-solid fa-plus"></i> Actualizar Incidencia</button>
+                            <button class="btn btn-danger custom-size" onclick="ActualizarIncidencia('@item.IDIncidencia')"><i class="fas fa-question-circle"></i> Atender Incidencia</button>
                         }
                         @if (item.IDEstado == 2)
                         {
-                            <button class="btn btn-primary" onclick="ActualizarIncidencia('@item.IDIncidencia')"><i class="fa-solid fa-plus"></i> Resolver Incidencia</button>
+                            <button class="btn btn-warning custom-size" onclick="ActualizarIncidencia('@item.IDIncidencia')"><i class="fas fa-exclamation-circle"></i> Resolver Incidencia</button>
+                        }
+                        @if (item.IDEstado == 3)
+                        {
+                            <div class="custom-size" style="background-color: #01b51b; padding: 7px;" >
+                               <i class="fa-solid fa-circle-check"></i> Incidencia @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+                            </div>
+                        }
+                    </td>
+                }
+                else
+                {
+                    <td style="width:20rem">
+                        @if (item.IDEstado == 1)
+                        {
+                            <div class="custom-size" style="background-color: #b10000; padding: 7px;">
+                               <i class="fas fa-question-circle"></i> Incidencia @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+                            </div>
+                        }
+                        @if (item.IDEstado == 2)
+                        {
+                            <div class="custom-size" style="background-color: #ffbb00; padding: 7px;">
+                               <i class="fas fa-exclamation-circle"></i> Incidencia @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+                            </div>
+                        }
+                        @if (item.IDEstado == 3)
+                        {
+                            <div class="custom-size" style="background-color: #01b51b; padding: 7px;">
+                                <i class="fa-solid fa-circle-check"></i> Incidencia @Html.DisplayFor(modelItem => item.EstadoIncidencia.TipoEstado)
+                            </div>
                         }
                     </td>
                 }
