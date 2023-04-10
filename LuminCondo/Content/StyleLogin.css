@@ -28,9 +28,10 @@ html {
     width: 170px;
     top: -75px;
     border-radius: 50%;
-    background: #CCC;
+    background: #fff;
     padding: 10px;
     text-align: center;
+    transition: background-color 0.5s ease; /* Transición suave al cambiar los colores */
 }
 
 .brand_logo {
