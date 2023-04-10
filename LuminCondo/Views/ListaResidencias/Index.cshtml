@@ -77,18 +77,17 @@
                     @Html.DisplayFor(modelItem => item.EstadoResidencia.estado)
                 </td>
                 <td>
-                    <div class="btn-group" role="group">
-                        <button class="btn btn-primary" onclick="DetalleResidencia('@item.IDResidencia')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
-                        @if (idTipoUsuario == 1)
-                        {
-                            <button class="btn btn-secondary" onclick="ActualizarResidencia('@item.IDResidencia')">Modificar</button>
-                        }
-
-                        <form method="post" action="@Url.Action("Administrar", "ListaResidencias")">
+                    <form method="post" action="@Url.Action("Administrar", "ListaResidencias")">
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-primary" onclick="DetalleResidencia('@item.IDResidencia')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            @if (idTipoUsuario == 1)
+                            {
+                                <button class="btn btn-secondary" onclick="ActualizarResidencia('@item.IDResidencia')">Modificar</button>
+                            }
                             <input type="hidden" name="idResidencia" value=@item.IDResidencia />
                             <button class="btn btn-primary">Administrar la residencia</button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </td>
             </tr>
         }
@@ -131,6 +130,7 @@
         }
 
         function DetalleResidencia(idResidencia) {
+            event.preventDefault(); 
             var id = idResidencia;
             $.ajax({
                 method: 'POST',
@@ -147,7 +147,7 @@
         }
 
         function ActualizarResidencia(idResidencia) {
-            debugger;
+            event.preventDefault(); 
             var id = idResidencia;
             $.ajax({
                 method: 'POST',
