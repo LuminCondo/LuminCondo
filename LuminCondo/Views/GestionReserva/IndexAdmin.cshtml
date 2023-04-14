@@ -8,8 +8,8 @@
 
     <h2 class="text-center">@ViewBag.Title</h2>
 
-    <button class="btn btn-primary" onclick="CrearReserva()"><i class="fa-solid fa-plus"></i> Añadir Nueva Reserva</button>
-    
+    @*<button class="btn btn-primary" onclick="CrearReserva()"><i class="fa-solid fa-plus"></i> Añadir Nueva Reserva</button>*@
+
     <div>
         <span class="glyphicons glyphicons-hand-left"></span>
         <div id="tablaReservas">
@@ -108,5 +108,42 @@
                 }
             })
         }
+
+        function AprobarReserva(idReserva) {
+            var id = idReserva;
+            $.ajax({
+                method: 'POST',
+                url: '/GestionReserva/actualizarEstado',
+                data: {
+                    'id': id,
+                    'estado': true
+                },
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablaReservas').html(result);
+                    $('#myModal').modal('hide');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        }
+        function RechazarReserva(idReserva) {
+            var id = idReserva;
+            $.ajax({
+                method: 'POST',
+                url: '/GestionReserva/actualizarEstado',
+                data: {
+                    'id': id,
+                    'estado': false
+                },
+                success: function (result) {
+                    // procesar la respuesta del servidor
+                    $('#tablaReservas').html(result);
+                    $('#myModal').modal('hide');
+                }, error: function (xhr, status, error) {
+                    console.log('Error' + error + ',No Error' + xhr.status);
+                }
+            })
+        } 
     </script>
 }

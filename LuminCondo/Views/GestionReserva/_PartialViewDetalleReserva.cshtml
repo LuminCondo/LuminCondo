@@ -43,15 +43,18 @@
         </dl>
     </div>
 
-    <div class="btn-group" role="group">
-        <a href="@Url.Action("GestionReserva","IndexAdmin"/*, new { id = Model.IDReserva }*/)" class="btn btn-success">
+    <div class="form-group">
+        <div class="btn-group" role="group">
+            @*@<a href="@Url.Action("GestionReserva","IndexAdmin", new { id = Model.IDReserva })" class="btn btn-success">
             Aprobar
         </a>
         <a href="@Url.Action("GestionReserva","IndexAdmin"/*, new { id = Model.IDReserva }*/)" class="btn btn-danger">
             Rechazar
-        </a>
-
-        
+        </a>*@
+            <button class="btn btn-success" onclick="AprobarReserva(id = Model.IDReserva)">Aprobar</button>
+            <button class="btn btn-danger" onclick="RechazarReserva(id = Model.IDReserva)">Rechazar</button>
+        </div>
     </div>
+        
 </div>
 

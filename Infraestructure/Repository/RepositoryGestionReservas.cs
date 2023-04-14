@@ -116,7 +116,7 @@ namespace Infraestructure.Repository
             using(MyContext ctx = new MyContext())
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
-                oGestionReservas = GetReservaByID(reserva.IDUsuario);
+                oGestionReservas = GetReservaByID(reserva.IDReserva);
 
                 if (oGestionReservas == null)
                 {
