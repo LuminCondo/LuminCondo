@@ -61,3 +61,12 @@
 
     </table>
 </div>
+
+@if (ViewBag.NotificationMessage != null)
+{
+    <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+    </script>
+}
+
+

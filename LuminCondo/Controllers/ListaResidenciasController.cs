@@ -40,42 +40,9 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
-        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
 
-        // GET: ListaResidencias/Details/5
-        public ActionResult Details(int? id)
-        {
-            IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
-            GestionResidencias gestionResidencias = null;
-            try
-            {
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-                gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(id));
-                if (gestionResidencias == null)
-                {
-                    TempData["Message"] = "No existe el Plan solicitado";
-                    TempData["Redirect"] = "GestionPlanCobros";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
-                }
-                return View(gestionResidencias);
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "GestionPlanCobros";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
 
-        }
+       
         private SelectList listaUsuarios(int idUsuario = 0)
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
@@ -87,15 +54,6 @@ namespace Web.Controllers
             IServiceEstadoResidencia _ServiceEstadoResidencia = new ServiceEstadoResidencia();
             IEnumerable<EstadoResidencia> lista = _ServiceEstadoResidencia.GetEstadoResidencia();
             return new SelectList(lista, "IDEstadoResidencia", "estado", idEstado);
-        }
-
-        [CustomAuthorize((int)Roles.Administrador)]
-        // GET: ListaResidencias/Create
-        public ActionResult Create()
-        {
-            ViewBag.IDUsuarios = listaUsuarios();
-            ViewBag.IDEstadoResidencias = listaEstadosResidencia();
-            return View();
         }
 
         public ActionResult _PartialViewListaCarros()
@@ -268,7 +226,7 @@ namespace Web.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    lista = _ServiceCarros.GetCarrosxIDResidencia(carro.IDResidencia);
                 }
                 return PartialView("_PartialViewListaCarros", lista);
             }
@@ -318,7 +276,7 @@ namespace Web.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    lista = _ServicePersonas.GetPersonasxIDResidencia(personas.IDResidencia);
                 }
                 return PartialView("_PartialViewListaPersonas", lista);
             }

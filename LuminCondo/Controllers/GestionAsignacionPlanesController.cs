@@ -63,13 +63,16 @@ namespace Web.Controllers
                         ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Fallo al guardar la asignación",
                             "Ya esta residencia posee una asignación establecida para este mes", Utils.SweetAlertMessageType.error
                             );
-                        return View("Index");
-
+                        lista = _ServiceGestionAsignacionPlanes.GetHistorialGeneral(DateTime.Now.Month, DateTime.Now.Year, null);
                     }
-                    lista = _ServiceGestionAsignacionPlanes.GetHistorialGeneral(DateTime.Now.Month, DateTime.Now.Year, oGestionAsignacionPlanes.IDResidencia);
-                    ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Asignación Creada",
-                               "La asignación ya fue creada para el mes de "+DateTime.Now.Month +" del año "+ DateTime.Now.Year, Utils.SweetAlertMessageType.success
-                               );
+                    else
+                    {
+                        lista = _ServiceGestionAsignacionPlanes.GetHistorialGeneral(DateTime.Now.Month, DateTime.Now.Year, oGestionAsignacionPlanes.IDResidencia);
+                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Asignación Creada",
+                                   "La asignación ya fue creada para el mes de " + DateTime.Now.Month + " del año " + DateTime.Now.Year, Utils.SweetAlertMessageType.success
+                                   );
+                    }
+                    
                 }
                 return PartialView("_PartialViewListaAsignaciones", lista);
             }
