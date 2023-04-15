@@ -153,7 +153,7 @@ namespace Infraestructure.Models
     internal partial class EstadoReservaMetadata
     {
 
-        public int ID { get; set; }
+        public int IDEstado { get; set; }
 
         [Display(Name = "Estado de la Reserva")]
         [StringLength(100, MinimumLength = 4, ErrorMessage = "El estado debe tener al menos 4 caracteres.")]

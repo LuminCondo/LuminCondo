@@ -110,34 +110,48 @@ namespace Infraestructure.Repository
 
         public GestionReservas Guardar(GestionReservas reserva)
         {
-            int retorno = 0;
-            GestionReservas oGestionReservas = null;
-
-            using(MyContext ctx = new MyContext())
+            try
             {
-                ctx.Configuration.LazyLoadingEnabled = false;
-                oGestionReservas = GetReservaByID(reserva.IDReserva);
+                    int retorno = 0;
+                GestionReservas oGestionReservas = null;
 
-                if (oGestionReservas == null)
+                using(MyContext ctx = new MyContext())
                 {
-                    ctx.GestionReservas.Add(reserva);
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    oGestionReservas = GetReservaByID(reserva.IDReserva);
 
-                    retorno = ctx.SaveChanges();
+                    if (oGestionReservas == null)
+                    {
+                        ctx.GestionReservas.Add(reserva);
+
+                        retorno = ctx.SaveChanges();
+                    }
+                    else
+                    {
+                        var objetoExistente = ctx.GestionReservas.FirstOrDefault(o => o.IDReserva == reserva.IDReserva);
+                        objetoExistente.IDEstado = reserva.IDEstado;
+
+                        retorno = ctx.SaveChanges();
+                    }
                 }
-                else
-                {
-                    ctx.GestionReservas.Add(reserva);
 
-                    ctx.Entry(reserva).State = EntityState.Modified;
+                if (retorno >= 0)
+                    oGestionReservas = GetReservaByID(reserva.IDReserva);
 
-                    retorno = ctx.SaveChanges();
-                }
+                return oGestionReservas;
             }
-
-            if (retorno >= 0)
-                oGestionReservas = GetReservaByID(reserva.IDReserva);
-
-            return oGestionReservas;
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
         }
     }
 }

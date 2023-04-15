@@ -30,9 +30,9 @@
         </EntityType>
         <EntityType Name="EstadoReserva">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="IDEstado" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="EstadoResidencia">
@@ -125,6 +125,16 @@
           <Property Name="IDPlan" Type="int" Nullable="false" />
           <Property Name="IDRubro" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="TipoInformacion">
           <Key>
             <PropertyRef Name="IDTipoInfo" />
@@ -204,7 +214,7 @@
           <End Role="GestionReservas" Type="Self.GestionReservas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EstadoReserva">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="IDEstado" />
             </Principal>
             <Dependent Role="GestionReservas">
               <PropertyRef Name="IDEstado" />
@@ -346,6 +356,7 @@
           <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rubros_Planes" EntityType="Self.Rubros_Planes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
@@ -443,9 +454,9 @@
         </EntityType>
         <EntityType Name="EstadoReserva">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="IDEstado" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="GestionReservas" Relationship="Self.FK_GestionReservas_IDEstado" FromRole="EstadoReserva" ToRole="GestionReservas" />
         </EntityType>
@@ -549,6 +560,16 @@
           <NavigationProperty Name="EstadoIncidencia" Relationship="Self.FK_ReporteIncidencias_IDEstado" FromRole="ReporteIncidencias" ToRole="EstadoIncidencia" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_ReporteIncidencias_IDUsuario" FromRole="ReporteIncidencias" ToRole="Usuarios" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="TipoInformacion">
           <Key>
             <PropertyRef Name="IDTipoInfo" />
@@ -622,7 +643,7 @@
           <End Role="GestionReservas" Type="Self.GestionReservas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EstadoReserva">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="IDEstado" />
             </Principal>
             <Dependent Role="GestionReservas">
               <PropertyRef Name="IDEstado" />
@@ -755,6 +776,7 @@
           <EntitySet Name="Informacion" EntityType="Self.Informacion" />
           <EntitySet Name="Personas" EntityType="Self.Personas" />
           <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" />
           <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
@@ -850,7 +872,7 @@
           <EntitySetMapping Name="EstadoReserva">
             <EntityTypeMapping TypeName="Lumincondo_DBModel.EstadoReserva">
               <MappingFragment StoreEntitySet="EstadoReserva">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDEstado" ColumnName="IDEstado" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -943,6 +965,17 @@
                 <ScalarProperty Name="IDEstado" ColumnName="IDEstado" />
                 <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Lumincondo_DBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

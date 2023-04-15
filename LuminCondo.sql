@@ -5,11 +5,7 @@ USE master;
 DROP DATABASE Lumincondo_DB;
 */
 
-CREATE TABLE EstadoReserva (
-							ID INT IDENTITY(1,1) NOT NULL, /*PK*/
-							descripcion VARCHAR(20) NOT NULL,
-							PRIMARY KEY (ID)
-							);/*#1*/
+
 
 CREATE TABLE TiposUsuarios (
 							ID INT IDENTITY(1,1) NOT NULL, /*PK*/
@@ -83,6 +79,12 @@ CREATE TABLE Informacion (
 							CONSTRAINT FK_Informacion_IDTipoInfo FOREIGN KEY (IDTipoInfo) REFERENCES TipoInformacion(IDTipoInfo)
 							);
 
+CREATE TABLE EstadoReserva (
+IDEstado INT IDENTITY(1,1) NOT NULL, /*PK*/
+descripcion VARCHAR(20) NOT NULL,
+PRIMARY KEY (IDEstado)
+);
+
 CREATE TABLE GestionReservas (
 								IDReserva INT IDENTITY(1,1) NOT NULL, /*PK*/
 								IDUsuario INT NOT NULL, /*FK*/
@@ -94,7 +96,7 @@ CREATE TABLE GestionReservas (
 								PRIMARY KEY (IDReserva),
 								CONSTRAINT FK_GestionReservas_IDUsuario FOREIGN KEY (IDUsuario) REFERENCES Usuarios(ID),
 								CONSTRAINT FK_GestionReservas_IDEspacio FOREIGN KEY (IDEspacio) REFERENCES Espacios(IDEspacio),
-								CONSTRAINT FK_GestionReservas_IDEstado FOREIGN KEY (IDEstado) REFERENCES EstadoReserva(ID)
+								CONSTRAINT FK_GestionReservas_IDEstado FOREIGN KEY (IDEstado) REFERENCES EstadoReserva(IDEstado)
 								);
 
 CREATE TABLE GestionResidencias (

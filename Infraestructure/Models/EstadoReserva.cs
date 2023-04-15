@@ -12,6 +12,7 @@ namespace Infraestructure.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     [MetadataType(typeof(EstadoReservaMetadata))]
     public partial class EstadoReserva
     {
@@ -21,7 +22,7 @@ namespace Infraestructure.Models
             this.GestionReservas = new HashSet<GestionReservas>();
         }
     
-        public int ID { get; set; }
+        public int IDEstado { get; set; }
         public string descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

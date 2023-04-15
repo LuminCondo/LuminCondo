@@ -1,5 +1,9 @@
 ﻿@model Infraestructure.Models.GestionReservas
 
+@{ 
+    var idReservacion = Model.IDReserva;
+}
+
 <div data-aos="fade-up">
     <h2>Detalle de la reserva</h2>
 
@@ -51,8 +55,8 @@
         <a href="@Url.Action("GestionReserva","IndexAdmin"/*, new { id = Model.IDReserva }*/)" class="btn btn-danger">
             Rechazar
         </a>*@
-            <button class="btn btn-success" onclick="AprobarReserva(id = Model.IDReserva)">Aprobar</button>
-            <button class="btn btn-danger" onclick="RechazarReserva(id = Model.IDReserva)">Rechazar</button>
+            <button class="btn btn-success" onclick="AprobarReserva('@idReservacion')">Aprobar</button>
+            <button class="btn btn-danger" onclick="RechazarReserva(Model.IDReserva)">Rechazar</button>
         </div>
     </div>
         
