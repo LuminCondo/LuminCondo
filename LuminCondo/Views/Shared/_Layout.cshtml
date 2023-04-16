@@ -1,27 +1,27 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-
+    
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - LuminCondo</title>
     <link rel="shortcut icon" href="~/Assets/favicon.ico">
     @Styles.Render("~/Content/css")
-        <style>
-            body {
-                position: relative;
-                padding-bottom: 4em;
-                min-height: 100vh
-            }
+    <style>
+        body {
+            position: relative;
+            padding-bottom: 4em;
+            min-height: 100vh
+        }
 
-            .piepagina {
-                background-color: #0cb0bb;
-                width: 100vw;
-                position: absolute;
-                bottom: 0;
-            }
-        </style>
+        .piepagina {
+            background-color: #0cb0bb;
+            width: 100vw;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
     @Scripts.Render("~/bundles/modernizr")
     <!-- Aquí agregamos el código para leer y escribir la cookie -->
     <script>
@@ -58,10 +58,6 @@
         }
     </script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    @RenderSection("styles", required: false)
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
     @Html.Partial("_Menu")
@@ -83,6 +79,7 @@
         AOS.init();
     </script>
 
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/sweetalert")
     @Scripts.Render("~/bundles/fontAwesome")
 

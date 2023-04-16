@@ -10,6 +10,7 @@ namespace ApplicationCore.Services
     public interface IServiceEspacios
     {
         IEnumerable<Espacios> GetEspacios();
+        IEnumerable<Espacios> GetEspaciosxFecha(DateTime fecha);
         Espacios GetEspacioByID(int id);
     }
 }

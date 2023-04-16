@@ -21,5 +21,11 @@ namespace ApplicationCore.Services
             IRepositoryEspacios repository = new RepositoryEspacios();
             return repository.GetEspacios();
         }
+
+        public IEnumerable<Espacios> GetEspaciosxFecha(DateTime fecha)
+        {
+            IRepositoryEspacios repository = new RepositoryEspacios();
+            return repository.GetEspaciosxFecha(fecha);
+        }
     }
 }

@@ -1,43 +1,132 @@
 ﻿@model IEnumerable<Infraestructure.Models.GestionReservas>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuarios.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Espacios.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstadoReserva.descripcion)
-        </th>
-        <th></th>
-    </tr>
+@{
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuarios.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Espacios.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoReserva.descripcion)
-        </td>
-        <td>
-            <div class="btn-group" role="group">
-                <button class="btn btn-primary" onclick="DetalleReserva('@item.IDReserva')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
-                <button class="btn btn-secondary" onclick="ActualizarReserva('@item.IDReserva')">Modificar</button>
-            </div>
-        </td>
-    </tr>
+    var reservaciones = new List<Infraestructure.Models.GestionReservas>();
+    int id = 0;
+    int idTipoUsuario = 0;
+
+    if (Session["User"] != null)
+    {
+        Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+        usuario = (Infraestructure.Models.Usuarios)Session["User"];
+        id = usuario.ID;
+        idTipoUsuario = usuario.IDTipoUsuario;
+    }
+    if (idTipoUsuario == 1)
+    {
+        reservaciones= Model.ToList();
+    }
+
+    if (idTipoUsuario==2)
+    {
+        foreach (var item in Model)
+        {
+            if (item.Usuarios.ID==id)
+            {
+                reservaciones.Add(item);
+            }
+        }
+    }
+    reservaciones.Reverse();
 }
 
-</table>
+<div data-aos="fade-up">
+    <table class="table">
+        <tr class="text-center">
+            <th>
+                @Html.DisplayNameFor(model => model.Usuarios.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Espacios.descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoReserva.descripcion)
+            </th>
+        </tr>
+
+        @foreach (var item in reservaciones)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuarios.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Espacios.descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fecha)
+                </td>
+                @if (idTipoUsuario == 1)
+                {
+                    <td style="width:20rem">
+                        @if (item.IDEstado == 1)
+                        {
+
+                            <div class="btn-group" role="group">
+                                <button style="width:10rem" class="btn btn-success" onclick="AprobarReserva('@item.IDReserva')">Aprobar</button>
+                                <button style="width:10rem" class="btn btn-danger" onclick="RechazarReserva('@item.IDReserva')">Rechazar</button>
+                            </div>
+
+                        }
+                        @if (item.IDEstado == 2)
+                        {
+
+                            <div class="custom-size" style="background-color: #01b51b;">
+                                <i class="fa-solid fa-circle-check"></i> Reserva @Html.DisplayFor(modelItem => item.EstadoReserva.descripcion)
+                            </div>
+
+                        }
+                        @if (item.IDEstado == 3)
+                        {
+                            <div class="custom-size" style="background-color: #b10000;">
+                                <i class="fas fa-question-circle"></i> Reserva @Html.DisplayFor(modelItem => item.EstadoReserva.descripcion)
+                            </div>
+                        }
+                    </td>
+                }
+                @if (idTipoUsuario == 2)
+                {
+                    <td style="width:20rem">
+                        @if (item.IDEstado == 1)
+                        {
+
+                            <div class="custom-size" style="background-color: #ffbb00;">
+                                <i class="fas fa-exclamation-circle"></i> Reserva @Html.DisplayFor(modelItem => item.EstadoReserva.descripcion)
+                            </div>
+
+                        }
+                        @if (item.IDEstado == 2)
+                        {
+
+                            <div class="custom-size" style="background-color: #01b51b;">
+                                <i class="fa-solid fa-circle-check"></i> Reserva @Html.DisplayFor(modelItem => item.EstadoReserva.descripcion)
+                            </div>
+
+                        }
+                        @if (item.IDEstado == 3)
+                        {
+                            <div class="custom-size" style="background-color: #b10000;">
+                                <i class="fas fa-question-circle"></i> Reserva @Html.DisplayFor(modelItem => item.EstadoReserva.descripcion)
+                            </div>
+                        }
+                    </td>
+                }
+
+            </tr>
+        }
+
+    </table>
+
+</div>
+
+
+@if (ViewBag.NotificationMessage != null)
+{
+    <script>
+            @Html.Raw(ViewBag.NotificationMessage)
+    </script>
+}

@@ -1,14 +1,36 @@
 ﻿@model IEnumerable<Infraestructure.Models.GestionReservas>
 
 @{
-    ViewBag.Title = "Reservas";
+    String nombre = "";
+    int id = 0;
+    int idTipoUsuario = 0;
+
+    if (Session["User"] != null)
+    {
+        Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+        usuario = (Infraestructure.Models.Usuarios)Session["User"];
+        nombre = $"{usuario.nombre}";
+        id = usuario.ID;
+        idTipoUsuario = usuario.IDTipoUsuario;
+    }
+
+    if (idTipoUsuario==1)
+    {
+        ViewBag.Title = "Gestion de Reservas";
+    }
+    if (idTipoUsuario == 2)
+    {
+        ViewBag.Title = "Gestion de Reservas de "+ nombre;
+    }
 }
 
 <div data-aos="fade-up">
 
     <h2 class="text-center">@ViewBag.Title</h2>
 
-    <button class="btn btn-primary" onclick="CrearReserva()"><i class="fa-solid fa-plus"></i> Añadir Nueva Reserva</button>
+    <a href="@Url.Action("Create","GestionReserva")" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Crear Nueva Reserva
+    </a>
 
     <div>
         <span class="glyphicons glyphicons-hand-left"></span>
@@ -38,24 +60,8 @@
 </div>
 
 
-
 @section Scripts{
     <script type="text/javascript">
-
-        function CrearReserva() {
-            $.ajax({
-                method: 'POST',
-                url: '/GestionReserva/AjaxCrearReserva',
-                success: function (response) {
-                    $('.modal-body').html('');
-                    $('.modal-body').html(response);
-                    $('#myModal').modal('show');
-                }, error: function (xhr, status, error) {
-                    console.log('Error' + error + ',No Error' + xhr.status);
-                }
-            })
-        }
-
         function GuardarReserva() {
             event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
             var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
@@ -110,6 +116,7 @@
         }
 
         function AprobarReserva(idReserva) {
+            debugger;
             var id = idReserva;
             $.ajax({
                 method: 'POST',
@@ -129,6 +136,7 @@
         }
 
         function RechazarReserva(idReserva) {
+            debugger;
             var id = idReserva;
             $.ajax({
                 method: 'POST',
@@ -145,6 +153,7 @@
                     console.log('Error' + error + ',No Error' + xhr.status);
                 }
             })
-        } 
+        }
+
     </script>
 }

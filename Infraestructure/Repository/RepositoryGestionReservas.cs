@@ -13,6 +13,38 @@ namespace Infraestructure.Repository
     public class RepositoryGestionReservas : IRepositoryGestionReservas
     {
         IEnumerable<GestionReservas> lista = null;
+
+        public IEnumerable<GestionReservas> GetReservasByfecha(DateTime fecha)
+        {
+            try
+            {
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+
+                    lista = ctx.GestionReservas.
+                        Where(r => r.fecha == fecha).
+                        Include("Espacios").
+                        Include("Usuarios").
+                        Include("EstadoReserva").
+                        ToList();
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         public GestionReservas GetReservaByID(int id)
         {
             GestionReservas oGestionReservas = null;

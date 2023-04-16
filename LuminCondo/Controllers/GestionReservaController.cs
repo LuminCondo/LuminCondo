@@ -7,12 +7,14 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 using Web.Utils;
 
 namespace Web.Controllers
 {
     public class GestionReservaController : Controller
     {
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: GestionReserva
         public ActionResult IndexAdmin()
         {
@@ -38,63 +40,60 @@ namespace Web.Controllers
         }
 
         // GET: GestionReserva/Details/5
-        public ActionResult Details(int? id)
+        private SelectList listaUsuarios(int idUsuario = 0)
         {
-            IServiceGestionReservas _ServiceGestionReservas = new ServiceGestionReservas();
-            GestionReservas gestionReservas = null;
-            try
-            {
-                if (id == null)
-                {
-                    return RedirectToAction("IndexAdmin");
-                }
-                gestionReservas = _ServiceGestionReservas.GetReservaByID((int)id);
+            IServiceUsuario _ServiceUsuario = new ServiceUsuario();
+            IEnumerable<Usuarios> lista = _ServiceUsuario.GetUsuarios();
+            return new SelectList(lista, "ID", "nombre", idUsuario);
+        }
 
-                if (gestionReservas == null)
-                {
-                    {
-                        TempData["Message"] = "No existe el Plan solicitado";
-                        TempData["Redirect"] = "GestionPlanCobros";
-                        TempData["Redirect-Action"] = "Index";
-                        // Redireccion a la captura del Error
-                        return RedirectToAction("Default", "Error");
-                    }
-                }
-                return View(gestionReservas);
-            }
-            catch (Exception ex)
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
+        public ActionResult Create()
+        {
+            ViewBag.IDUsuarios = listaUsuarios();
+            ViewBag.IDEspacios = listaEspacios(DateTime.Today);
+            GestionReservas objReserva = new GestionReservas()
             {
-                // Salvar el error en un archivo 
-                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "GestionPlanCobros";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
+                fecha = DateTime.Today,
+                IDEstado = 1
+            };
+            return View(objReserva);
         }
 
         // GET: GestionReserva/Create
-        public ActionResult AjaxCrearReserva()
+        public ActionResult ObtenerEspaciosDisponibles(string fecha)
         {
-            ViewBag.IDEspacios = listaEspacios();
-            return PartialView("_PartialViewCrearReserva");
+            DateTime fechacovertida;
+            DateTime.TryParse(fecha, out fechacovertida);
+            IServiceEspacios _ServiceEspacios = new ServiceEspacios();
+            IEnumerable<Espacios> lista = _ServiceEspacios.GetEspaciosxFecha(fechacovertida);
+            return Json(lista, JsonRequestBehavior.AllowGet);
         }
-        
+
+
+
+        private SelectList listaEspacios(DateTime fecha)
+        {
+            IServiceEspacios _ServiceEspacios = new ServiceEspacios();
+            IEnumerable<Espacios> lista = _ServiceEspacios.GetEspaciosxFecha(fecha);
+            return new SelectList(lista, "IDEspacio", "descripcion", 0);
+        }
+
         public ActionResult Guardar(GestionReservas reserva)
         {
+            Usuarios usuario = new Usuarios();
+            usuario = (Usuarios)Session["User"];
+            if (reserva.IDUsuario<1)
+            {
+                reserva.IDUsuario = usuario.ID;
+            }
+            reserva.IDEstado = 1;
             IServiceGestionReservas _ServiceGestionReservas = new ServiceGestionReservas();
-            //reserva.fecha = DateTime.Now;
             try
             {
-                IEnumerable<GestionReservas> lista = null;
-                //ModelState.Remove("fechapublicacion");
-                //ModelState.Remove("IDInformacion");
                 if (ModelState.IsValid)
                 {
                     GestionReservas oReserva = _ServiceGestionReservas.Guardar(reserva);
-                    lista = _ServiceGestionReservas.GetReservas();
-                    lista.Reverse();
                     ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Reserva Guardada",
                                "La Reserva " + oReserva.IDReserva + " ha sido creada. Pronto será revisada por el administrador", Utils.SweetAlertMessageType.success
                                );
@@ -102,28 +101,12 @@ namespace Web.Controllers
                 else
                 {
                     Utils.Util.ValidateErrors(this);
-                    ViewBag.IDTipoInformacion = listaEspacios(reserva.IDReserva);
-                    if (reserva.IDReserva > 0)
-                    {
-                        lista = _ServiceGestionReservas.GetReservas();
-                        lista.Reverse();
-                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Fallo al Guardar",
-                                   "La Reserva " + reserva.IDReserva + " no pudo guardarse", Utils.SweetAlertMessageType.error
-                                   );
-                        return PartialView("_PartialViewListaInformacion", lista);
-                    }
-                    else
-                    {
-                        lista = _ServiceGestionReservas.GetReservas();
-                        lista.Reverse();
-                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Fallo al Guardar",
-                                   "La Reserva " + reserva.IDReserva + " no pudo guardarse", Utils.SweetAlertMessageType.error
-                                   );
-                        return PartialView("_PartialViewListaInformacion", lista);
-                    };
+                    ViewBag.IDUsuarios = listaUsuarios();
+                    ViewBag.IDEspacios = listaEspacios(reserva.fecha);
+                    return View("Create", reserva);
                 }
 
-                return PartialView("_PartialViewListaInformacion", lista);
+                return RedirectToAction("IndexAdmin");
             }
             catch (Exception ex)
             {
@@ -137,47 +120,7 @@ namespace Web.Controllers
             }
         }
 
-        public ActionResult AjaxModificarReserva(int? id)
-        {
-            IServiceGestionReservas _ServiceGestionReservas = new ServiceGestionReservas();
-            GestionReservas gestionReservas = null;
-
-            try
-            {
-                if (id == null)
-                {
-                    return RedirectToAction("Index");
-                }
-
-                gestionReservas = _ServiceGestionReservas.GetReservaByID(Convert.ToInt32(id));
-
-                if (gestionReservas == null)
-                {
-                    TempData["Message"] = "No existe el libro solicitado";
-                    TempData["Redirect"] = "ListaResidencias";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
-                }
-
-                ViewBag.IDEspacios = listaEspacios(gestionReservas.IDEspacio);
-                return PartialView("_PartialViewModificarReserva", gestionReservas);
-
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Infraestructure.Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "ListaResidencias";
-                TempData["Redirect-Action"] = "Index";
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-            
-        }
-
-        /**/
+        
 
         public ActionResult actualizarEstado(int id, bool estado)
         {
@@ -197,8 +140,16 @@ namespace Web.Controllers
                     GestionReservas oReserva = _ServiceGestionReservas.Guardar(reserva);
 
                     lista = _ServiceGestionReservas.GetReservas();
-                    lista.Reverse();
-                    ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("ÉXITO!", "Se modificó correctamente", SweetAlertMessageType.success);
+
+                    if (reserva.IDEstado == 2)
+                    {
+                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Estado de la reserva actualizado", "La reserva fue aprobada", SweetAlertMessageType.success);
+                    }
+                    if (reserva.IDEstado == 3)
+                    {
+                        ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Estado de la reserva actualizado", "La reserva fue rechazada", SweetAlertMessageType.error);
+                    }
+
 
                     return PartialView("_PartialViewListaReserva", lista);
                 }
@@ -228,12 +179,7 @@ namespace Web.Controllers
         // POST: GestionReserva/Create
 
 
-        private SelectList listaEspacios(int id = 0)
-        {
-            IServiceEspacios _ServiceEspacios = new ServiceEspacios();
-            IEnumerable<Espacios> lista = _ServiceEspacios.GetEspacios();
-            return new SelectList(lista, "IDEspacio", "descripcion", id);
-        }
+        
 
         // GET: GestionReserva/Edit/5
         public ActionResult Edit(int? id)
@@ -259,7 +205,6 @@ namespace Web.Controllers
                     return RedirectToAction("Default", "Error");
                 }
 
-                ViewBag.IDEspacios = listaEspacios(gestionReservas.IDEspacio);
                 return View(gestionReservas);
 
             }
@@ -274,6 +219,8 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
+
+        
 
         public ActionResult _PartialViewListaReserva()
         {

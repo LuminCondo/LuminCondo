@@ -68,8 +68,7 @@ namespace Infraestructure.Models
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public int IDEspacio { get; set; }
         [Display(Name = "Fecha de la Reserva")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public System.DateTime fecha { get; set; }
         [Display(Name = "Estado de la reserva")]
@@ -241,7 +240,7 @@ namespace Infraestructure.Models
         public string descripcion { get; set; }
         [Display(Name = "Monto del Rubro")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
-        [RegularExpression(@"^[0-9]+(\.[0-9]{1,2})?$", ErrorMessage = "{0} acepta solo números con dos decimales")]
+        [UIHint("FormatoMoneda")]
         public decimal monto { get; set;}
     }
 

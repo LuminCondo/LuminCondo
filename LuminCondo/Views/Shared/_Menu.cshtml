@@ -48,7 +48,7 @@
                         </a>
                         <a class="dropdown-item"
                            @*Accion, Controlador*@
-                           href="@Url.Action("Index","Home")">
+                           href="@Url.Action("IndexAdmin","GestionReserva")">
                             <i class="fa-solid fa-fire"></i>
                             Reservas
                         </a>
@@ -83,11 +83,6 @@
                                 Noticias
                             </a>
                             <a class="dropdown-item"
-                               href="@Url.Action("Index","ReporteIncidencias")">
-                                <i class="fa-solid fa-gears"></i>
-                                Reporte de Incidencias
-                            </a>
-                            <a class="dropdown-item"
                                href="@Url.Action("IndexAdmin","GestionPlanCobros")">
                                 <i class="fa-solid fa-gears"></i>
                                 Plan de Cobros
@@ -112,11 +107,6 @@
                                href="@Url.Action("Index","GestionAsignacionPlanes")">
                                 <i class="fa-regular fa-rectangle-list"></i>
                                 Asignación de Planes
-                            </a>
-                            <a class="dropdown-item"
-                               href="@Url.Action("Index","ListaResidencias")">
-                                <i class="fa-regular fa-rectangle-list"></i>
-                                Gestión de Residencias
                             </a>
                             <a class="dropdown-item"
                                href="@Url.Action("IndexDeudas","HistorialYDeuda")">
@@ -161,7 +151,7 @@
                        href="@Url.Action("Contact", "Home")">
                         <i class="fa-solid fa-headset"></i>
                         Contáctanos
-                    </a> 
+                    </a>
                 </li>
             </ul>
             <div class="nav-item dropdown ml-auto">
@@ -201,16 +191,16 @@
             </div>
         </div>
         @*<label class="switch" id="dark-mode-btn">
-            <input type="checkbox">
-            <span class="slider round"></span>
-        </label>*@
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>*@
 
 
         @*<div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="switchMode" checked>
-        </div>*@
+                <input class="form-check-input" type="checkbox" id="switchMode" checked>
+            </div>*@
 
-        
+
     </div>
-        </nav>
+</nav>
 

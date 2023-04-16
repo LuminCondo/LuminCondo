@@ -1,0 +1,3 @@
+﻿@model decimal?
+
+@Html.TextBoxFor(m => m, new { @class = "form-control", type = "number", step = "0.01", @value = Model.HasValue ? Model.Value.ToString("N2") : string.Empty, placeholder = "₡0.00" })

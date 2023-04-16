@@ -1,0 +1,151 @@
+﻿@model Infraestructure.Models.GestionReservas
+@{
+    String nombre = "";
+    int id = 0;
+    int idTipoUsuario = 0;
+
+    if (Session["User"] != null)
+    {
+        Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+        usuario = (Infraestructure.Models.Usuarios)Session["User"];
+        nombre = $"{usuario.nombre}";
+        id = usuario.ID;
+        idTipoUsuario = usuario.IDTipoUsuario;
+    }
+
+    if (idTipoUsuario == 1)
+    {
+        ViewBag.Title = "Crear de Reserva";
+    }
+    if (idTipoUsuario == 2)
+    {
+        ViewBag.Title = "Creacion de reserva para " + nombre;
+    }
+}
+
+@section Scripts{
+
+    <script src="~/Scripts/jquery-3.6.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var fechaActual = new Date();
+            var fechaMaxima = new Date();
+            fechaMaxima.setMonth(fechaActual.getMonth() + 3);
+            $('.datepicker').datepicker({
+                dateFormat: 'dd/mm/yy', // Actualizar el formato de fecha aquí
+                changeMonth: true,
+                changeYear: true,
+                minDate: fechaActual,
+                maxDate: fechaMaxima,
+            });
+        });
+
+
+
+        $('#Calendario').on('change', function () {
+            debugger;
+            var fechaSeleccionada = $(this).val();
+            //var fechaJS = new Date(fechaSeleccionada);
+            // Realizar una llamada a servidor para obtener la lista de espacios disponibles
+            $.ajax({
+                url: '@Url.Action("ObtenerEspaciosDisponibles", "GestionReserva")', // Reemplaza "ObtenerEspaciosDisponibles" y "GestionReserva" con el nombre de tu acción y controlador correspondiente
+                type: 'POST',
+                data: { 'fecha': fechaSeleccionada },
+                success: function (result) {
+                    // Limpiar el contenido actual del SelectList
+                    $('#ListaEspacios').empty();
+                    $('#ListaEspacios').append($('<option>', {
+                        value: '',
+                        text: 'Selecciona un Espacio'
+                    }));
+                    // Generar los nuevos elementos del SelectList
+                    $.each(result, function (i, item) {
+                        $('#ListaEspacios').append($('<option>', {
+                            value: item.IDEspacio,
+                            text: item.descripcion
+                        }));
+                    });
+                },
+                error: function (error) {
+                    // Manejar el error si es necesario
+                    console.error(error);
+                }
+            });
+        });
+    </script>
+}
+
+<div data-aos="fade-up">
+
+    <h2 class="text-center">@ViewBag.Title</h2>
+    @using (Html.BeginForm("Guardar", "GestionReserva", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @if (idTipoUsuario == 1)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IDUsuario, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownListFor(model => model.IDUsuario,
+                       (SelectList)ViewBag.IDUsuarios,
+                       "Seleccione un Usuario",
+                       htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IDUsuario, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @{
+                        string fechaFormateada = Model.fecha.ToString("dd/MM/yyyy");
+                    }
+                    @Html.EditorFor(model => model.fecha, new
+                    {
+                        htmlAttributes = new
+                        {
+                            @readonly = "true",
+                            @class = "form-control datepicker",
+                            @id = "Calendario",
+                            @Value = fechaFormateada
+                        }
+                    })
+                    @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IDEspacio, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.IDEspacio,
+                     (SelectList)ViewBag.IDEspacios,
+                     "Seleccione un Espacio",
+                     htmlAttributes: new { @class = "form-control", @id = "ListaEspacios" }) <!-- Agrega el id="ddlEspacios" -->
+                    @Html.ValidationMessageFor(model => model.IDEspacio, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="btn-group" role="group">
+                    <input type="submit" value="Crear" class="btn btn-success" />
+                    <a href="@Url.Action("IndexAdmin","GestionReserva")" class="btn btn-primary">
+                        Regresar al listado
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

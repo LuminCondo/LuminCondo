@@ -3,8 +3,35 @@
 @{
     ViewBag.Title = "Acceso Denegado";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
+
+
+
 }
 
+
+@{
+    String nombre = "";
+    int id = 0;
+    int idTipoUsuario = 0;
+
+    if (Session["User"] != null)
+    {
+        Infraestructure.Models.Usuarios usuario = new Infraestructure.Models.Usuarios();
+        usuario = (Infraestructure.Models.Usuarios)Session["User"];
+        nombre = $"{usuario.nombre}";
+        id = usuario.ID;
+        idTipoUsuario = usuario.IDTipoUsuario;
+    }
+
+    if (idTipoUsuario == 1)
+    {
+        ViewBag.Title = "Crear de Reserva";
+    }
+    if (idTipoUsuario == 2)
+    {
+        ViewBag.Title = "Creacion de reserva para " + nombre;
+    }
+}
 <div data-aos="fade-up" class="text-center">
     <h2>Acceso Denegado</h2>
 
@@ -12,7 +39,12 @@
 
     <script>
         function goBack() {
-            window.history.back();
+            debugger;
+            if (@id != 0) {
+                window.history.back();
+            } else {
+                window.location.href = '/Login/Index'; // Reemplaza '/login/index' con la ruta de tu controlador y acción de inicio de sesión
+            }
         }
     </script>
 </div>

@@ -35,6 +35,11 @@ namespace LuminCondo
                       "~/Content/StylesLuminCondo.css"));
             bundles.Add(new StyleBundle("~/Content/Login").Include(
                       "~/Content/StyleLogin.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                       "~/Scripts/jquery-{version}.js",
+                         "~/Scripts/jquery-ui.js"));
+
         }
     }
 }

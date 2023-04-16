@@ -160,8 +160,6 @@ ALTER TABLE [dbo].[Rubros_Planes] ADD  CONSTRAINT [PK_Rubros_Planes] PRIMARY KEY
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO		
 
-select * from GestionReservas
-
 /**********************************************Inserts de las tablas**************************************************************/
 insert into dbo.TiposUsuarios values
 ('Administrador'), 
@@ -192,8 +190,8 @@ insert into dbo.EstadoIncidencia values
 
 insert into dbo.EstadoReserva values 
 ('Pendiente'),
-('Aprobado'),
-('Rechazado')
+('Aprobada'),
+('Rechazada')
 
 insert into dbo.GestionReservas values
 (1,1,CONVERT(date, '19/02/2022', 103),1),
