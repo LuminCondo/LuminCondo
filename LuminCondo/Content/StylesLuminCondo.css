@@ -63,8 +63,11 @@ imgSetting {
 .contentImg {
     height: 17rem;
     width: 17rem;
-    margin: 1vh;
     border-radius: 20px;
+}
+
+.paddingimg {
+    padding: 0;
 }
 
 .contentImg1 {
