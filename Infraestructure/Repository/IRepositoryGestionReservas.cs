@@ -15,5 +15,7 @@ namespace Infraestructure.Repository
         IEnumerable<GestionReservas> GetReservasByfecha(DateTime fecha);
         GestionReservas Guardar(GestionReservas reserva);
         IEnumerable<GestionReservas> GetReservas();
+
+        IEnumerable<GestionReservas> GetHistorial(int? id);
     }
 }

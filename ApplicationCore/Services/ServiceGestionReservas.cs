@@ -10,6 +10,12 @@ namespace ApplicationCore.Services
 {
     public class ServiceGestionReservas : IServiceGestionReservas
     {
+        public IEnumerable<GestionReservas> GetHistorial(int? id)
+        {
+            IRepositoryGestionReservas repository = new RepositoryGestionReservas();
+            return repository.GetHistorial(id);
+        }
+
         public GestionReservas GetReservaByID(int id)
         {
             IRepositoryGestionReservas repository = new RepositoryGestionReservas();

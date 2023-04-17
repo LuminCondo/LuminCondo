@@ -1,6 +1,8 @@
-﻿@model IEnumerable<Infraestructure.Models.GestionReservas>
+﻿@model Infraestructure.Models.GestionReservas
 
 @{
+    var Reservas = new List<Infraestructure.Models.GestionReservas>();
+    Reservas = ViewBag.listaReservas;
     String nombre = "";
     int id = 0;
     int idTipoUsuario = 0;
@@ -14,20 +16,39 @@
         idTipoUsuario = usuario.IDTipoUsuario;
     }
 
-    if (idTipoUsuario==1)
+    if (idTipoUsuario == 1)
     {
         ViewBag.Title = "Gestion de Reservas";
     }
     if (idTipoUsuario == 2)
     {
-        ViewBag.Title = "Gestion de Reservas de "+ nombre;
+        ViewBag.Title = "Gestion de Reservas de " + nombre;
     }
 }
 
 <div data-aos="fade-up">
 
-    <h2 class="text-center">@ViewBag.Title</h2>
 
+    <h2 class="text-center">Filtros de Búsqueda</h2>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.IDEstado,
+                   (SelectList)ViewBag.IDEstadosDeReserva,
+                   "Seleccione un Estado",
+                   htmlAttributes: new { @class = "form-control", @id = "EstadoAjax" })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <button class="btn btn-primary" onclick="BuscarHistorial()" style="width:100%"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+        </div>
+    </div>
+    
+    <hr />
+
+    <h2 class="text-center">@ViewBag.Title</h2>
     <a href="@Url.Action("Create","GestionReserva")" class="btn btn-primary">
         <i class="fa-solid fa-plus"></i> Crear Nueva Reserva
     </a>
@@ -36,7 +57,7 @@
         <span class="glyphicons glyphicons-hand-left"></span>
         <div id="tablaReservas">
 
-            @Html.Partial("_PartialViewListaReserva", Model)
+            @Html.Partial("_PartialViewListaReserva", Reservas)
 
         </div>
     </div>
@@ -62,6 +83,28 @@
 
 @section Scripts{
     <script type="text/javascript">
+
+        function BuscarHistorial() {
+            var idEstadoReserva = $("#EstadoAjax").val();
+            debugger;
+            $.ajax({
+                url: '@Url.Action("BuscarHistorial", "GestionReserva")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: {
+                    'id': idEstadoReserva,
+                },
+                success: function (result) {
+                    $('#tablaReservas').html('');
+                    // procesar la respuesta del servidor
+                    $('#tablaReservas').html(result);
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
+
         function GuardarReserva() {
             event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
             var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData

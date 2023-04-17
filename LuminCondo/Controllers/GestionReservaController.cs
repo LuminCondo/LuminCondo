@@ -16,7 +16,7 @@ namespace Web.Controllers
     {
         [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: GestionReserva
-        public ActionResult IndexAdmin()
+        public ActionResult Index()
         {
             IEnumerable<GestionReservas> lista = null;
 
@@ -24,10 +24,9 @@ namespace Web.Controllers
             {
                 IServiceGestionReservas _ServiceGestionReservas = new ServiceGestionReservas();
                 lista = _ServiceGestionReservas.GetReservas();
-
-                ViewBag.title = "Listado de Reservas";
-
-                return View(lista);
+                ViewBag.IDEstadosDeReserva = listaEstadosReserva();
+                ViewBag.listaReservas = lista;
+                return View();
             }
             catch (Exception ex)
             {
@@ -39,12 +38,41 @@ namespace Web.Controllers
             }
         }
 
+        public ActionResult BuscarHistorial(int? id)
+        {
+
+            try
+            {
+                IEnumerable<GestionReservas> lista = null;
+                IServiceGestionReservas _ServiceGestionReservas = new ServiceGestionReservas();
+                lista = _ServiceGestionReservas.GetHistorial(id);
+                return PartialView("_PartialViewListaReserva", lista);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "ListaResidencias";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
         // GET: GestionReserva/Details/5
         private SelectList listaUsuarios(int idUsuario = 0)
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
             IEnumerable<Usuarios> lista = _ServiceUsuario.GetUsuarios();
             return new SelectList(lista, "ID", "nombre", idUsuario);
+        }
+
+        private SelectList listaEstadosReserva(int idEstado = 0)
+        {
+            IServiceEstadoReserva _ServiceEstadoReserva = new ServiceEstadoReserva();
+            IEnumerable<EstadoReserva> lista = _ServiceEstadoReserva.GetEstadoReserva();
+            return new SelectList(lista, "IDEstado", "descripcion", idEstado);
         }
 
         [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
@@ -106,15 +134,15 @@ namespace Web.Controllers
                     return View("Create", reserva);
                 }
 
-                return RedirectToAction("IndexAdmin");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
                 Infraestructure.Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData["Redirect"] = "GestionReserva";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
@@ -156,7 +184,7 @@ namespace Web.Controllers
                 else
                 {
                     TempData["Message"] = "No existe el incidente solicitado";
-                    TempData["Redirect"] = "Reservacion";
+                    TempData["Redirect"] = "GestionReserva";
                     TempData["Redirect-Action"] = "Index";
                     // Redireccion a la captura del Error
                     return RedirectToAction("Default", "Error");
@@ -167,7 +195,7 @@ namespace Web.Controllers
                 // Salvar el error en un archivo 
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Reservacion";
+                TempData["Redirect"] = "GestionReserva";
                 TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
@@ -199,7 +227,7 @@ namespace Web.Controllers
                 if (gestionReservas == null)
                 {
                     TempData["Message"] = "No existe el libro solicitado";
-                    TempData["Redirect"] = "ListaResidencias";
+                    TempData["Redirect"] = "GestionReserva";
                     TempData["Redirect-Action"] = "Index";
                     // Redireccion a la captura del Error
                     return RedirectToAction("Default", "Error");
@@ -213,7 +241,7 @@ namespace Web.Controllers
                 // Salvar el error en un archivo 
                 Infraestructure.Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "ListaResidencias";
+                TempData["Redirect"] = "GestionReserva";
                 TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
@@ -236,7 +264,7 @@ namespace Web.Controllers
             {
                 if (id == null)
                 {
-                    return RedirectToAction("IndexAdmin");
+                    return RedirectToAction("Index");
                 }
                 gestionReservas = _ServiceGestionReservas.GetReservaByID((int)id);
 
@@ -244,7 +272,7 @@ namespace Web.Controllers
                 {
                     {
                         TempData["Message"] = "No existe la reserva solicitada";
-                        TempData["Redirect"] = "GestionReservas";
+                        TempData["Redirect"] = "GestionReserva";
                         TempData["Redirect-Action"] = "Index";
                         // Redireccion a la captura del Error
                         return RedirectToAction("Default", "Error");
@@ -257,7 +285,7 @@ namespace Web.Controllers
                 // Salvar el error en un archivo 
                 Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "GestionPlanCobros";
+                TempData["Redirect"] = "GestionReserva";
                 TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");

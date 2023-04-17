@@ -185,5 +185,48 @@ namespace Infraestructure.Repository
                 throw;
             }
         }
+
+        public IEnumerable<GestionReservas> GetHistorial(int? id)
+        {
+            try
+            {
+
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+
+                    if (id == null) //Buscar sin filtro
+                    {
+                        lista = ctx.GestionReservas.
+                            Include("Espacios").
+                            Include("Usuarios").
+                            Include("EstadoReserva").
+                            ToList();
+                    }
+                    if (id !=null) //Buscar por Un único tipo de estado
+                    {
+                        lista = ctx.GestionReservas.
+                            Include("Espacios").
+                            Include("Usuarios").
+                            Include("EstadoReserva").
+                            Where(l=> l.IDEstado==id).
+                            ToList();
+                    }
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
     }
 }

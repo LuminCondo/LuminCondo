@@ -14,5 +14,7 @@ namespace ApplicationCore.Services
         GestionReservas GetReservaByIDResidencia(int id);
         GestionReservas Guardar(GestionReservas reserva);
         IEnumerable<GestionReservas> GetReservas();
+
+        IEnumerable<GestionReservas> GetHistorial(int? id);
     }
 }
