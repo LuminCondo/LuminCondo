@@ -1,14 +1,9 @@
 ﻿using ApplicationCore.Services;
 using Infraestructure.Models;
 using Infraestructure.Repository;
-using Infraestructure.Utils;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using Web.Security;
 using Web.Utils;
@@ -21,11 +16,10 @@ namespace Web.Controllers
         [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
         {
-            IEnumerable<GestionRubrosCobros> lista = null;
             try
             {
                 IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
-                lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
+                IEnumerable<GestionRubrosCobros>  lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
 
                 return View(lista);
             }
@@ -39,18 +33,11 @@ namespace Web.Controllers
             }
         }
 
-        private SelectList listaRubrosCobros(int idRubro = 0)
-        {
-            IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
-            IEnumerable<GestionRubrosCobros> lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
-            return new SelectList(lista/*, "IDTipoInfo", "tipoInfo", idRubro*/);
-        }
         /*****************************************************************************************************************************************/
 
         public ActionResult Guardar(GestionRubrosCobros gestionRubrosCobros)
         {
             IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
-            IEnumerable<GestionRubrosCobros> lista = null;
             try
             {
                 if (ModelState.IsValid)
@@ -68,7 +55,7 @@ namespace Web.Controllers
                     );
 
                 }
-                lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
+                IEnumerable<GestionRubrosCobros> lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
                 return PartialView("_PartialViewListaRubros", lista);
 
             }
@@ -88,14 +75,12 @@ namespace Web.Controllers
 
         public ActionResult AjaxCrearRubro()
         {
-            ViewBag.IDRubroCobro = listaRubrosCobros();
             return PartialView("_PartialViewCrearRubro");
         }
 
         public ActionResult AjaxModificarRubro(int? id)
         {
             ServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
-            GestionRubrosCobros gestionRubrosCobros = null;
 
             try
             {
@@ -104,7 +89,7 @@ namespace Web.Controllers
                     return RedirectToAction("Index");
                 }
 
-                gestionRubrosCobros = _ServiceGestionRubrosCobros.GetGestionRubrosCobrosByID(Convert.ToInt32(id));
+                GestionRubrosCobros gestionRubrosCobros = _ServiceGestionRubrosCobros.GetGestionRubrosCobrosByID(Convert.ToInt32(id));
 
                 if (gestionRubrosCobros == null)
                 {
@@ -115,7 +100,6 @@ namespace Web.Controllers
                     return RedirectToAction("Default", "Error");
                 }
 
-                ViewBag.IDRubroCobro = listaRubrosCobros(gestionRubrosCobros.IDRubro);
                 return PartialView("_PartialViewModificarRubro", gestionRubrosCobros);
 
             }

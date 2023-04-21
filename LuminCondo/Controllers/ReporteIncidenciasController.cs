@@ -19,11 +19,10 @@ namespace Web.Controllers
         // GET: ReporteIncidencias
         public ActionResult Index()
         {
-            IEnumerable<ReporteIncidencias> lista = null;
             try
             {
                 IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
-                lista = _ServiceReporteIncidencias.GetReporteIncidencias();
+                IEnumerable<ReporteIncidencias> lista = _ServiceReporteIncidencias.GetReporteIncidencias();
                 ViewBag.title = "Reporte de Incidencias";
 
                 return View(lista);
@@ -42,21 +41,18 @@ namespace Web.Controllers
 
 
 
-        
+
         /*****************************************************************************************************************************************/
 
         public ActionResult Guardar(ReporteIncidencias reporteIncidencias)
         {
-                
-            Usuarios usuario = new Usuarios();
-            usuario = (Usuarios)Session["User"];
+            Usuarios usuario = (Usuarios)Session["User"];
             reporteIncidencias.IDUsuario = usuario.ID;
-
-            IEnumerable<ReporteIncidencias> lista = null;
             IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
 
             try
             {
+                IEnumerable<ReporteIncidencias> lista = null;
                 ModelState.Remove("IDIncidencia");
                 ModelState.Remove("descripcion");
                 if (ModelState.IsValid)
@@ -66,17 +62,17 @@ namespace Web.Controllers
                     ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Reporte Creado",
                                "La incidencia se atenderá a la brevedad", Utils.SweetAlertMessageType.success
                                );
-                    return PartialView("_PartialViewListaIncidencias",lista);
-                    
+                    return PartialView("_PartialViewListaIncidencias", lista);
+
                 }
                 else
                 {
                     lista = _ServiceReporteIncidencias.GetReporteIncidencias();
-                    return PartialView("_PartialViewListaIncidencias",lista);
+                    return PartialView("_PartialViewListaIncidencias", lista);
                 }
-                
-              
-                
+
+
+
             }
             catch (Exception ex)
             {
@@ -92,22 +88,23 @@ namespace Web.Controllers
 
         public ActionResult Actualizar(int id)
         {
-            IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
-            ReporteIncidencias reporteIncidencias = _ServiceReporteIncidencias.GetReporteIncidenciasByID(id);
-            if (reporteIncidencias.IDEstado == 1)
-            {
-                reporteIncidencias.IDEstado = 2;
-            }
-            else
-            {
-                if (reporteIncidencias.IDEstado == 2)
-                {
-                    reporteIncidencias.IDEstado = 3;
-                }
-            }
-            IEnumerable<ReporteIncidencias> lista = null;
             try
             {
+                IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
+                ReporteIncidencias reporteIncidencias = _ServiceReporteIncidencias.GetReporteIncidenciasByID(id);
+                if (reporteIncidencias.IDEstado == 1)
+                {
+                    reporteIncidencias.IDEstado = 2;
+                }
+                else
+                {
+                    if (reporteIncidencias.IDEstado == 2)
+                    {
+                        reporteIncidencias.IDEstado = 3;
+                    }
+                }
+                IEnumerable<ReporteIncidencias> lista = null;
+
 
                 if (ModelState.IsValid)
                 {
@@ -135,7 +132,7 @@ namespace Web.Controllers
             }
         }
 
-       
+
 
         public ActionResult _PartialViewListaIncidencias()
         {

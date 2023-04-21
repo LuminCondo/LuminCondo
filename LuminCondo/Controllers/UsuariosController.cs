@@ -2,11 +2,8 @@
 using Infraestructure.Models;
 using Infraestructure.Repository;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using Web.Security;
 using Web.Utils;
@@ -21,11 +18,10 @@ namespace Web.Controllers
         // GET: ListaResidencias
         public ActionResult Index()
         {
-            IEnumerable<Usuarios> lista = null;
             try
             {
                 IServiceUsuario _ServiceUsuario = new ServiceUsuario();
-                lista = _ServiceUsuario.GetUsuarios();
+                IEnumerable<Usuarios> lista = _ServiceUsuario.GetUsuarios();
 
                 return View(lista);
             }
@@ -39,7 +35,7 @@ namespace Web.Controllers
             }
         }
 
-        private SelectList listaTiposUsuarios(int idTipoUsuario = 0)
+        private SelectList ListaTiposUsuarios(int idTipoUsuario = 0)
         {
             IServiceTiposUsuarios _ServiceTiposUsuarios = new ServiceTiposUsuarios();
             IEnumerable<TiposUsuarios> lista = _ServiceTiposUsuarios.GetTiposUsuarios();
@@ -65,7 +61,7 @@ namespace Web.Controllers
                 {
                     // Valida Errores si Javascript está deshabilitado
                     Utils.Util.ValidateErrors(this);
-                    ViewBag.IDTipodeUsuarios = listaTiposUsuarios(usuarios.IDTipoUsuario);
+                    ViewBag.IDTipodeUsuarios = ListaTiposUsuarios(usuarios.IDTipoUsuario);
 
                     return View("Create", usuarios);
                 }
@@ -86,16 +82,17 @@ namespace Web.Controllers
 
         public ActionResult AjaxCrearUsuario()
         {
-            Usuarios usuarios = new Usuarios();
-            usuarios.estado = true;
-            ViewBag.IDTipodeUsuarios = listaTiposUsuarios();
+            Usuarios usuarios = new Usuarios
+            {
+                estado = true
+            };
+            ViewBag.IDTipodeUsuarios = ListaTiposUsuarios();
             return PartialView("_PartialViewCrearUsuario", usuarios);
         }
 
         public ActionResult AjaxModificarUsuario(int? id)
         {
             ServiceUsuario _ServiceUsuarios = new ServiceUsuario();
-            Usuarios usuarios = null;
 
             try
             {
@@ -104,7 +101,7 @@ namespace Web.Controllers
                     return RedirectToAction("Index");
                 }
 
-                usuarios = _ServiceUsuarios.GetUsuarioByID(Convert.ToInt32(id));
+                Usuarios usuarios = _ServiceUsuarios.GetUsuarioByID(Convert.ToInt32(id));
 
 
                 if (usuarios == null)
@@ -116,7 +113,7 @@ namespace Web.Controllers
                     return RedirectToAction("Default", "Error");
                 }
 
-                ViewBag.IDTipodeUsuarios = listaTiposUsuarios(usuarios.IDTipoUsuario);
+                ViewBag.IDTipodeUsuarios = ListaTiposUsuarios(usuarios.IDTipoUsuario);
                 return PartialView("_PartialViewModificarUsuario", usuarios);
 
             }

@@ -2,27 +2,23 @@
 using Infraestructure.Models;
 using Infraestructure.Repository;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using Web.Security;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace Web.Controllers
 {
     public class HistorialYDeudaController : Controller
     {
-        private SelectList listaResidencias(int idResidencia = 0)
+        private SelectList ListaResidencias(int idResidencia = 0)
         {
             IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
             IEnumerable<GestionResidencias> lista = _ServiceGestionResidencias.GetGestionResidencias();
             return new SelectList(lista, "IDResidencia", "IDResidencia", idResidencia);
         }
-        private SelectList listaMeses(int mesActual)
+        private SelectList ListaMeses(int mesActual)
         {
             List<SelectListItem> lista = new List<SelectListItem>();
             TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
@@ -34,7 +30,7 @@ namespace Web.Controllers
             return new SelectList(lista,"Value","Text", mesActual);
         }
 
-        private SelectList listaannos(int mesActual)
+        private SelectList Listaannos(int mesActual)
         {
             List<SelectListItem> lista = new List<SelectListItem>();
             
@@ -60,18 +56,15 @@ namespace Web.Controllers
         [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult IndexHistorial()
         {
-            
-            IEnumerable<GestionAsignacionPlanes> listaHistorial = null;
-
             try
             {
                 IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
-                listaHistorial = _ServiceGestionAsignacionPlanes.GetHistorial(DateTime.Now.Month, DateTime.Now.Year, null,true);
+                IEnumerable<GestionAsignacionPlanes>  listaHistorial = _ServiceGestionAsignacionPlanes.GetHistorial(DateTime.Now.Month, DateTime.Now.Year, null,true);
                 
 
-                ViewBag.IDResidencias = listaResidencias();
-                ViewBag.listameses = listaMeses(DateTime.Now.Month);
-                ViewBag.listaannos = listaannos(DateTime.Now.Year);
+                ViewBag.IDResidencias = ListaResidencias();
+                ViewBag.listameses = ListaMeses(DateTime.Now.Month);
+                ViewBag.listaannos = Listaannos(DateTime.Now.Year);
                 ViewBag.listaHistorial = listaHistorial;
 
 
@@ -90,18 +83,15 @@ namespace Web.Controllers
         [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult IndexDeudas()
         {
-
-            IEnumerable<GestionAsignacionPlanes> listaDeudas = null;
-
             try
             {
                 IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
-                listaDeudas = _ServiceGestionAsignacionPlanes.GetHistorial(DateTime.Now.Month, DateTime.Now.Year, null,false);
+                IEnumerable<GestionAsignacionPlanes> listaDeudas = _ServiceGestionAsignacionPlanes.GetHistorial(DateTime.Now.Month, DateTime.Now.Year, null,false);
 
 
-                ViewBag.IDResidencias = listaResidencias();
-                ViewBag.listameses = listaMeses(DateTime.Now.Month);
-                ViewBag.listaannos = listaannos(DateTime.Now.Year);
+                ViewBag.IDResidencias = ListaResidencias();
+                ViewBag.listameses = ListaMeses(DateTime.Now.Month);
+                ViewBag.listaannos = Listaannos(DateTime.Now.Year);
                 ViewBag.listaHistorial = listaDeudas;
 
 
@@ -119,13 +109,10 @@ namespace Web.Controllers
         [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult PagarPlan(int idAsignacion, int? mes, int? anno, int? idResidencia)
         {
-
-            GestionAsignacionPlanes gestionAsignacionPlanes = null;
-
             try
             {
                 IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
-                gestionAsignacionPlanes = _ServiceGestionAsignacionPlanes.GetGestionAsignacionPlanesByID(idAsignacion);
+                GestionAsignacionPlanes gestionAsignacionPlanes = _ServiceGestionAsignacionPlanes.GetGestionAsignacionPlanesByID(idAsignacion);
                 gestionAsignacionPlanes.estadoPago = true;
 
                 GestionAsignacionPlanes oGestionAsignacionPlanes = _ServiceGestionAsignacionPlanes.Guardar(gestionAsignacionPlanes);

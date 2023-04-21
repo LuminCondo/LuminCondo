@@ -3,12 +3,9 @@ using Infraestructure.Models;
 using Infraestructure.Repository;
 using Infraestructure.Utils;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using Web.Security;
 
@@ -172,27 +169,30 @@ namespace Web.Controllers
 
         public ActionResult AjaxModificarAsignacion(int? id)
         {
-            ViewBag.IDResidencias = listaResidencias();
-            ViewBag.IDPlanes = listaPlanes();
-            IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
-            GestionAsignacionPlanes gestionAsignacionPlanes = null;
-
             try
             {
+                ViewBag.IDResidencias = listaResidencias();
+                ViewBag.IDPlanes = listaPlanes();
+                IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
+                GestionAsignacionPlanes gestionAsignacionPlanes = null;
+
+            
                 if (id == null)
                 {
-                    return RedirectToAction("Index");
+                    ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("No se puede acceder a esta Asignación",
+                                   "La asignación no existe dentro de la base de datos", Utils.SweetAlertMessageType.error
+                                   );
+                    return PartialView("_PartialViewModificarAsignacion");
                 }
 
                 gestionAsignacionPlanes = _ServiceGestionAsignacionPlanes.GetGestionAsignacionPlanesByID(Convert.ToInt32(id));
 
                 if (gestionAsignacionPlanes == null)
                 {
-                    TempData["Message"] = "No existe la asignacion solicitada";
-                    TempData["Redirect"] = "GestionAsignacionPlanes";
-                    TempData["Redirect-Action"] = "Index";
-                    // Redireccion a la captura del Error
-                    return RedirectToAction("Default", "Error");
+                    ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("No se puede acceder a esta Asignación",
+                                                       "La asignación no existe dentro de la base de datos", Utils.SweetAlertMessageType.error
+                                                       );
+                    return PartialView("_PartialViewModificarAsignacion");
                 }
 
                 ViewBag.IDResidencias = listaResidencias(gestionAsignacionPlanes.IDResidencia);
@@ -205,8 +205,8 @@ namespace Web.Controllers
                 // Salvar el error en un archivo 
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData["Redirect"] = "GestionAsignacionPlanes";
+                TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }

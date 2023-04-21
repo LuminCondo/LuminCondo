@@ -3,13 +3,6 @@
 @{
     ViewBag.Title = "Acceso Denegado";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
-
-
-
-}
-
-
-@{
     String nombre = "";
     int id = 0;
     int idTipoUsuario = 0;
@@ -22,15 +15,6 @@
         id = usuario.ID;
         idTipoUsuario = usuario.IDTipoUsuario;
     }
-
-    if (idTipoUsuario == 1)
-    {
-        ViewBag.Title = "Crear de Reserva";
-    }
-    if (idTipoUsuario == 2)
-    {
-        ViewBag.Title = "Creacion de reserva para " + nombre;
-    }
 }
 <div data-aos="fade-up" class="text-center">
     <h2>Acceso Denegado</h2>
@@ -39,7 +23,6 @@
 
     <script>
         function goBack() {
-            debugger;
             if (@id != 0) {
                 window.history.back();
             } else {

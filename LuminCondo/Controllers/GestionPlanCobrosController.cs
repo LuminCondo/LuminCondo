@@ -2,12 +2,9 @@
 using Infraestructure.Models;
 using Infraestructure.Repository;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using Web.Security;
 using Web.Utils;
@@ -19,11 +16,10 @@ namespace LuminCondo.Controllers
         // GET: GestionPlanCobros
         public ActionResult Index()
         {
-            IEnumerable<GestionPlanCobros> lista = null;
             try
             {
                 IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
-                lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
+                IEnumerable<GestionPlanCobros> lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
                 ViewBag.title = "Lista de Planes";
                 IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
                 ViewBag.listaRubros = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
@@ -42,11 +38,10 @@ namespace LuminCondo.Controllers
         [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult IndexAdmin()
         {
-            IEnumerable<GestionPlanCobros> lista = null;
             try
             {
                 IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
-                lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
+                IEnumerable<GestionPlanCobros> lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
                 IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
                 ViewBag.listaRubros = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
 
@@ -64,7 +59,7 @@ namespace LuminCondo.Controllers
         [CustomAuthorize((int)Roles.Administrador, (int)Roles.Residente)]
         // GET: GestionPlanCobros/Details/5
         
-        private MultiSelectList listaRubrosCobros(ICollection<GestionRubrosCobros> gestionRubrosCobros = null)
+        private MultiSelectList ListaRubrosCobros(ICollection<GestionRubrosCobros> gestionRubrosCobros = null)
         {
             IServiceGestionRubrosCobros _ServiceGestionRubrosCobros = new ServiceGestionRubrosCobros();
             IEnumerable<GestionRubrosCobros> lista = _ServiceGestionRubrosCobros.GetGestionRubrosCobros();
@@ -80,7 +75,6 @@ namespace LuminCondo.Controllers
 
         public ActionResult Guardar(GestionPlanCobros gestionPlanCobros, string[] selectedRubrosCobros)
         {
-            IEnumerable<GestionPlanCobros> lista = null;
             IServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
 
             try
@@ -100,7 +94,7 @@ namespace LuminCondo.Controllers
                                );
 
                 }
-                lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
+                IEnumerable<GestionPlanCobros> lista = _ServiceGestionPlanCobros.GetGestionPlanCobros();
                 return PartialView("_PartialViewListaPlanes", lista);
             }
             catch (Exception ex)
@@ -108,7 +102,7 @@ namespace LuminCondo.Controllers
                 // Salvar el error en un archivo 
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Libro";
+                TempData["Redirect"] = "GestionPlanCobros";
                 TempData["Redirect-Action"] = "IndexAdmin";
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
@@ -117,14 +111,13 @@ namespace LuminCondo.Controllers
 
         public ActionResult AjaxCrearPlan()
         {
-            ViewBag.IDRubrosCobros = listaRubrosCobros();
+            ViewBag.IDRubrosCobros = ListaRubrosCobros();
             return PartialView("_PartialViewCrearPlan");
         }
 
         public ActionResult AjaxModificarPlan(int? id)
         {
             ServiceGestionPlanCobros _ServiceGestionPlanCobros = new ServiceGestionPlanCobros();
-            GestionPlanCobros gestionPlanCobros = null;
 
             try
             {
@@ -133,7 +126,7 @@ namespace LuminCondo.Controllers
                     return RedirectToAction("IndexAdmin");
                 }
 
-                gestionPlanCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
+                GestionPlanCobros gestionPlanCobros = _ServiceGestionPlanCobros.GetGestionPlanCobrosByID(Convert.ToInt32(id));
                 if (gestionPlanCobros == null)
                 {
                     TempData["Message"] = "No existe el Plan solicitado";
@@ -143,7 +136,7 @@ namespace LuminCondo.Controllers
                     return RedirectToAction("Default", "Error");
                 }
 
-                ViewBag.IDRubrosCobros = listaRubrosCobros(gestionPlanCobros.GestionRubrosCobros);
+                ViewBag.IDRubrosCobros = ListaRubrosCobros(gestionPlanCobros.GestionRubrosCobros);
                 return PartialView("_PartialViewModificarPlan", gestionPlanCobros);
 
             }

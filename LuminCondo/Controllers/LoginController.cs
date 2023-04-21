@@ -2,10 +2,7 @@
 using Infraestructure.Models;
 using Infraestructure.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using Web.Utils;
 
@@ -22,9 +19,9 @@ namespace Web.Controllers
         public ActionResult Login(Usuarios usuario)
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
-            Usuarios oUsuario = null;
             try
             {
+                Usuarios oUsuario = null;
                 ModelState.Remove("nombre");
                 ModelState.Remove("IDTipoUsuario");
                 ModelState.Remove("telefono");

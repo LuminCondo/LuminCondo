@@ -1,17 +1,11 @@
 ﻿using ApplicationCore.Services;
 using Infraestructure.Models;
-using Infraestructure.Repository;
-using Infraestructure.Utils;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using Web.Security;
-using Web.Utils;
 
 namespace Web.Controllers
 {
@@ -21,11 +15,10 @@ namespace Web.Controllers
         [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
         {
-            IEnumerable<Informacion> lista = null;
             try
             {
                 IServiceInformacion _ServiceInformacion = new ServiceInformacion();
-                lista = _ServiceInformacion.GetInformacion();
+                IEnumerable<Informacion> lista = _ServiceInformacion.GetInformacion();
                 ViewBag.title = "Listado de Informaciones";
 
                 return View(lista);
@@ -40,7 +33,7 @@ namespace Web.Controllers
             }
         }
 
-        private SelectList listaTipoInformacion(int idTipoInfo = 0)
+        private SelectList ListaTipoInformacion(int idTipoInfo = 0)
         {
             IServiceTipoInformacion _ServiceTipoInformacion = new ServiceTipoInformacion();
             IEnumerable<TipoInformacion> lista = _ServiceTipoInformacion.GetTipoInformacion();
@@ -69,7 +62,7 @@ namespace Web.Controllers
                 else
                 {
                     Utils.Util.ValidateErrors(this);
-                    ViewBag.IDTipoInformacion = listaTipoInformacion(informacion.IDTipoInfo);
+                    ViewBag.IDTipoInformacion = ListaTipoInformacion(informacion.IDTipoInfo);
                     if (informacion.IDTipoInfo > 0)
                     {
                         lista = _ServiceInformacion.GetInformacion();
@@ -115,15 +108,13 @@ namespace Web.Controllers
 
         public ActionResult AjaxCrearNoticia()
         {
-            ViewBag.IDTipoInformacion = listaTipoInformacion();
+            ViewBag.IDTipoInformacion = ListaTipoInformacion();
             return PartialView("_PartialViewCrearInformacion");
         }
 
         public ActionResult AjaxModificarNoticia(int? id)
         {
             ServiceInformacion _ServiceInformacion = new ServiceInformacion();
-            Informacion informacion = null;
-
             try
             {
                 if (id == null)
@@ -131,7 +122,7 @@ namespace Web.Controllers
                     return RedirectToAction("Index");
                 }
 
-                informacion = _ServiceInformacion.GetInformacionByID(Convert.ToInt32(id));
+                Informacion informacion = _ServiceInformacion.GetInformacionByID(Convert.ToInt32(id));
                 if (informacion == null)
                 {
                     TempData["Message"] = "No existe la información solicitada";
@@ -141,7 +132,7 @@ namespace Web.Controllers
                     return RedirectToAction("Default", "Error");
                 }
 
-                ViewBag.IdTipoInformacion = listaTipoInformacion(informacion.IDTipoInfo);
+                ViewBag.IdTipoInformacion = ListaTipoInformacion(informacion.IDTipoInfo);
                 return PartialView("_PartialViewModificarInformacion", informacion);
             }
             catch (Exception ex)

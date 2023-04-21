@@ -1,17 +1,12 @@
 ﻿using ApplicationCore.Services;
 using Infraestructure.Models;
 using Infraestructure.Repository;
-using Infraestructure.Utils;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using Web.Security;
 using Web.Utils;
-using Web.Models;
 
 namespace Web.Controllers
 {
@@ -22,11 +17,10 @@ namespace Web.Controllers
         // GET: ListaResidencias
         public ActionResult Index()
         {
-            IEnumerable<GestionResidencias> lista = null;
             try
             {
                 IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
-                lista = _ServiceGestionResidencias.GetGestionResidencias();
+                IEnumerable<GestionResidencias> lista = _ServiceGestionResidencias.GetGestionResidencias();
                 ViewBag.title = "Listado de Residencias";
 
                 return View(lista);
@@ -43,13 +37,13 @@ namespace Web.Controllers
 
 
        
-        private SelectList listaUsuarios(int idUsuario = 0)
+        private SelectList ListaUsuarios(int idUsuario = 0)
         {
             IServiceUsuario _ServiceUsuario = new ServiceUsuario();
             IEnumerable<Usuarios> lista = _ServiceUsuario.GetUsuarios();
             return new SelectList(lista, "ID", "nombre", idUsuario);
         }
-        private SelectList listaEstadosResidencia(int idEstado = 0)
+        private SelectList ListaEstadosResidencia(int idEstado = 0)
         {
             IServiceEstadoResidencia _ServiceEstadoResidencia = new ServiceEstadoResidencia();
             IEnumerable<EstadoResidencia> lista = _ServiceEstadoResidencia.GetEstadoResidencia();
@@ -69,8 +63,7 @@ namespace Web.Controllers
         public ActionResult _PartialViewDetalleResidencia(int? id)
         {
             IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
-            GestionResidencias gestionResidencias = null;
-            gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(id));
+            GestionResidencias gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(id));
             return PartialView("_PartialViewDetalleResidencia", gestionResidencias);
         }
 
@@ -78,15 +71,12 @@ namespace Web.Controllers
         // GET: ListaResidencias/Create
         public ActionResult Administrar(int idResidencia)
         {
-            IEnumerable<Carros> listacarros = null;
-            IEnumerable<Personas> listapersonas = null;
-
             try
             {
                 IServicePersonas _ServicePersonas = new ServicePersonas();
-                listapersonas = _ServicePersonas.GetPersonasxIDResidencia(idResidencia);
+                IEnumerable<Personas> listapersonas = _ServicePersonas.GetPersonasxIDResidencia(idResidencia);
                 IServiceCarros _ServiceCarros = new ServiceCarros();
-                listacarros = _ServiceCarros.GetCarrosxIDResidencia(idResidencia);
+                IEnumerable<Carros> listacarros = _ServiceCarros.GetCarrosxIDResidencia(idResidencia);
 
                 ViewBag.IdResidencia = idResidencia;
                 ViewBag.CarrosResidentes = listacarros;
@@ -108,11 +98,9 @@ namespace Web.Controllers
         public ActionResult AjaxModificarResidencia(int id)
         {
             IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
-            GestionResidencias gestionResidencias = null;
-
             try
             {
-                gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(id));
+                GestionResidencias gestionResidencias = _ServiceGestionResidencias.GetGestionResidenciasByID(Convert.ToInt32(id));
 
                 if (gestionResidencias == null)
                 {
@@ -123,8 +111,8 @@ namespace Web.Controllers
                     return RedirectToAction("Default", "Error");
                 }
 
-                ViewBag.IDUsuarios = listaUsuarios(gestionResidencias.IDUsuario);
-                ViewBag.IDEstadoResidencias = listaEstadosResidencia(gestionResidencias.IDEstadoResidencia);
+                ViewBag.IDUsuarios = ListaUsuarios(gestionResidencias.IDUsuario);
+                ViewBag.IDEstadoResidencias = ListaEstadosResidencia(gestionResidencias.IDEstadoResidencia);
                 return PartialView("_PartialViewModificarResidencia",gestionResidencias);
 
             }
@@ -156,8 +144,8 @@ namespace Web.Controllers
                 else
                 {
                     Util.ValidateErrors(this);
-                    ViewBag.IDUsuarios = listaUsuarios(gestionResidencias.IDUsuario);
-                    ViewBag.IDEstadoResidencias = listaEstadosResidencia(gestionResidencias.IDEstadoResidencia);
+                    ViewBag.IDUsuarios = ListaUsuarios(gestionResidencias.IDUsuario);
+                    ViewBag.IDEstadoResidencias = ListaEstadosResidencia(gestionResidencias.IDEstadoResidencia);
                     if (gestionResidencias.IDResidencia > 0)
                     {
                         return (ActionResult)View("Edit", gestionResidencias);
@@ -183,38 +171,39 @@ namespace Web.Controllers
 
         public ActionResult AjaxCrearCarro(int id)
         {
-            Carros carro = new Carros();
-            carro.IDResidencia = id;
+            Carros carro = new Carros
+            {
+                IDResidencia = id
+            };
             return PartialView("_PartialViewCrearCarro", carro);
         }
 
         public ActionResult AjaxCrearResidencia()
         {
-            ViewBag.IDUsuarios = listaUsuarios();
-            ViewBag.IDEstadoResidencias = listaEstadosResidencia();
+            ViewBag.IDUsuarios = ListaUsuarios();
+            ViewBag.IDEstadoResidencias = ListaEstadosResidencia();
             return PartialView("_PartialViewCrearResidencia");
         }
             
 
         public ActionResult AjaxModificarCarro(string id)
         {
-            Carros carro = new Carros();
             IServiceCarros _ServiceCarros = new ServiceCarros();
-            carro = _ServiceCarros.GetCarrosByID(id);
+            Carros carro = _ServiceCarros.GetCarrosByID(id);
             return PartialView("_PartialViewModificarCarro", carro);
         }
 
         public ActionResult GuardarCarro(Carros carro)
         {
             IServiceCarros _ServiceCarros = new ServiceCarros();
-            IEnumerable<Carros> lista = null;
             try
             {
+                IEnumerable<Carros> lista = null;
                 if (ModelState.IsValid)
                 {
                     Carros oCarros = _ServiceCarros.GetCarrosByID(carro.IDPlaca);
                     Carros oCarro = _ServiceCarros.Guardar(carro);
-                    lista = _ServiceCarros.GetCarrosxIDResidencia(oCarro.IDResidencia);
+                     lista = _ServiceCarros.GetCarrosxIDResidencia(oCarro.IDResidencia);
                     if (oCarros==null)
                     {
                         IServiceGestionResidencias _ServiceGestionResidencias = new ServiceGestionResidencias();
@@ -244,25 +233,27 @@ namespace Web.Controllers
 
         public ActionResult AjaxCrearPersona(int id)
         {
-            Personas personas = new Personas();
-            personas.IDResidencia = id;
+            Personas personas = new Personas
+            {
+                IDResidencia = id
+            };
             return PartialView("_PartialViewCrearPersona", personas);
         }
 
         public ActionResult AjaxModificarPersona(int id)
         {
-            Personas personas = new Personas();
             IServicePersonas _ServicePersonas = new ServicePersonas();
-            personas = _ServicePersonas.GetPersonasByID(id);
+            Personas personas = _ServicePersonas.GetPersonasByID(id);
             return PartialView("_PartialViewModificarPersona", personas);
         }
 
         public ActionResult GuardarPersona(Personas personas)
         {
             IServicePersonas _ServicePersonas = new ServicePersonas();
-            IEnumerable<Personas> lista = null;
+            
             try
             {
+                IEnumerable<Personas> lista = null;
                 if (ModelState.IsValid)
                 {
 
