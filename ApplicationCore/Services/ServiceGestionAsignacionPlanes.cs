@@ -41,11 +41,17 @@ namespace ApplicationCore.Services
             return repository.GetHistorialGeneral(mes, anno, idResidencia);
         }
 
-
         public GestionAsignacionPlanes Guardar(GestionAsignacionPlanes gestionAsignacionPlanes)
         {
             IRepositoryGestionAsignacionPlanes repository = new RepositoryGestionAsignacionPlanes();
             return repository.Guardar(gestionAsignacionPlanes);
+        }
+        public void GetGrafico(out string etiquetas1, out string valores1)
+        {
+            IRepositoryGestionAsignacionPlanes repository = new RepositoryGestionAsignacionPlanes();
+            repository.GetGrafico(out string etiquetas, out string valores);
+            etiquetas1 = etiquetas;
+            valores1 = valores;
         }
     }
 }

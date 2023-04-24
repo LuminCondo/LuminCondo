@@ -9,7 +9,7 @@
 
     foreach (var item in Model.ToList())
     {
-        if (item.estadoPago == true)
+        if (item.estadoPago)
         {
             historialDePago.Add(item);
         }

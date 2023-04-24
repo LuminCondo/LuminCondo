@@ -1,0 +1,110 @@
+﻿@model Infraestructure.Models.GestionAsignacionPlanes
+
+@{
+    var Historial = new List<Infraestructure.Models.GestionAsignacionPlanes>();
+    Historial = ViewBag.listaHistorial;
+    ViewBag.Title = "Historial de Deudas";
+}
+
+
+<div data-aos="fade-up">
+
+    <h2 class="text-center">Filtros de Búsqueda</h2>
+
+    <div class="row text-center">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.IDResidencia,
+                   (SelectList)ViewBag.IDResidencias,
+                   "Seleccione una Residencia",
+                   htmlAttributes: new { @class = "form-control", @id = "idResidenciaAjax" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.MesSeleccionado,
+                   (SelectList)ViewBag.listameses,
+                   "Seleccione un Mes",
+                   htmlAttributes: new { @class = "form-control", @id = "mesAjax" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.AnnoSeleccionado,
+                   (SelectList)ViewBag.listaannos,
+                   "Seleccione un Año",
+                   htmlAttributes: new { @class = "form-control", @id = "annoAjax" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <button class="btn btn-primary" onclick="BuscarHistorial()" style="width:100%"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+        </div>
+    </div>
+    <div>
+        <hr />
+        <h3 class="text-center">Historial de Deudas</h3>
+        <hr />
+        <span class="glyphicons glyphicons-hand-left"></span>
+        <div id="tablaDeudas">
+
+            @Html.Partial("_PartialViewListaDeudas", Historial)
+
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <button class="btn btn-primary" onclick="ImprimirPDF()" style="width:100%">Imprimir PDF</button>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        function ImprimirPDF() {
+            event.preventDefault();
+            var idResidencia = $("#idResidenciaAjax").val() || null;
+            var mesSeleccionado = $("#mesAjax").val() || null;
+            var annoSeleccionado = $("#annoAjax").val() || null;
+            var url = '@Url.Action("CreatePDFDeudas", "Reporte")?' + $.param({ idResidencia: idResidencia, mes: mesSeleccionado, anno: annoSeleccionado }); // crea la URL para el enlace
+            
+            window.location.href = url;
+            
+        }
+
+        function BuscarHistorial() {
+            var idResidencia = $("#idResidenciaAjax").val();
+            var mesSeleccionado = $("#mesAjax").val();
+            var annoSeleccionado = $("#annoAjax").val();
+            var estadopago = false;
+            $.ajax({
+                url: '@Url.Action("BuscarHistorial", "Reporte")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: {
+                    mes: mesSeleccionado,
+                    anno: annoSeleccionado,
+                    idResidencia: idResidencia,
+                    estado: estadopago
+                },
+                success: function (result) {
+                    $('#tablaDeudas').html('');
+                    // procesar la respuesta del servidor
+                    $('#tablaDeudas').html(result);
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+}

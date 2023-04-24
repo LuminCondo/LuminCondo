@@ -246,7 +246,7 @@ namespace Infraestructure.Models
 
     internal partial class GestionAsignacionPlanesMetadata
     {
-        
+        [Display(Name = "Asignación")]
         public int IDAsignacion { get; set; }
         [Display(Name = "Número de Plan")]
         [Required(ErrorMessage = "{0} es un dato requerido")]

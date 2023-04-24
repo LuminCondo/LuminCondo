@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,7 +108,6 @@ namespace Infraestructure.Repository
         {
             try
             {
-
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
@@ -116,39 +116,44 @@ namespace Infraestructure.Repository
                     {
                         lista = ctx.GestionAsignacionPlanes.Include("GestionResidencias").
                             Where(l => l.estadoPago == estado).
-                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").ToList();
+                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").Include("GestionPlanCobros.GestionRubrosCobros").ToList();
                     }
                     if (idResidencia==null&& mes != null && anno != null) //Buscar por mes y año sin residencia en especifico
                     {
                         lista = ctx.GestionAsignacionPlanes.Include("GestionResidencias").
                             Where(l => l.fechaAsignacion.Month == mes && l.fechaAsignacion.Year == anno && l.estadoPago== estado).
-                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").ToList();
+                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").Include("GestionPlanCobros.GestionRubrosCobros").ToList();
                     }
                     if (idResidencia == null && mes == null && anno != null) //Buscar por año sin residencia en especifico
                     {
                         lista = ctx.GestionAsignacionPlanes.Include("GestionResidencias").
                             Where(l => l.fechaAsignacion.Year == anno && l.estadoPago == estado).
-                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").ToList();
+                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").Include("GestionPlanCobros.GestionRubrosCobros").ToList();
                     }
                     if (idResidencia != null && mes == null && anno == null  || idResidencia != null && mes != null && anno == null) //Buscar por Residencia, sin mes o sin año
                     {
                         lista = ctx.GestionAsignacionPlanes.Include("GestionResidencias").
                             Where(l => l.IDResidencia == idResidencia && l.estadoPago == estado).
-                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").ToList();
+                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").Include("GestionPlanCobros.GestionRubrosCobros").ToList();
                     }
                     if (idResidencia != null && mes == null && anno != null) //Buscar por Residencia, sin mes y con año
                     {
                         lista = ctx.GestionAsignacionPlanes.Include("GestionResidencias").
                             Where(l => l.IDResidencia == idResidencia && l.estadoPago == estado && l.fechaAsignacion.Year==anno).
-                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").ToList();
+                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").Include("GestionPlanCobros.GestionRubrosCobros").ToList();
                     }
                     if (idResidencia != null && mes != null && anno != null) //Buscar con Mes, año y Residencia
                     {
                         lista = ctx.GestionAsignacionPlanes.Include("GestionResidencias").
                              Where(l => l.IDResidencia == idResidencia && l.fechaAsignacion.Month == mes && l.fechaAsignacion.Year == anno && l.estadoPago == estado).
-                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").ToList();
+                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").Include("GestionPlanCobros.GestionRubrosCobros").ToList();
                     }
-                    
+                    if (idResidencia == null && mes != null && anno == null) //Buscar por año sin residencia en especifico
+                    {
+                        lista = ctx.GestionAsignacionPlanes.Include("GestionResidencias").
+                            Where(l => l.fechaAsignacion.Month == mes && l.estadoPago == estado).
+                        Include("GestionResidencias.Usuarios").Include("GestionPlanCobros").Include("GestionPlanCobros.GestionRubrosCobros").ToList();
+                    }
                 }
                 return lista;
             }
@@ -273,6 +278,56 @@ namespace Infraestructure.Repository
                 oGestionAsignacionPlanes = GetGestionAsignacionPlanesByID((int)gestionAsignacionPlanes.IDAsignacion);
 
             return oGestionAsignacionPlanes;
+        }
+        public void GetGrafico(out string etiquetas, out string valores)
+        {
+            String varEtiquetas = "";
+            String varValores = "";
+            try
+            {
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+
+                    var resultado = ctx.GestionAsignacionPlanes
+                        .Where(x => x.estadoPago)
+                        .GroupBy(x => x.fechaAsignacion.Month)
+                        .Select(o => new
+                        {
+                            Total = o.Sum(x => x.IDPlan),
+                            Month = o.Key
+                        });
+
+
+                    foreach (var item in resultado)
+                    {
+                        varEtiquetas += new DateTime(2023, item.Month, 1) // create a DateTime object with the given month number
+                            .ToString("MMMM", new CultureInfo("es-ES")) + ","; // format the date as the full month name in Spanish and append to varEtiquetas
+                        varValores += item.Total + ",";
+
+                    }
+
+
+                }
+                //Ultima coma
+                varEtiquetas = varEtiquetas.Substring(0, varEtiquetas.Length - 1); // ultima coma
+                varValores = varValores.Substring(0, varValores.Length - 1);
+                //Asignar valores de salida
+                etiquetas = varEtiquetas;
+                valores = varValores;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
         }
     }
 }

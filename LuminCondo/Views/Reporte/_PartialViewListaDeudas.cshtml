@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Infraestructure.Models.GestionAsignacionPlanes>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDAsignacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDResidencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDPlan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaAsignacion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDAsignacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDResidencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDPlan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaAsignacion)
+        </td>
+    </tr>
+}
+
+</table>

@@ -15,5 +15,6 @@ namespace Infraestructure.Repository
         IEnumerable<GestionAsignacionPlanes> GetEstadodeCuentaByIDResidencia(int id);
         GestionAsignacionPlanes GetGestionAsignacionPlanesByID(int id);
         GestionAsignacionPlanes Guardar(GestionAsignacionPlanes gestionAsignacionPlanes);
+        void GetGrafico(out string etiquetas, out string valores);
     }
 }
