@@ -13,5 +13,7 @@ namespace ApplicationCore.Services
         ReporteIncidencias GetReporteIncidenciasByID(int id);
         ReporteIncidencias Guardar(ReporteIncidencias reporteIncidencias);
         void BorrarReporteIncidencias(ReporteIncidencias reporteIncidencias);
+
+        IEnumerable<ReporteIncidencias> GetHistorial(int? id);
     }
 }

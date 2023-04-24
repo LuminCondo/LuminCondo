@@ -19,12 +19,14 @@
                     @Html.DisplayFor(modelItem => item.descripcion)
                 </td>
                 <td>
-                    @{ decimal total = 0;}
+
+                    @Html.DisplayFor(modelItem => item.total)
+                    @*@{ decimal total = 0;}
                     @foreach (var rubro in item.GestionRubrosCobros)
                     {
                         total += rubro.monto;
                     }
-                    <i class="fa-solid fa-colon-sign"></i> @total.ToString("N2")
+                    <i class="fa-solid fa-colon-sign"></i> @total.ToString("N2")*@
                 </td>
                 <td>
                     <div class="btn-group text-center" role="group">

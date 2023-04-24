@@ -16,6 +16,12 @@ namespace ApplicationCore.Services
             repository.BorrarReporteIncidencias(reporteIncidencias);
         }
 
+        public IEnumerable<ReporteIncidencias> GetHistorial(int? id)
+        {
+            IRepositoryReporteIncidencias repository = new RepositoryReporteIncidencias();
+            return repository.GetHistorial(id);
+        }
+
         public IEnumerable<ReporteIncidencias> GetReporteIncidencias()
         {
             IRepositoryReporteIncidencias repository = new RepositoryReporteIncidencias();

@@ -79,6 +79,7 @@ namespace LuminCondo.Controllers
 
             try
             {
+                ModelState.Remove("total");
                 if (ModelState.IsValid)
                 {
                     GestionPlanCobros oGestionPlanCobros = _ServiceGestionPlanCobros.Guardar(gestionPlanCobros, selectedRubrosCobros);

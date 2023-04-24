@@ -25,6 +25,7 @@ namespace Infraestructure.Models
     
         public int IDPlan { get; set; }
         public string descripcion { get; set; }
+        public decimal total { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GestionAsignacionPlanes> GestionAsignacionPlanes { get; set; }

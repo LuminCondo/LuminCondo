@@ -114,7 +114,7 @@ namespace Web.Controllers
                 IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
                 GestionAsignacionPlanes gestionAsignacionPlanes = _ServiceGestionAsignacionPlanes.GetGestionAsignacionPlanesByID(idAsignacion);
                 gestionAsignacionPlanes.estadoPago = true;
-
+                gestionAsignacionPlanes.fechaPago = DateTime.Today;
                 GestionAsignacionPlanes oGestionAsignacionPlanes = _ServiceGestionAsignacionPlanes.Guardar(gestionAsignacionPlanes);
                 if (oGestionAsignacionPlanes == null)
                 {

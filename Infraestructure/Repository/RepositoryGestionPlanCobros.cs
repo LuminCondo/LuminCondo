@@ -98,6 +98,7 @@ namespace Infraestructure.Repository
                 ctx.Configuration.LazyLoadingEnabled = false;
                 oGestionPlanCobros = GetGestionPlanCobrosByID((int)gestionPlanCobros.IDPlan);
                 IRepositoryGestionRubrosCobros _RepositoryGestionRubrosCobros = new RepositoryGestionRubrosCobros();
+                decimal total = 0;
 
                 if (oGestionPlanCobros == null)
                 {
@@ -110,19 +111,29 @@ namespace Infraestructure.Repository
                             var rubroToAdd = _RepositoryGestionRubrosCobros.GetGestionRubrosCobrosByID(int.Parse(rubro));
                             ctx.GestionRubrosCobros.Attach(rubroToAdd); //sin esto, EF intentará crear una categoría
                             gestionPlanCobros.GestionRubrosCobros.Add(rubroToAdd);// asociar a la categoría existente con el libro
+                            total += rubroToAdd.monto;
                         }
                     }
+                    gestionPlanCobros.total=total;
                     ctx.GestionPlanCobros.Add(gestionPlanCobros);
 
                     retorno = ctx.SaveChanges();
                 }
                 else
                 {
+                    foreach (var rubro in selectedRubrosCobros)
+                    {
+                        var rubroToAdd = _RepositoryGestionRubrosCobros.GetGestionRubrosCobrosByID(int.Parse(rubro));
+                        total += rubroToAdd.monto;
+                    }
+                    gestionPlanCobros.total = total;
                     ctx.GestionPlanCobros.Add(gestionPlanCobros);
 
                     ctx.Entry(gestionPlanCobros).State = EntityState.Modified;
 
                     retorno = ctx.SaveChanges();
+
+
 
                     //Lógica para actualizar Categorías
                     var selectedRubrosID = new HashSet<string>(selectedRubrosCobros);

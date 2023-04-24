@@ -1,10 +1,8 @@
-﻿
-@{
-    ViewBag.Title = "graficoOrden";
+﻿@{
+    ViewBag.Title = "Gráfico de Historial de pagos del " + DateTime.Today.Year;
 }
 
-<br />
-<center><h3 style="font-family:Broadway">Gráfico</h3></center>
+<h2 class="text-center">@ViewBag.Title</h2>
 
 <div>
     <canvas id="grafico"></canvas>

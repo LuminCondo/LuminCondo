@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infraestructure.Repository
+namespace ApplicationCore.Services
 {
-    public interface IRepositoryEstadoIncidencia
+    public interface IServiceEstadoIncidencia
     {
-        EstadoIncidencia GetEstadoIncidenciaByID(int id);
         IEnumerable<EstadoIncidencia> GetEstadoIncidencia();
+        EstadoIncidencia GetEstadoIncidenciaByID(int id);
     }
 }

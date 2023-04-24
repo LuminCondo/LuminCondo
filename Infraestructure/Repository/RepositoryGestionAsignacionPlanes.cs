@@ -279,6 +279,7 @@ namespace Infraestructure.Repository
 
             return oGestionAsignacionPlanes;
         }
+        
         public void GetGrafico(out string etiquetas, out string valores)
         {
             String varEtiquetas = "";
@@ -288,22 +289,20 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-
                     var resultado = ctx.GestionAsignacionPlanes
-                        .Where(x => x.estadoPago)
-                        .GroupBy(x => x.fechaAsignacion.Month)
+                        .Where(x => x.estadoPago == true&&x.fechaAsignacion.Year==DateTime.Today.Year)
+                        .GroupBy(x => x.fechaPago.Month)
                         .Select(o => new
                         {
-                            Total = o.Sum(x => x.IDPlan),
+                            Total = o.Sum(x => x.GestionPlanCobros.total),
                             Month = o.Key
                         });
 
 
                     foreach (var item in resultado)
                     {
-                        varEtiquetas += new DateTime(2023, item.Month, 1) // create a DateTime object with the given month number
-                            .ToString("MMMM", new CultureInfo("es-ES")) + ","; // format the date as the full month name in Spanish and append to varEtiquetas
-                        varValores += item.Total + ",";
+                        varEtiquetas += CultureInfo.CurrentCulture.TextInfo.ToTitleCase(new DateTime(2023, item.Month, 1).ToString("MMMM", new CultureInfo("es-ES"))) + ",";
+                        varValores += item.Total.ToString("0.00") + ",";
 
                     }
 

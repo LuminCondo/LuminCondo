@@ -292,6 +292,7 @@
     <Compile Include="Controllers\GestionPlanCobrosController.cs" />
     <Compile Include="Controllers\GestionReservaController.cs" />
     <Compile Include="Controllers\GestionRubrosCobrosController.cs" />
+    <Compile Include="Controllers\ReporteGraficoController.cs" />
     <Compile Include="Controllers\HistorialYDeudaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformacionController.cs" />
@@ -518,6 +519,8 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\chart.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -536,6 +539,7 @@
     <Content Include="Scripts\FontAwesome\solid.min.js" />
     <Content Include="Scripts\FontAwesome\v4-shims.js" />
     <Content Include="Scripts\FontAwesome\v4-shims.min.js" />
+    <Content Include="Scripts\graficoChartJS.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
@@ -675,7 +679,6 @@
     <Content Include="Views\Informacion\Index.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Index.cshtml" />
     <Content Include="Views\EstadoDeCuenta\Details.cshtml" />
-    <Content Include="Views\ReporteIncidencias\Index.cshtml" />
     <Content Include="Views\GestionPlanCobros\IndexAdmin.cshtml" />
     <Content Include="Views\GestionRubrosCobros\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
@@ -721,11 +724,11 @@
     <Content Include="Views\GestionReserva\Index.cshtml" />
     <Content Include="Views\Reporte\Index.cshtml" />
     <Content Include="Views\Reporte\_PartialViewListaDeudas.cshtml" />
-    <Content Include="Views\GestionAsignacionPlanes\graficoOrden.cshtml" />
+    <Content Include="Views\ReporteGrafico\Index.cshtml" />
+    <Content Include="Views\ReporteIncidencias\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Grafico\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

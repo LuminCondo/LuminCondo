@@ -1,10 +1,13 @@
-﻿@model IEnumerable<Infraestructure.Models.ReporteIncidencias>
+﻿@model Infraestructure.Models.ReporteIncidencias
 
 @{
     ViewBag.Title = "Reporte de Incidencias";
 }
 @* Información usuario *@
 @{
+
+    var Incidencias = new List<Infraestructure.Models.ReporteIncidencias>();
+    Incidencias = ViewBag.listaIncidencias;
     String nombre = "";
     int id = 0;
     int idTipoUsuario = 0;
@@ -36,6 +39,23 @@
         }
     }
     <hr />
+    <h3 class="text-center">Filtros de Búsqueda</h3>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.IDEstado,
+                   (SelectList)ViewBag.IDEstadosDeIncidencia,
+                   "Seleccione un Estado",
+                   htmlAttributes: new { @class = "form-control", @id = "EstadoAjax" })
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <button class="btn btn-primary" onclick="BuscarHistorial()" style="width:100%"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+        </div>
+    </div>
+    <hr />
     <div>
         <button class="btn btn-primary" onclick="CrearIncidencia()"><i class="fa-solid fa-plus"></i> Añadir Nueva Incidencia</button>
     </div>
@@ -44,7 +64,7 @@
         <span class="glyphicons glyphicons-hand-left"></span>
         <div id="tablaIncidencias">
 
-            @Html.Partial("_PartialViewListaIncidencias", Model)
+            @Html.Partial("_PartialViewListaIncidencias", Incidencias)
 
         </div>
     </div>
@@ -70,7 +90,25 @@
 
 @section Scripts{
     <script type="text/javascript">
-
+        function BuscarHistorial() {
+            var idEstadoIncidencia = $("#EstadoAjax").val();
+            $.ajax({
+                url: '@Url.Action("BuscarHistorial", "ReporteIncidencias")', // especificar la acción del controlador que manejará la solicitud
+                type: 'POST',
+                data: {
+                    'id': idEstadoIncidencia,
+                },
+                success: function (result) {
+                    $('#tablaIncidencias').html('');
+                    // procesar la respuesta del servidor
+                    $('#tablaIncidencias').html(result);
+                },
+                error: function (xhr, status, error) {
+                    // manejar errores
+                    console.log(error);
+                }
+            });
+        }
         function CrearIncidencia() {
             $.ajax({
                 method: 'POST',

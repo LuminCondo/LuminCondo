@@ -33,7 +33,7 @@ namespace Web.Controllers
             try
             {
                 IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
-                IEnumerable<GestionAsignacionPlanes> listaHistorial = _ServiceGestionAsignacionPlanes.GetHistorial(DateTime.Now.Month, DateTime.Now.Year, null, true);
+                IEnumerable<GestionAsignacionPlanes> listaHistorial = _ServiceGestionAsignacionPlanes.GetHistorial(DateTime.Now.Month, DateTime.Now.Year, null, false);
 
                 ViewBag.IDResidencias = ListaResidencias();
                 ViewBag.listameses = ListaMeses(DateTime.Now.Month);
@@ -138,7 +138,7 @@ namespace Web.Controllers
 
                 table.AddHeaderCell("Número de Asignación");
                 table.AddHeaderCell("Número de Residencia");
-                table.AddHeaderCell("Número de Plan");
+                table.AddHeaderCell("Descripción del Plan");
                 table.AddHeaderCell("Fecha de Asignación");
                 table.AddHeaderCell("Monto Total");
 
@@ -148,7 +148,7 @@ namespace Web.Controllers
                     // Agregar datos a las celdas
                     table.AddCell(new Paragraph(item.IDAsignacion.ToString()));
                     table.AddCell(new Paragraph(item.IDResidencia.ToString()));
-                    table.AddCell(new Paragraph(item.IDPlan.ToString()));
+                    table.AddCell(new Paragraph(item.GestionPlanCobros.descripcion.ToString()));
                     table.AddCell(new Paragraph(item.fechaAsignacion.ToShortDateString()));
                     
                     foreach (var i in item.GestionPlanCobros.GestionRubrosCobros)
@@ -156,7 +156,7 @@ namespace Web.Controllers
                         total += i.monto;
                     }
 
-                    table.AddCell(new Paragraph("CRC " + total.ToString("F2")));
+                    table.AddCell(new Paragraph("₡ " + total.ToString("F2")));
                 }
                 doc.Add(table);
 

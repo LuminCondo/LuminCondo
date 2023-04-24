@@ -262,6 +262,12 @@ namespace Infraestructure.Models
         [Display(Name = "Estado de Pago")]
         [Required(ErrorMessage = "{0} es un dato requerido")]
         public bool estadoPago { get; set; }
+
+        [Display(Name = "Fecha de pago")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [Required(ErrorMessage = "{0} es un dato requerido")]
+        public System.DateTime fechaPago { get; set; }
     }
 
 

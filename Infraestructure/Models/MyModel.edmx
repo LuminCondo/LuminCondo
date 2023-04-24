@@ -51,6 +51,7 @@
           <Property Name="IDPlan" Type="int" Nullable="false" />
           <Property Name="fechaAsignacion" Type="date" Nullable="false" />
           <Property Name="estadoPago" Type="bit" Nullable="false" />
+          <Property Name="fechaPago" Type="date" />
         </EntityType>
         <EntityType Name="GestionPlanCobros">
           <Key>
@@ -58,6 +59,7 @@
           </Key>
           <Property Name="IDPlan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="total" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="GestionReservas">
           <Key>
@@ -124,16 +126,6 @@
           </Key>
           <Property Name="IDPlan" Type="int" Nullable="false" />
           <Property Name="IDRubro" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TipoInformacion">
           <Key>
@@ -356,7 +348,6 @@
           <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rubros_Planes" EntityType="Self.Rubros_Planes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
@@ -477,6 +468,7 @@
           <Property Name="IDPlan" Type="Int32" Nullable="false" />
           <Property Name="fechaAsignacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="estadoPago" Type="Boolean" Nullable="false" />
+          <Property Name="fechaPago" Type="DateTime" Precision="0" />
           <NavigationProperty Name="GestionPlanCobros" Relationship="Self.FK_GestionAsignacionPlanes_IDPlan" FromRole="GestionAsignacionPlanes" ToRole="GestionPlanCobros" />
           <NavigationProperty Name="GestionResidencias" Relationship="Self.FK_GestionAsignacionPlanes_IDResidencia" FromRole="GestionAsignacionPlanes" ToRole="GestionResidencias" />
         </EntityType>
@@ -486,6 +478,7 @@
           </Key>
           <Property Name="IDPlan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="GestionAsignacionPlanes" Relationship="Self.FK_GestionAsignacionPlanes_IDPlan" FromRole="GestionPlanCobros" ToRole="GestionAsignacionPlanes" />
           <NavigationProperty Name="GestionRubrosCobros" Relationship="Self.Rubros_Planes" FromRole="GestionPlanCobros" ToRole="GestionRubrosCobros" />
         </EntityType>
@@ -559,16 +552,6 @@
           <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="EstadoIncidencia" Relationship="Self.FK_ReporteIncidencias_IDEstado" FromRole="ReporteIncidencias" ToRole="EstadoIncidencia" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_ReporteIncidencias_IDUsuario" FromRole="ReporteIncidencias" ToRole="Usuarios" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="TipoInformacion">
           <Key>
@@ -776,7 +759,6 @@
           <EntitySet Name="Informacion" EntityType="Self.Informacion" />
           <EntitySet Name="Personas" EntityType="Self.Personas" />
           <EntitySet Name="ReporteIncidencias" EntityType="Self.ReporteIncidencias" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TipoInformacion" EntityType="Self.TipoInformacion" />
           <EntitySet Name="TiposUsuarios" EntityType="Self.TiposUsuarios" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
@@ -893,6 +875,7 @@
                 <ScalarProperty Name="IDPlan" ColumnName="IDPlan" />
                 <ScalarProperty Name="fechaAsignacion" ColumnName="fechaAsignacion" />
                 <ScalarProperty Name="estadoPago" ColumnName="estadoPago" />
+                <ScalarProperty Name="fechaPago" ColumnName="fechaPago" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -901,6 +884,7 @@
               <MappingFragment StoreEntitySet="GestionPlanCobros">
                 <ScalarProperty Name="IDPlan" ColumnName="IDPlan" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="total" ColumnName="total" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -965,17 +949,6 @@
                 <ScalarProperty Name="IDEstado" ColumnName="IDEstado" />
                 <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Lumincondo_DBModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

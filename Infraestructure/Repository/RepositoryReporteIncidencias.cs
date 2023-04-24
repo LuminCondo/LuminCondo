@@ -1,6 +1,7 @@
 ﻿using Infraestructure.Models;
 using Infraestructure.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -13,6 +14,7 @@ namespace Infraestructure.Repository
 {
     public class RepositoryReporteIncidencias : IRepositoryReporteIncidencias
     {
+        IEnumerable<ReporteIncidencias> lista = null;
         public void BorrarReporteIncidencias(ReporteIncidencias reporteIncidencias)
         {
             int retorno = 0;
@@ -33,11 +35,52 @@ namespace Infraestructure.Repository
             }
         }
 
+        public IEnumerable<ReporteIncidencias> GetHistorial(int? id)
+        {
+            try
+            {
+
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+
+                    if (id == null) //Buscar sin filtro
+                    {
+                        lista = ctx.ReporteIncidencias.
+                            Include("EstadoIncidencia").
+                                                    Include("Usuarios").
+                            ToList();
+                    }
+                    if (id != null) //Buscar por Un único tipo de estado
+                    {
+                        lista = ctx.ReporteIncidencias.
+                            Include("EstadoIncidencia").
+                            Include("Usuarios").
+                            Where(l => l.IDEstado == id).
+                            ToList();
+                    }
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         public IEnumerable<ReporteIncidencias> GetReporteIncidencias()
         {
             try
             {
-                IEnumerable<ReporteIncidencias> lista = null;
+                
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;

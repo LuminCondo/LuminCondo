@@ -47,7 +47,8 @@ namespace Web.Controllers
         public ActionResult Guardar(GestionAsignacionPlanes gestionAsignacionPlanes)
         {
             IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
-            gestionAsignacionPlanes.fechaAsignacion=DateTime.Now;
+            gestionAsignacionPlanes.fechaAsignacion=DateTime.Today;
+            gestionAsignacionPlanes.fechaPago = DateTime.Today;
             gestionAsignacionPlanes.estadoPago = false;
 
             try
@@ -61,17 +62,17 @@ namespace Web.Controllers
                         ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Fallo al guardar la asignación",
                             "Ya esta residencia posee una asignación establecida para este mes", Utils.SweetAlertMessageType.error
                             );
-                        lista = _ServiceGestionAsignacionPlanes.GetHistorialGeneral(DateTime.Now.Month, DateTime.Now.Year, null);
                     }
                     else
                     {
-                        lista = _ServiceGestionAsignacionPlanes.GetHistorialGeneral(DateTime.Now.Month, DateTime.Now.Year, oGestionAsignacionPlanes.IDResidencia);
+                        
                         ViewBag.NotificationMessage = Utils.SweetAlertHelper.Mensaje("Asignación Creada",
                                    "La asignación ya fue creada para el mes de " + DateTime.Now.Month + " del año " + DateTime.Now.Year, Utils.SweetAlertMessageType.success
                                    );
                     }
                     
                 }
+                lista = _ServiceGestionAsignacionPlanes.GetHistorialGeneral(DateTime.Now.Month, DateTime.Now.Year, null);
                 return PartialView("_PartialViewListaAsignaciones", lista);
             }
             catch (Exception ex)
@@ -211,22 +212,6 @@ namespace Web.Controllers
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
-        }
-        public ActionResult graficoOrden()
-        {
-            //Documentación chartjs https://www.chartjs.org/docs/latest/
-            IServiceGestionAsignacionPlanes _ServiceGestionAsignacionPlanes = new ServiceGestionAsignacionPlanes();
-            ViewModelGraficoController grafico = new ViewModelGraficoController();
-            _ServiceGestionAsignacionPlanes.GetGrafico(out string etiquetas, out string valores);
-            grafico.Etiquetas = etiquetas;
-            grafico.Valores = valores;
-            int cantidadValores = valores.Split(',').Length;
-            grafico.Colores = string.Join(",", grafico.GenerateColors(cantidadValores));
-            grafico.titulo = "Ingresos por Mes";
-            grafico.tituloEtiquetas = "Ingresos por Mes";
-            grafico.tipo = "doughnut";
-            ViewBag.grafico = grafico;
-            return View();
         }
     }
 }

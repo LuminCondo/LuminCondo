@@ -51,15 +51,7 @@
                     @Html.DisplayFor(modelItem => item.GestionPlanCobros.descripcion)
                 </td>
                 <td>
-                    @{
-                        decimal total = 0;
-                    }
-                    @foreach (var c in item.GestionPlanCobros.GestionRubrosCobros)
-                    {
-
-                        total += c.monto;
-                    }
-                    <i class="fa-solid fa-colon-sign"></i>@total.ToString("N2")
+                    <i class="fa-solid fa-colon-sign"></i> @Html.DisplayFor(modelItem => item.GestionPlanCobros.total)
 
                 </td>
                 <td>
@@ -91,7 +83,7 @@
                 Monto Pagado
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.fechaAsignacion)
+                @Html.DisplayNameFor(model => model.fechaPago)
             </th>
             <th></th>
         </tr>
@@ -103,19 +95,11 @@
                     @Html.DisplayFor(modelItem => item.GestionPlanCobros.descripcion)
                 </td>
                 <td>
-                    @{
-                        decimal total = 0;
-                    }
-                    @foreach (var c in item.GestionPlanCobros.GestionRubrosCobros)
-                    {
-
-                        total += c.monto;
-                    }
-                    <i class="fa-solid fa-colon-sign"></i>@total.ToString("N2")
+                    <i class="fa-solid fa-colon-sign"></i> @Html.DisplayFor(modelItem => item.GestionPlanCobros.total)
 
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.fechaAsignacion)
+                    @Html.DisplayFor(modelItem => item.fechaPago)
                 </td>
             </tr>
         }

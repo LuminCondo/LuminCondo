@@ -11,6 +11,33 @@ namespace Infraestructure.Repository
 {
     public class RepositoryEstadoIncidencia : IRepositoryEstadoIncidencia
     {
+
+        IEnumerable<EstadoIncidencia> lista = null;
+        public IEnumerable<EstadoIncidencia> GetEstadoIncidencia()
+        {
+            try
+            {
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+
+                    lista = ctx.EstadoIncidencia.ToList();
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
         public EstadoIncidencia GetEstadoIncidenciaByID(int id)
         {
             try
@@ -39,5 +66,7 @@ namespace Infraestructure.Repository
                 throw;
             }
         }
+
+        
     }
 }

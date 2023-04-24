@@ -24,8 +24,9 @@ namespace Web.Controllers
                 IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
                 IEnumerable<ReporteIncidencias> lista = _ServiceReporteIncidencias.GetReporteIncidencias();
                 ViewBag.title = "Reporte de Incidencias";
-
-                return View(lista);
+                ViewBag.listaIncidencias = lista;
+                ViewBag.IDEstadosDeIncidencia = ListaEstadosIncidencia();
+                return View();
             }
             catch (Exception ex)
             {
@@ -37,7 +38,33 @@ namespace Web.Controllers
             }
         }
 
+        private SelectList ListaEstadosIncidencia(int idEstado = 0)
+        {
+            IServiceEstadoIncidencia _ServiceEstadoIncidencia  = new ServiceEstadoIncidencia();
+            IEnumerable<EstadoIncidencia> lista = _ServiceEstadoIncidencia.GetEstadoIncidencia();
+            return new SelectList(lista, "IDEstado", "TipoEstado", idEstado);
+        }
 
+        public ActionResult BuscarHistorial(int? id)
+        {
+            try
+            {
+                IEnumerable<ReporteIncidencias> lista = null;
+                IServiceReporteIncidencias _ServiceReporteIncidencias = new ServiceReporteIncidencias();
+                lista = _ServiceReporteIncidencias.GetHistorial(id);
+                return PartialView("_PartialViewListaIncidencias", lista);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData["Redirect"] = "ListaResidencias";
+                TempData["Redirect-Action"] = "Index";
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
 
 
 

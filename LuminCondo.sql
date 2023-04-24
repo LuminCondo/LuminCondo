@@ -132,6 +132,7 @@ CREATE TABLE Personas (
 CREATE TABLE GestionPlanCobros (
 									IDPlan INT IDENTITY(1,1) NOT NULL, /*PK*/
 									descripcion VARCHAR(100) NOT NULL,
+									total MONEY NOT NULL,
 									PRIMARY KEY (IDPlan),
 									);
 
@@ -141,6 +142,7 @@ CREATE TABLE GestionAsignacionPlanes (
 										IDPlan INT NOT NULL, /*FK*/
 										fechaAsignacion DATE NOT NULL,
 										estadoPago BIT NOT NULL,
+										fechaPago DATE NOT NULL,
 										PRIMARY KEY (IDAsignacion),
 										CONSTRAINT FK_GestionAsignacionPlanes_IDResidencia FOREIGN KEY (IDResidencia) REFERENCES GestionResidencias(IDResidencia),
 										CONSTRAINT FK_GestionAsignacionPlanes_IDPlan FOREIGN KEY (IDPlan) REFERENCES GestionPlanCobros(IDPlan)
@@ -245,11 +247,11 @@ insert into GestionRubrosCobros values
 ('Renta de Sala de Eventos',30000)
 
 insert into GestionPlanCobros values 
-('Solo Mensualidad'),
-('Solo Mantenimiento de Areas comunes'),
-('Mantenimiento y Mensualidad, con uso de Sala de Eventos'),
-('Mantenimiento y Mensualidad'),
-('Uso de Sala de Eventos')
+('Solo Mensualidad',25000),
+('Solo Mantenimiento de Areas comunes',7500),
+('Mantenimiento y Mensualidad, con uso de Sala de Eventos',62500),
+('Mantenimiento y Mensualidad',32500),
+('Uso de Sala de Eventos',30000)
 
 insert into Rubros_Planes values
 (1,1),
@@ -262,10 +264,10 @@ insert into Rubros_Planes values
 (5,3)
 
 insert into GestionAsignacionPlanes values
-(1,3,CONVERT(date, '26/02/2023', 103),0),
-(1,3,CONVERT(date, '18/03/2023', 103),1),
-(2,4,CONVERT(date, '18/04/2023', 103),1),
-(3,1,CONVERT(date, '18/12/2022', 103),1)
+(1,3,CONVERT(date, '18/03/2023', 103),1,CONVERT(date, '19/03/2023', 103)),
+(2,4,CONVERT(date, '18/04/2023', 103),1,CONVERT(date, '19/04/2023', 103)),
+(3,1,CONVERT(date, '18/12/2022', 103),1,CONVERT(date, '19/12/2022', 103)),
+(1,3,CONVERT(date, '26/02/2023', 103),0,CONVERT(date, '26/02/2023', 103))
 
 
 USE Lumincondo_DB;

@@ -161,6 +161,7 @@
         function GuardarAsignacion() {
             event.preventDefault(); // prevenir el comportamiento predeterminado del botón de envío
             var formData = new FormData($('form')[0]); // obtener los datos del formulario y serializarlos en FormData
+
             $.ajax({
                 url: '@Url.Action("Guardar", "GestionAsignacionPlanes")', // especificar la acción del controlador que manejará la solicitud
                 type: 'POST',

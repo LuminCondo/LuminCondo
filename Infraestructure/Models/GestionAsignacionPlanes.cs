@@ -21,9 +21,10 @@ namespace Infraestructure.Models
         public int IDPlan { get; set; }
         public System.DateTime fechaAsignacion { get; set; }
         public bool estadoPago { get; set; }
+        public System.DateTime fechaPago { get; set; }
         public int MesSeleccionado { get; set; }
         public int AnnoSeleccionado { get; set; }
-    
+
         public virtual GestionPlanCobros GestionPlanCobros { get; set; }
         public virtual GestionResidencias GestionResidencias { get; set; }
     }

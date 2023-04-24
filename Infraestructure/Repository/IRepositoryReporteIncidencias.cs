@@ -12,6 +12,7 @@ namespace Infraestructure.Repository
         IEnumerable<ReporteIncidencias> GetReporteIncidencias();
         ReporteIncidencias GetReporteIncidenciasByID(int id);
         ReporteIncidencias Guardar(ReporteIncidencias reporteIncidencias);
+        IEnumerable<ReporteIncidencias> GetHistorial(int? id);
         void BorrarReporteIncidencias(ReporteIncidencias reporteIncidencias);
     }
 }
