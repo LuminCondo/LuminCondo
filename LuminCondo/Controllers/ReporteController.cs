@@ -126,56 +126,82 @@ namespace Web.Controllers
                 //Initialize document
                 PdfDocument pdfDoc = new PdfDocument(writer);
                 Document doc = new Document(pdfDoc);
+                Paragraph appName = new Paragraph("LuminCondo").
+                            SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD)).
+                            SetFontSize(20).
+                            SetFontColor(new DeviceRgb(12, 176, 187)).
+                            SetTextAlignment(TextAlignment.CENTER);
 
-                Paragraph header = new Paragraph("Historial de Deudas").
-                                                SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA)).
-                                                SetFontSize(14).
-                                                SetFontColor(ColorConstants.BLUE);
+                doc.Add(appName);
+                var nombre = "Historial de deudas al " + DateTime.Today.ToString("dd-MM-yyyy");
+                Paragraph header = new Paragraph(nombre).
+                            SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD)).
+                            SetFontSize(14).
+                            SetFontColor(new DeviceRgb(12, 176, 187)).
+                            SetTextAlignment(TextAlignment.CENTER);
 
                 doc.Add(header);
 
-                Table table = new Table(5, true);
 
-                table.AddHeaderCell("Número de Asignación");
-                table.AddHeaderCell("Número de Residencia");
-                table.AddHeaderCell("Descripción del Plan");
-                table.AddHeaderCell("Fecha de Asignación");
-                table.AddHeaderCell("Monto Total");
+                Table table = new Table(4, true);
+
+                Cell headerCell = new Cell().Add(new Paragraph("Número de Residencia"))
+                             .SetBackgroundColor(new DeviceRgb(12, 176, 187));
+                table.AddHeaderCell(headerCell);
+
+                headerCell = new Cell().Add(new Paragraph("Descripción del Plan"))
+                                       .SetBackgroundColor(new DeviceRgb(12, 176, 187));
+                table.AddHeaderCell(headerCell);
+
+                headerCell = new Cell().Add(new Paragraph("Fecha de Asignación"))
+                                       .SetBackgroundColor(new DeviceRgb(12, 176, 187));
+                table.AddHeaderCell(headerCell);
+
+                headerCell = new Cell().Add(new Paragraph("Monto Total"))
+                                       .SetBackgroundColor(new DeviceRgb(12, 176, 187));
+                table.AddHeaderCell(headerCell);
+                decimal totalAmount = 0;
 
                 foreach (var item in listaDeudas)
                 {
-                    decimal total = 0;
-                    // Agregar datos a las celdas
-                    table.AddCell(new Paragraph(item.IDAsignacion.ToString()));
                     table.AddCell(new Paragraph(item.IDResidencia.ToString()));
                     table.AddCell(new Paragraph(item.GestionPlanCobros.descripcion.ToString()));
                     table.AddCell(new Paragraph(item.fechaAsignacion.ToShortDateString()));
-                    
-                    foreach (var i in item.GestionPlanCobros.GestionRubrosCobros)
-                    {
-                        total += i.monto;
-                    }
-
-                    table.AddCell(new Paragraph("₡ " + total.ToString("F2")));
+                    decimal amount = item.GestionPlanCobros.total;
+                    totalAmount += amount;
+                    table.AddCell(new Paragraph("CRC " + amount.ToString("N2")));
                 }
                 doc.Add(table);
 
                 LineSeparator line = new LineSeparator(new SolidLine());
                 doc.Add(line);
+                // Crear el parrafo para mostrar el total fuera de la tabla
+                Paragraph total = new Paragraph("Total: " + totalAmount.ToString("N2")).SetBold().SetTextAlignment(TextAlignment.RIGHT);
+                doc.Add(total);
+
+                Paragraph Cierre = new Paragraph("***Fin del Reporte****Gracias por usar LuminCondo***").SetTextAlignment(TextAlignment.CENTER);
+                doc.Add(Cierre);
+
+                Paragraph Footer1 = new Paragraph("©Derechos Reservados "+DateTime.Today.Year).SetTextAlignment(TextAlignment.CENTER);
+                doc.Add(Footer1);
+                Paragraph Footer2 = new Paragraph("LuminCondo").SetTextAlignment(TextAlignment.CENTER);
+                doc.Add(Footer2);
+                
 
                 // Colocar número de páginas
                 int numberOfPages = pdfDoc.GetNumberOfPages();
                 for (int i = 1; i <= numberOfPages; i++)
                 {
                     // Write aligned text to the specified by parameters point
-                    doc.ShowTextAligned(new Paragraph(String.Format("pag {0} of {1}", i, numberOfPages)),
+                    doc.ShowTextAligned(new Paragraph(String.Format("Página {0} de {1}", i, numberOfPages)),
                             559, 826, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
                 }
 
                 //Close document
                 doc.Close();
                 // Retorna un File
-                return File(ms.ToArray(), "application/pdf", "reporte.pdf");
+                
+                return File(ms.ToArray(), "application/pdf", nombre + ".pdf" );
             }
             catch (Exception ex)
             {

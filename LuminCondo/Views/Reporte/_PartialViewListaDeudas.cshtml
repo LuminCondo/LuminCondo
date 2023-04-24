@@ -6,9 +6,6 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IDAsignacion)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.IDResidencia)
             </th>
             <th>
@@ -17,15 +14,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.fechaAsignacion)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GestionPlanCobros.total)
+            </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IDAsignacion)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IDResidencia)
                 </td>
@@ -34,6 +31,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.fechaAsignacion)
+                </td>
+                <td>
+                    <i class="fa-solid fa-colon-sign"></i> @Html.DisplayFor(modelItem => item.GestionPlanCobros.total)
                 </td>
             </tr>
         }
